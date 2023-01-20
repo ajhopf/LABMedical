@@ -10,6 +10,7 @@ import { DoctorsDBService } from "../../../services/doctors-db.service";
 export class NewUserComponent {
   @ViewChild('newUser') newUserForm: NgForm | undefined
   userAvatarNumber = 1
+  userCreated = false;
 
   constructor(private doctorDB: DoctorsDBService) {}
 
@@ -24,5 +25,7 @@ export class NewUserComponent {
       password: this.newUserForm!.value.newPassword,
       avatar: 'https://robohash.org/' + this.newUserForm!.value.email+this.userAvatarNumber
     })
+    this.newUserForm!.reset()
+    this.userCreated = true;
   }
 }

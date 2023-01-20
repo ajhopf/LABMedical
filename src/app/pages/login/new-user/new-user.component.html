@@ -28,9 +28,13 @@
 		</button>
 	  </div>
 
-	  <div class="modal-body">
-		<form (ngSubmit)="onCreateUser()" #newUser="ngForm">
+	  <div
+		class="modal-body"
+		*ngIf="!userCreated">
 
+		<form
+		  (ngSubmit)="onCreateUser()"
+		  #newUser="ngForm">
 		  <!--Nome-->
 		  <div class="mb-3">
 			<label
@@ -86,7 +90,11 @@
 			  name="newPassword"
 			  type="password"
 			  required
-			  ngModel>
+			  ngModel
+			  minlength="8">
+			<p *ngIf="newPassword.value && newPassword.value.length < 8 && newPassword.touched" >
+			  Senha precisa ter no mínimo 8 caracteres!
+			</p>
 			<label
 			  for="confirmPassword"
 			  class="form-label">
@@ -138,10 +146,18 @@
 			  Criar Usuário
 			</button>
 		  </div>
-
 		</form>
 	  </div>
 
+	  <div class="modal-body" *ngIf="userCreated">
+		<p>Usuário criado com sucesso!</p>
+		<button
+		  type="button"
+		  class="btn btn-secondary"
+		  data-bs-dismiss="modal"
+		  (click)="userCreated=false">
+		  Close</button>
+	  </div>
 
 	</div>
   </div>

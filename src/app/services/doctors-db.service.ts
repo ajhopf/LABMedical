@@ -17,5 +17,12 @@ export class DoctorsDBService {
 
   createUser(createdUser: Doctor) {
     console.log(createdUser)
+
+    this.http.post(
+      `${this.BASE_URL}/doctors`,
+      createdUser
+    ).subscribe(response => {
+      console.log(response)
+    })
   }
 }
