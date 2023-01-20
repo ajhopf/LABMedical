@@ -14,10 +14,9 @@ export class LoginComponent implements OnInit{
   password: string = '';
   email: string = '';
   constructor(
-    private doctorsDB: DoctorsDBService
   ) {}
 
   ngOnInit() {
-    console.log(this.urls)
+
   }
 }

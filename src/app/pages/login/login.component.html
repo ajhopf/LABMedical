@@ -24,14 +24,14 @@
       <!--password input-->
       <div class="mb-3">
         <label
-          for="exampleInputPassword1"
+          for="password"
           class="form-label">
           Senha
         </label>
         <input
           type="password"
           class="form-control"
-          id="exampleInputPassword1"
+          id="password"
           name="password"
           [(ngModel)]="password">
       </div>
@@ -47,7 +47,7 @@
     <div class="row text-center">
       <p>Não possui uma conta?</p>
       <div>
-        <button class="btn btn-secondary">Criar Conta</button>
+        <app-new-user></app-new-user>
       </div>
     </div>
   </div>
