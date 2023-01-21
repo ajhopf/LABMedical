@@ -33,14 +33,17 @@ export class LoginComponent implements OnInit{
 
     this.fetchUsers()
       .subscribe(users => {
+        let loggedUser
+
         for (let user in users) {
           if (users[user].email === userEmail && users[user].password === userPassword) {
             this.loginAllowed = true
+            loggedUser = users[user]
           }
         }
 
         if (this.loginAllowed) {
-          this.authenticationService.logIn()
+          this.authenticationService.logIn(loggedUser)
           this.router.navigate(['/home'])
         } else {
           alert('Usuário não cadastrado ou credenciais inválidas!')
