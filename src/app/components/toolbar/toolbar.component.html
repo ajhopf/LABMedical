@@ -1,2 +1,29 @@
-<p>toolbar works!</p>
-<button (click)="onLogOut()">LogOut</button>
+<header>
+  <h1 class="text-center my-auto">{{ pageHeader }}</h1>
+  <div class="d-flex align-items-center justify-content-end">
+    <h2 class="m-2 d-none d-md-inline">{{ currentUser['name'] }}</h2>
+
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        <img
+          class="mx-2"
+          src="{{ userAvatar }}"
+          alt="User Avatar">
+      </button>
+
+      <ul class="dropdown-menu">
+        <li>
+          <button class="dropdown-item" (click)="onLogOut()">LogOut</button>
+        </li>
+        <li>
+          <button class="dropdown-item" (click)="onEditProfile()">Editar Perfil</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
