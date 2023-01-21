@@ -3,6 +3,8 @@ import { DoctorsDBService } from "../../services/doctors-db.service";
 import { URLS } from "../../constants/urls";
 import { NgForm } from "@angular/forms";
 import { filter } from "rxjs";
+import { AuthenticationService } from "../../services/authentication.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,9 @@ export class LoginComponent implements OnInit{
   urls = URLS
 
   constructor(
-    private doctorsDB: DoctorsDBService
+    private doctorsDB: DoctorsDBService,
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -31,12 +35,15 @@ export class LoginComponent implements OnInit{
       .subscribe(users => {
         for (let user in users) {
           if (users[user].email === userEmail && users[user].password === userPassword) {
-            console.log(users[user])
             this.loginAllowed = true
-            console.log(this.loginAllowed)
-          } else {
-            console.log(false)
           }
+        }
+
+        if (this.loginAllowed) {
+          this.authenticationService.logIn()
+          this.router.navigate(['/home'])
+        } else {
+          alert('Usuário não cadastrado ou credenciais inválidas!')
         }
       })
   }
