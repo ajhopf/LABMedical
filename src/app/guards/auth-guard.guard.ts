@@ -10,6 +10,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from "../services/authentication.service";
+import { LocalStorageService } from "../services/local-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,26 +18,19 @@ import { AuthenticationService } from "../services/authentication.service";
 export class AuthGuardGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown> {
   constructor(
     private authenticationService: AuthenticationService,
+    private localStorage: LocalStorageService,
     private router: Router
+
   ) {}
 
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // return this.authenticationService.isAuthenticated()
-    //   .then(authenticated => {
-    //     if (authenticated) {
-    //       return true
-    //     } else {
-    //       this.router.navigate(['/'])
-    //       return false
-    //     }
-    //   })
-    if (this.authenticationService.isAuthenticated()) {
+    if (this.authenticationService.isAuthenticated() || this.localStorage.getStorage()) {
       return true
     } else {
-      // this.router.navigate(['/'])
+      this.router.navigate(['/'])
       return false
     }
   }

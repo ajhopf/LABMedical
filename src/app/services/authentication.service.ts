@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   loggedIn = false;
-  constructor() { }
+  constructor(
+    private localStorage: LocalStorageService
+  ) { }
 
   isAuthenticated() {
     // const promise = new Promise (
@@ -14,11 +17,18 @@ export class AuthenticationService {
     //   }
     // )
     // return promise
-    return this.loggedIn
+    if (this.loggedIn || this.localStorage.getStorage()) {
+      return true
+    } else {
+      return false
+    }
   }
 
-  logIn() {
+  logIn(user) {
     this.loggedIn = true
+    if (!this.localStorage.getStorage()) {
+      this.localStorage.userLoggedIn(user)
+    }
   }
 
   logOut() {
