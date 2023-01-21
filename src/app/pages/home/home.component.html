@@ -1,6 +1,6 @@
 <div class="main-container">
   <app-toolbar
-
+	[pageHeader]="pageName"
 	(onToggleMenu)="openMenu($event)">
   </app-toolbar>
   <div class="content-container">
@@ -8,7 +8,9 @@
 	  class="lateral-menu"
 	  [ngClass]="toggleLateralMenu ? 'open' : ''"
 	>
-	  <app-lateral-menu></app-lateral-menu>
+	  <app-lateral-menu
+	  (onPageChange)="changePageName($event)">
+	  </app-lateral-menu>
 	</div>
 	<div>
 	  <router-outlet></router-outlet>

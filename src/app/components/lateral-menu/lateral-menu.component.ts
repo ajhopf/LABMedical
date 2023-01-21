@@ -9,17 +9,21 @@ import { Router } from "@angular/router";
 })
 export class LateralMenuComponent {
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<any>()
+  @Output('onPageChange') pageChange = new EventEmitter<string>()
 
   constructor(
     private localStorage: LocalStorageService,
     private router: Router
   ) {}
-  onClick(){
-    this.onToggleMenu.emit(true)
-  }
 
   onLogOut(){
     this.localStorage.userLoggedOut()
     this.router.navigate(['/'])
+  }
+
+  updateHeader(page: string) {
+    this.pageChange.emit(
+      page
+    )
   }
 }

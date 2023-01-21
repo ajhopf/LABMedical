@@ -1,32 +1,39 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Injectable, Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { LocalStorageService } from "../../services/local-storage.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DoctorsDBService } from "../../services/doctors-db.service";
+import { PageHeaders } from "../../constants/page-headers";
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
+
 export class ToolbarComponent implements OnInit {
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<boolean>()
+  @Input() pageHeader: string = ''
 
   isMenuOpen = false
-
-  pageHeader = ''
   currentUserId = 0
   currentUser = {}
   userAvatar = ''
+  possibleHeaders = PageHeaders
 
   constructor(
     private localStorage: LocalStorageService,
     private doctorsDB: DoctorsDBService,
-    private router: Router,
-    private route: ActivatedRoute
-
+    private router: Router
   ) {}
-
-
 
   ngOnInit() {
     this.currentUserId = +this.localStorage.getStorage()
@@ -35,14 +42,10 @@ export class ToolbarComponent implements OnInit {
       .subscribe((user) => {
         this.currentUser = user
         this.userAvatar = user['avatar']
-        console.log(this.currentUser)
       })
 
-    let currentPage = this.router.url.substring(6)
-
-    this.route.data.subscribe(value => {
-      this.pageHeader = value[currentPage]
-    })
+    //Garantindo o nome do header mesmo que digite diretamente a rota
+    this.pageHeader = this.possibleHeaders[this.router.url.substring(6)]
   }
 
   onLogOut(){

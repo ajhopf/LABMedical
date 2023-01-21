@@ -17,10 +17,6 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuardGuard],
-    data: {
-      statistics: 'Estatísticas e Informações',
-      pacientRegistration: 'Cadastro de Paciente'
-    },
     children: [
       {
         path: '',
@@ -28,18 +24,18 @@ const routes: Routes = [
         redirectTo: 'statistics'
       }, {
         path:'statistics',
-        component: StatisticsComponent,
+        component: StatisticsComponent
       }, {
-        path: 'pacientRegistration',
-        component: PacientRegistrationComponent
+        path: 'pacient-registration',
+        component: PacientRegistrationComponent,
       }, {
-        path: 'recordsListing',
+        path: 'records-listing',
         component: RecordsListingComponent
       }, {
-        path: 'appointmentRegistration',
+        path: 'appointment-registration',
         component: AppointmentRegistrationComponent
       }, {
-        path: 'examRegistration',
+        path: 'exam-registration',
         component: ExamRegistrationComponent
       }
     ]
