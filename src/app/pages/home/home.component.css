@@ -1,0 +1,24 @@
+.main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    flex-grow: 1;
+    display: flex;
+    height: 100%;
+}
+
+.lateral-menu {
+   display: none;
+
+}
+
+.lateral-menu.open {
+
+    display: initial;
+    width: 200px;
+    background-color: #1f879d;
+}
+

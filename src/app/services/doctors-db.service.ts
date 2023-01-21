@@ -29,4 +29,8 @@ export class DoctorsDBService {
   getUsers() {
     return this.http.get(this.BASE_URL)
   }
+
+  getUser(userId) {
+    return this.http.get(`${this.BASE_URL}/${+userId}`)
+  }
 }
