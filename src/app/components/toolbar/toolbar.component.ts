@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LocalStorageService } from "../../services/local-storage.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DoctorsDBService } from "../../services/doctors-db.service";
@@ -9,6 +9,10 @@ import { DoctorsDBService } from "../../services/doctors-db.service";
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
+  @Output('onToggleMenu') onToggleMenu = new EventEmitter<boolean>()
+
+  isMenuOpen = false
+
   pageHeader = ''
   currentUserId = 0
   currentUser = {}
@@ -48,5 +52,9 @@ export class ToolbarComponent implements OnInit {
 
   onEditProfile() {
     alert('Desculpe, ainda estamos trabalhando para implementar essa função!')
+  }
+
+  onSliderClick(){
+    this.onToggleMenu.emit(this.isMenuOpen)
   }
 }

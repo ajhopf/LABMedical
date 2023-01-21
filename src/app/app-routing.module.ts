@@ -4,6 +4,10 @@ import { LoginComponent } from "./pages/login/login.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { AuthGuardGuard } from "./guards/auth-guard.guard";
 import { StatisticsComponent } from "./pages/statistics/statistics.component";
+import { PacientRegistrationComponent } from "./pages/pacient-registration/pacient-registration.component";
+import { RecordsListingComponent } from "./pages/records-listing/records-listing.component";
+import { AppointmentRegistrationComponent } from "./pages/appointment-registration/appointment-registration.component";
+import { ExamRegistrationComponent } from "./pages/exam-registration/exam-registration.component";
 
 const routes: Routes = [
   {
@@ -14,7 +18,8 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuardGuard],
     data: {
-      statistics: 'Estatísticas e Informações'
+      statistics: 'Estatísticas e Informações',
+      pacientRegistration: 'Cadastro de Paciente'
     },
     children: [
       {
@@ -24,6 +29,18 @@ const routes: Routes = [
       }, {
         path:'statistics',
         component: StatisticsComponent,
+      }, {
+        path: 'pacientRegistration',
+        component: PacientRegistrationComponent
+      }, {
+        path: 'recordsListing',
+        component: RecordsListingComponent
+      }, {
+        path: 'appointmentRegistration',
+        component: AppointmentRegistrationComponent
+      }, {
+        path: 'examRegistration',
+        component: ExamRegistrationComponent
       }
     ]
   }, {

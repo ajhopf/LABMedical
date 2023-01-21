@@ -1,4 +1,15 @@
 <header>
+  <div class="d-flex align-items-center ms-2">
+    <mat-slide-toggle
+
+      [(ngModel)]="isMenuOpen"
+      (click)="onSliderClick()"
+    >
+      {{ isMenuOpen ? 'Close' : 'Open'}} Menu
+    </mat-slide-toggle>
+  </div>
+
+
   <h1 class="text-center my-auto">{{ pageHeader }}</h1>
   <div class="d-flex align-items-center justify-content-end">
     <h2 class="m-2 d-none d-md-inline">{{ currentUser['name'] }}</h2>

@@ -1,6 +1,6 @@
 header {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
     height: 100px;
     background-color: #1f879d;
     color: white;
