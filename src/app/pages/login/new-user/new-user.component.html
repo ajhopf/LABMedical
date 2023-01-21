@@ -1,0 +1,164 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-secondary"
+  data-bs-toggle="modal"
+  data-bs-target="#newUserModal">
+  Criar usuário
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="newUserModal"
+  tabindex="-1"
+  aria-labelledby="newUserModal"
+  aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<h2 class="modal-title fs-5">
+		  Novo Usuário
+		</h2>
+		<button
+		  type="button"
+		  class="btn-close"
+		  data-bs-dismiss="modal"
+		  aria-label="Close">
+		</button>
+	  </div>
+
+	  <div
+		class="modal-body"
+		*ngIf="!userCreated">
+
+		<form
+		  (ngSubmit)="onCreateUser()"
+		  #newUser="ngForm">
+		  <!--Nome-->
+		  <div class="mb-3">
+			<label
+			  for="username"
+			  class="form-label">
+			  Nome
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="username"
+			  name="username"
+			  ngModel
+			  required
+			>
+		  </div>
+
+		  <!--Email-->
+		  <div class="mb-3">
+			<label
+			  for="newEmail"
+			  class="form-label">
+			  Email address
+			</label>
+			<input
+			  type="email"
+			  class="form-control"
+			  id="newEmail"
+			  #email="ngModel"
+			  name="email"
+			  ngModel
+			  email
+			  required
+			  >
+			<p
+			  *ngIf="!email.valid && email.touched"
+			  class="text-danger">
+			  Por favor, informe um email válido
+			</p>
+		  </div>
+
+		  <!--Senha-->
+		  <div class="mb-3">
+			<label
+			  for="newPassword"
+			  class="form-label">
+			  Senha
+			</label>
+			<input
+			  class="form-control"
+			  id="newPassword"
+			  #newPassword="ngModel"
+			  name="newPassword"
+			  type="password"
+			  required
+			  ngModel
+			  minlength="8">
+			<p *ngIf="newPassword.value && newPassword.value.length < 8 && newPassword.touched" >
+			  Senha precisa ter no mínimo 8 caracteres!
+			</p>
+			<label
+			  for="confirmPassword"
+			  class="form-label">
+			  Confirme sua senha
+			</label>
+			<input
+			  class="form-control"
+			  id="confirmPassword"
+			  #confirmPassword="ngModel"
+			  name="confirmPassword"
+			  type="password"
+			  required
+			  ngModel
+			  [ngClass]="newPassword.value !== confirmPassword.value ? 'wrongPassword' : ''"
+			>
+			<p
+			  *ngIf="(newPassword.value !== confirmPassword.value) && confirmPassword.touched"
+			  class="text-danger">
+			  Senhas não conferem!
+			</p>
+		  </div>
+
+		  <div *ngIf="email.valid">
+			<p
+			  for="userImage"
+			  class="form-label">
+			  Seu avatar
+			</p>
+			<img
+			  #userAvatar
+			  id="userImage"
+			  class="rounded-5 mb-3"
+			  src="https://robohash.org/{{ email.value + userAvatarNumber}}"
+			  >
+			<button
+			  type="button"
+			  class="btn btn-primary d-block mx-auto mb-3"
+			  (click)="changeAvatar()">
+			  Trocar Avatar
+			</button>
+		  </div>
+
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button
+			  type="submit"
+			  class="btn btn-primary"
+			  [disabled]="!newUser.valid || (newPassword.value !== confirmPassword.value)">
+			  Criar Usuário
+			</button>
+		  </div>
+		</form>
+	  </div>
+
+	  <div class="modal-body" *ngIf="userCreated">
+		<p>Usuário criado com sucesso!</p>
+		<button
+		  type="button"
+		  class="btn btn-secondary"
+		  data-bs-dismiss="modal"
+		  (click)="userCreated=false">
+		  Close</button>
+	  </div>
+
+	</div>
+  </div>
+</div>
