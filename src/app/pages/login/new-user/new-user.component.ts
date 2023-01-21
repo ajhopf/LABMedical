@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { DoctorsDBService } from "../../../services/doctors-db.service";
 
@@ -9,23 +9,42 @@ import { DoctorsDBService } from "../../../services/doctors-db.service";
 })
 export class NewUserComponent {
   @ViewChild('newUser') newUserForm: NgForm | undefined
+
   userAvatarNumber = 1
   userCreated = false;
 
-  constructor(private doctorDB: DoctorsDBService) {}
+  constructor(private doctorsDB: DoctorsDBService) {}
 
   changeAvatar(){
     this.userAvatarNumber++
   }
 
   onCreateUser(){
-    this.doctorDB.createUser({
-      name: this.newUserForm!.value.username,
-      email: this.newUserForm!.value.email,
-      password: this.newUserForm!.value.newPassword,
-      avatar: 'https://robohash.org/' + this.newUserForm!.value.email+this.userAvatarNumber
-    })
-    this.newUserForm!.reset()
-    this.userCreated = true;
+    let createdUser = {
+      name: this.newUserForm.value.username,
+      email: this.newUserForm.value.email,
+      password: this.newUserForm.value.newPassword,
+      avatar: 'https://robohash.org/' + this.newUserForm.value.email+this.userAvatarNumber
+    }
+
+    this.doctorsDB.getUsers()
+      .subscribe(users => {
+        let alreadyUsedEmail = false
+
+        for (let user in users) {
+          if (users[user].email === createdUser.email) {
+            alreadyUsedEmail = true
+          }
+        }
+
+        if (alreadyUsedEmail) {
+          alert('Email já cadastrado!')
+        } else {
+          this.doctorsDB.createUser(createdUser)
+          this.newUserForm.reset()
+          this.userCreated = true;
+        }
+      }
+    )
   }
 }
