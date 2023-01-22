@@ -308,8 +308,8 @@
 		class="form-control"
 		id="cep"
 		name="cep"
-		ngModel
-	  	required>
+		[(ngModel)]="pacient.address.cep"
+	  	required (change)="getAdress()">
 	</div>
 	<!--City-->
 	<div class="mb-3">
@@ -321,7 +321,7 @@
 		class="form-control"
 		id="city"
 		name="city"
-		ngModel
+		[(ngModel)]="pacient.address.city"
 		required>
 	</div>
 	<!--State-->
@@ -334,7 +334,7 @@
 		class="form-control"
 		id="state"
 		name="state"
-		ngModel
+		[(ngModel)]="pacient.address.state"
 		required>
 	</div>
 	<!--Street-->
@@ -347,7 +347,7 @@
 		class="form-control"
 		id="street"
 		name="street"
-		ngModel
+		[(ngModel)]="pacient.address.street"
 		required>
 	</div>
 	<!--Number-->
@@ -361,7 +361,7 @@
 		id="number"
 		name="number"
 		ngModel
-		required>
+		[(ngModel)]="pacient.address.number">
 	</div>
 	<!--Complement-->
 	<div class="mb-3">
@@ -373,8 +373,7 @@
 		class="form-control"
 		id="complemento"
 		name="complemento"
-		ngModel
-		required>
+		[(ngModel)]="pacient.address.complement">
 	</div>
 	<!--Distritc-->
 	<div class="mb-3">
@@ -386,7 +385,7 @@
 		class="form-control"
 		id="district"
 		name="district"
-		ngModel
+		[(ngModel)]="pacient.address.district"
 		required>
 	</div>
 	<!--Reference-->
@@ -399,14 +398,14 @@
 		class="form-control"
 		id="reference"
 		name="reference"
-		ngModel
+		[(ngModel)]="pacient.address.reference"
 		>
 	</div>
   </div>
   <div class="mb-3">
 	<button
 	  class="btn btn-primary"
-	  type="submit" [disabled]="!email.valid">
+	  type="submit" [disabled]="!newPacient.valid">
 	  Cadastrar
 	</button>
   </div>

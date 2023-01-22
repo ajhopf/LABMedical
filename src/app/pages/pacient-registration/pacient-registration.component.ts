@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ViacepService } from "../../services/viacep.service";
 
 @Component({
   selector: 'app-pacient-registration',
@@ -30,8 +31,23 @@ export class PacientRegistrationComponent implements OnInit{
       insurance: '',
       insuranceNumber: '',
       insuranceValidity: ''
+    },
+    address: {
+      cep: '',
+      city: '',
+      state: '',
+      street: '',
+      number: '',
+      complement: '',
+      district: '',
+      reference: ''
     }
   }
+
+  constructor(private viacep: ViacepService) {
+
+  }
+
 
   onCreatePacient(){
     console.log(this.newPacientForm.value)
@@ -45,11 +61,19 @@ export class PacientRegistrationComponent implements OnInit{
     let pacientCpf = this.pacient.identification.cpf
 
     if ( pacientCpf.length === 11 && pacientCpf.match(/^\d{11}$/)) {
-      const formattedPacientCpf = pacientCpf.substring(0,3) + '.' + pacientCpf.substring(3,6) + '.' + pacientCpf.substring(6, 9) + '-' + pacientCpf.substring(9)
-      this.pacient.identification.cpf = formattedPacientCpf
+      this.pacient.identification.cpf = pacientCpf.substring(0,3) + '.' + pacientCpf.substring(3,6) + '.' + pacientCpf.substring(6, 9) + '-' + pacientCpf.substring(9)
     }
   }
 
+  getAdress(){
+    this.viacep.getAddress(+this.pacient.address.cep)
+      .subscribe(address => {
+        this.pacient.address.city = address['localidade']
+        this.pacient.address.state = address['uf']
+        this.pacient.address.street = address['logradouro']
+        this.pacient.address.district = address['bairro']
+      })
+  }
 }
 
 
