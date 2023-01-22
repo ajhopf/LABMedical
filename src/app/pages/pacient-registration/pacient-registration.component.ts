@@ -67,11 +67,16 @@ export class PacientRegistrationComponent implements OnInit{
 
   getAdress(){
     this.viacep.getAddress(+this.pacient.address.cep)
-      .subscribe(address => {
+      .subscribe(
+        address => {
         this.pacient.address.city = address['localidade']
         this.pacient.address.state = address['uf']
         this.pacient.address.street = address['logradouro']
         this.pacient.address.district = address['bairro']
+      },
+        error => {
+          console.error(error.message)
+          alert('CEP inválido!')
       })
   }
 }
