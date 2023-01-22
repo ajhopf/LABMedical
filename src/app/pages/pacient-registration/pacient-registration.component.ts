@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViacepService } from "../../services/viacep.service";
+import { PacientsDbService } from "../../services/pacients-db.service";
 
 @Component({
   selector: 'app-pacient-registration',
@@ -44,14 +45,18 @@ export class PacientRegistrationComponent implements OnInit{
     }
   }
 
-  constructor(private viacep: ViacepService) {
+  constructor(
+    private viacep: ViacepService,
+    private pacientsDB: PacientsDbService
+  ) {
 
   }
 
 
   onCreatePacient(){
-    console.log(this.newPacientForm.value)
     console.log(this.pacient)
+
+    this.pacientsDB.createPacient(this.pacient)
   }
 
   ngOnInit() {
