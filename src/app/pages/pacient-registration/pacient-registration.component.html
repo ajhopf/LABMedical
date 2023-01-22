@@ -157,14 +157,13 @@
 	  Telefone
 	</label>
 	<p-inputMask
-	  #phone="ngModel"
-	  placeholder="(99) 9 9999-9999"
-	  [required]="true"
 	  styleClass="form-control"
 	  id="phone"
+	  placeholder="(99) 9 9999-9999"
 	  name="phone"
+	  [required]="true"
 	  [(ngModel)]="pacient.identification.phoneNumber"
-	  mask="(99) 9 9999-9999" minlength="11">
+	  mask="(99) 9 9999-9999">
 	</p-inputMask>
   </div>
 
@@ -174,13 +173,21 @@
 	  Email
 	</label>
 	<input
+	  #email="ngModel"
 	  type="text"
 	  class="form-control"
 	  id="email"
 	  name="email"
 	  placeholder="email@email.com"
 	  email
-	  ngModel>
+	  required
+	  [(ngModel)]="pacient.identification.email">
+
+	<span
+	  *ngIf="email.invalid && email.touched"
+	  class="text-danger">
+	  Email inválido
+	</span>
   </div>
 
   <!--City of Birth-->
@@ -191,6 +198,7 @@
 	  Naturalidade
 	</label>
 	<input
+	  #cityOfBirth="ngModel"
 	  type="text"
 	  class="form-control"
 	  id="birthPlace"
@@ -198,7 +206,13 @@
 	  minlength="8"
 	  maxlength="64"
 	  required
-	  ngModel>
+	  [(ngModel)]="pacient.identification.cityOfBirth">
+
+	<span
+	  *ngIf="cityOfBirth.invalid && cityOfBirth.touched"
+	  class="text-danger">
+	  A cidade de nascimento deve ter mais de 8 caracteres
+	</span>
   </div>
 
   <!--Emergency Contact-->
@@ -206,16 +220,15 @@
 	<label for="emergencyContact" class="form-label">
 	  Contato de Emergência
 	</label>
-	<input
-	  type="number"
-	  class="form-control"
+	<p-inputMask
+	  styleClass="form-control"
 	  id="emergencyContact"
 	  name="emergencyContact"
-	  minlength="14"
-	  maxlength="14"
 	  placeholder="(99) 9 9999-9999"
-	  required
-	  ngModel>
+	  [required]="true"
+	  [(ngModel)]="pacient.identification.emergencyContact"
+	  mask="(99) 9 9999-9999">
+	</p-inputMask>
   </div>
 
   <!--Alergies-->
@@ -228,7 +241,7 @@
 	  class="form-control"
 	  id="alergies"
 	  name="alergies"
-	  ngModel>
+	  [(ngModel)]="pacient.identification.alergies">
   </div>
 
   <!--Special Care-->
@@ -241,7 +254,7 @@
 	  class="form-control"
 	  id="specialCare"
 	  name="specialCare"
-	  ngModel>
+	  [(ngModel)]="pacient.identification.specialCare">
   </div>
 
   <!--Health Insurance-->
@@ -255,7 +268,7 @@
 		class="form-control"
 		id="insurance"
 		name="insurance"
-		ngModel>
+		[(ngModel)]="pacient.healthInsurance.insurance">
 	</div>
 	<!--insurance number-->
 	<div class="mb-3">
@@ -267,7 +280,7 @@
 		class="form-control"
 		id="insuranceNumber"
 		name="insuranceNumber"
-		ngModel>
+		[(ngModel)]="pacient.healthInsurance.insuranceNumber">
 	</div>
 	<!--insurance validity-->
 	<div class="mb-3">
@@ -279,7 +292,7 @@
 		class="form-control"
 		id="insuranceValidity"
 		name="insuranceValidity"
-		ngModel>
+		[(ngModel)]="pacient.healthInsurance.insuranceValidity">
 	</div>
   </div>
 
@@ -393,7 +406,7 @@
   <div class="mb-3">
 	<button
 	  class="btn btn-primary"
-	  type="submit" [disabled]="!phone.valid">
+	  type="submit" [disabled]="!email.valid">
 	  Cadastrar
 	</button>
   </div>

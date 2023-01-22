@@ -19,7 +19,17 @@ export class PacientRegistrationComponent implements OnInit{
         dispatcher: ''
       },
       civilState: 'solteiro',
-      phoneNumber: ''
+      phoneNumber: '',
+      email: '',
+      cityOfBirth: '',
+      emergencyContact: '',
+      alergies:'',
+      specialCare: ''
+    },
+    healthInsurance: {
+      insurance: '',
+      insuranceNumber: '',
+      insuranceValidity: ''
     }
   }
 
