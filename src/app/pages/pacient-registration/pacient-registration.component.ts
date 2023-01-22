@@ -25,10 +25,6 @@ export class PacientRegistrationComponent implements OnInit{
     console.log(this.pacient.identification.dob)
   }
 
-  validateDob() {
-    console.log(this.dobInput.value)
-    return true
-  }
 }
 
 

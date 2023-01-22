@@ -17,7 +17,8 @@ import { PacientRegistrationComponent } from './pages/pacient-registration/pacie
 import { AppointmentRegistrationComponent } from './pages/appointment-registration/appointment-registration.component';
 import { ExamRegistrationComponent } from './pages/exam-registration/exam-registration.component';
 import { RecordsListingComponent } from './pages/records-listing/records-listing.component';
-import { PacientRecordsComponent } from './pages/pacient-records/pacient-records.component'
+import { PacientRecordsComponent } from './pages/pacient-records/pacient-records.component';
+import { ValidDobDirective } from './validators/date-of-birth/valid-dob.directive'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PacientRecordsComponent } from './pages/pacient-records/pacient-records
     AppointmentRegistrationComponent,
     ExamRegistrationComponent,
     RecordsListingComponent,
-    PacientRecordsComponent
+    PacientRecordsComponent,
+    ValidDobDirective
   ],
   imports: [
     BrowserModule,

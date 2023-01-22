@@ -50,12 +50,17 @@
 	  type="date"
 	  id="dateOfBirth"
 	  name="dateOfBirth"
+	  class="form-control"
 	  required
 	  [(ngModel)]="pacient.identification.dob"
 	  #dob="ngModel"
+	  appValidDob
 	  >
-
-	<p *ngIf="dob.touched && validateDob()">Tocou na dob</p>
+	<p
+	  class="text-danger"
+	  *ngIf="dob.errors?.['invalidDob'] && dob.touched">
+	  A data de nascimento deve ser menor que a data atual
+	</p>
   </div>
 
   <!--CPF-->
@@ -355,7 +360,7 @@
   <div class="mb-3">
 	<button
 	  class="btn btn-primary"
-	  type="submit">
+	  type="submit" [disabled]="!dob.valid">
 	  Cadastrar
 	</button>
   </div>
