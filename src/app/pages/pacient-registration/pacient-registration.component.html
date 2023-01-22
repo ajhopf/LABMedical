@@ -1,1 +1,362 @@
-<p>pacient-registration works!</p>
+<form
+  (ngSubmit)="onCreatePacient()"
+  #newPacient="ngForm">
+
+  <!--Pacient Name-->
+  <div class="mb-3">
+	<label
+	  class="form-label"
+	  for="pacientName"
+	  >
+	  Nome
+	</label>
+	<input
+	  #pacientName
+	  type="text"
+	  class="form-control"
+	  id="pacientName"
+	  name="pacientName"
+	  [(ngModel)]="pacient.identification.pacientName"
+	  required
+	  maxlength="64"
+	  minlength="8">
+  </div>
+
+  <!--Pacient Gender-->
+  <div class="mb-3">
+	<label
+	  for="pacientGender"
+	  class="form-label">
+	  Gênero
+	</label>
+	<select
+	  id="pacientGender"
+	  name="pacientGender"
+	  class="form-select"
+	  required
+	  [(ngModel)]="pacient.identification.pacientGender">
+	  <option value="feminino" selected="true">Feminino</option>
+	  <option value="masculino">Masculino</option>
+	  <option value="nao-binario">Não Binário</option>
+	</select>
+  </div>
+
+  <!--Date of birth-->
+  <div class="mb-3">
+	<label for="dateOfBirth" class="form-label">
+	  Data de nascimento
+	</label>
+	<input
+	  type="date"
+	  id="dateOfBirth"
+	  name="dateOfBirth"
+	  required
+	  [(ngModel)]="pacient.identification.dob"
+	  #dob="ngModel"
+	  >
+
+	<p *ngIf="dob.touched && validateDob()">Tocou na dob</p>
+  </div>
+
+  <!--CPF-->
+  <div class="mb-3">
+	<label for="pacientCpf" class="form-label">
+	  Cpf
+	</label>
+	<input
+	  type="number"
+	  class="form-control"
+	  id="pacientCpf"
+	  name="pacientCpf"
+	  minlength="14"
+	  maxlength="14"
+	  placeholder="000.000.000-00"
+	  required
+	  ngModel>
+  </div>
+
+  <!--Rg-->
+  <div class="mb-3">
+	<label
+	  for="pacientRg"
+	  class="form-label">
+	  RG
+	</label>
+	<input
+	  type="text"
+	  id="pacientRg"
+	  class="form-control"
+	  name="pacientRg"
+	  minlength="20"
+	  maxlength="20"
+	  required
+	  ngModel>
+  </div>
+
+  <!--Civil State-->
+  <div class="mb-3">
+	<label
+	  for="civilState"
+	  class="form-label">
+	  Estado Civil
+	</label>
+	<select
+	  id="civilState"
+	  name="civilState"
+	  class="form-select"
+	  required
+	  ngModel>
+	  <option value="solteiro" selected="true">Solteiro(a)</option>
+	  <option value="casado">Casado(a)</option>
+	  <option value="divorciado">Divorciado(a)</option>
+	  <option value="viuvo">Viúvo(a)</option>
+	</select>
+  </div>
+
+  <!--Phone-->
+  <div class="mb-3">
+	<label for="phone" class="form-label">
+	  Telefone
+	</label>
+	<input
+	  type="number"
+	  class="form-control"
+	  id="phone"
+	  name="phone"
+	  minlength="14"
+	  maxlength="14"
+	  placeholder="(99) 9 9999-9999"
+	  required
+	  ngModel>
+  </div>
+
+  <!--Email-->
+  <div class="mb-3">
+	<label for="email" class="form-label">
+	  Email
+	</label>
+	<input
+	  type="text"
+	  class="form-control"
+	  id="email"
+	  name="email"
+	  placeholder="email@email.com"
+	  email
+	  ngModel>
+  </div>
+
+  <!--City of Birth-->
+  <div class="mb-3">
+	<label
+	  for="birthPlace"
+	  class="form-label">
+	  Naturalidade
+	</label>
+	<input
+	  type="text"
+	  class="form-control"
+	  id="birthPlace"
+	  name="birthPlace"
+	  minlength="8"
+	  maxlength="64"
+	  required
+	  ngModel>
+  </div>
+
+  <!--Emergency Contact-->
+  <div class="mb-3">
+	<label for="emergencyContact" class="form-label">
+	  Contato de Emergência
+	</label>
+	<input
+	  type="number"
+	  class="form-control"
+	  id="emergencyContact"
+	  name="emergencyContact"
+	  minlength="14"
+	  maxlength="14"
+	  placeholder="(99) 9 9999-9999"
+	  required
+	  ngModel>
+  </div>
+
+  <!--Alergies-->
+  <div class="mb-3">
+	<label for="alergies" class="form-label">
+	  Alergias
+	</label>
+	<input
+	  type="text"
+	  class="form-control"
+	  id="alergies"
+	  name="alergies"
+	  ngModel>
+  </div>
+
+  <!--Special Care-->
+  <div class="mb-3">
+	<label for="specialCare" class="form-label">
+	  Cuidados Especiais
+	</label>
+	<input
+	  type="text"
+	  class="form-control"
+	  id="specialCare"
+	  name="specialCare"
+	  ngModel>
+  </div>
+
+  <!--Health Insurance-->
+  <div>
+	<div class="mb-3">
+	  <label for="specialCare" class="form-label">
+		Convênio
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="insurance"
+		name="insurance"
+		ngModel>
+	</div>
+	<!--insurance number-->
+	<div class="mb-3">
+	  <label for="insuranceNumber" class="form-label">
+		Número do Convênio
+	  </label>
+	  <input
+		type="number"
+		class="form-control"
+		id="insuranceNumber"
+		name="insuranceNumber"
+		ngModel>
+	</div>
+	<!--insurance validity-->
+	<div class="mb-3">
+	  <label for="insuranceValidity" class="form-label">
+		Validade do Convênio
+	  </label>
+	  <input
+		type="date"
+		class="form-control"
+		id="insuranceValidity"
+		name="insuranceValidity"
+		ngModel>
+	</div>
+  </div>
+
+  <!--Address-->
+  <div>
+	<!--Cep-->
+	<div class="mb-3">
+	  <label for="cep" class="form-label">
+		CEP
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="cep"
+		name="cep"
+		ngModel
+	  	required>
+	</div>
+	<!--City-->
+	<div class="mb-3">
+	  <label for="city" class="form-label">
+		Cidade
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="city"
+		name="city"
+		ngModel
+		required>
+	</div>
+	<!--State-->
+	<div class="mb-3">
+	  <label for="state" class="form-label">
+		Estado
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="state"
+		name="state"
+		ngModel
+		required>
+	</div>
+	<!--Street-->
+	<div class="mb-3">
+	  <label for="street" class="form-label">
+		Logradouro
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="street"
+		name="street"
+		ngModel
+		required>
+	</div>
+	<!--Number-->
+	<div class="mb-3">
+	  <label for="number" class="form-label">
+		Número
+	  </label>
+	  <input
+		type="number"
+		class="form-control"
+		id="number"
+		name="number"
+		ngModel
+		required>
+	</div>
+	<!--Complement-->
+	<div class="mb-3">
+	  <label for="complemento" class="form-label">
+		Complemento
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="complemento"
+		name="complemento"
+		ngModel
+		required>
+	</div>
+	<!--Distritc-->
+	<div class="mb-3">
+	  <label for="district" class="form-label">
+		Bairro
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="district"
+		name="district"
+		ngModel
+		required>
+	</div>
+	<!--Reference-->
+	<div class="mb-3">
+	  <label for="reference" class="form-label">
+		Ponto de Referência
+	  </label>
+	  <input
+		type="text"
+		class="form-control"
+		id="reference"
+		name="reference"
+		ngModel
+		>
+	</div>
+  </div>
+  <div class="mb-3">
+	<button
+	  class="btn btn-primary"
+	  type="submit">
+	  Cadastrar
+	</button>
+  </div>
+</form>
