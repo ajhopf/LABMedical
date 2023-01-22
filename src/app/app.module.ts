@@ -19,7 +19,8 @@ import { ExamRegistrationComponent } from './pages/exam-registration/exam-regist
 import { RecordsListingComponent } from './pages/records-listing/records-listing.component';
 import { PacientRecordsComponent } from './pages/pacient-records/pacient-records.component';
 import { ValidDobDirective } from './validators/date-of-birth/valid-dob.directive';
-import { CpfDirective } from './validators/cpf/cpf.directive'
+import { CpfDirective } from './validators/cpf/cpf.directive';
+import { InputMaskModule } from "primeng/inputmask";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CpfDirective } from './validators/cpf/cpf.directive'
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    InputMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,15 +10,22 @@ export class PacientRegistrationComponent implements OnInit{
 
   pacient = {
     identification: {
-      pacientName: 'André Jaques Hopf',
+      pacientName: '',
       pacientGender: 'feminino',
       dob: new Date().toISOString().slice(0,10),
-      cpf: ''
+      cpf: '',
+      rg: {
+        number: '',
+        dispatcher: ''
+      },
+      civilState: 'solteiro',
+      phoneNumber: ''
     }
   }
 
   onCreatePacient(){
     console.log(this.newPacientForm.value)
+    console.log(this.pacient)
   }
 
   ngOnInit() {
@@ -32,6 +39,7 @@ export class PacientRegistrationComponent implements OnInit{
       this.pacient.identification.cpf = formattedPacientCpf
     }
   }
+
 }
 
 
