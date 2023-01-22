@@ -5,6 +5,18 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
 
+export class HomeComponent {
+  toggleLateralMenu
+  pageName = 'Estatísticas e Informações'
+
+  constructor( ) {  }
+
+  openMenu(event) {
+    this.toggleLateralMenu = event
+  }
+
+  changePageName(event: string) {
+    this.pageName = event
+  }
 }
