@@ -1,0 +1,9 @@
+  <div class="card h-100 my-2" (click)="onCardClick(pacient.id)">
+	<div class="card-body">
+	  <h5 class="card-title">{{ pacient.identification.pacientName }}</h5>
+
+	  <p class="card-text">{{ pacient.identification.dob }}</p>
+	  <p>{{ pacient.healthInsurance.insurance }}</p>
+	  <button>Ver mais</button>
+	</div>
+  </div>

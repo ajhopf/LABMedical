@@ -24,6 +24,10 @@ import { InputMaskModule } from "primeng/inputmask";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SystemStatisticsComponent } from './components/system-statistics/system-statistics.component';
+import { CardModule } from 'primeng/card';
+import { PacientCardComponent } from './components/pacient-card/pacient-card.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 
@@ -42,7 +46,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     RecordsListingComponent,
     PacientRecordsComponent,
     ValidDobDirective,
-    CpfDirective
+    CpfDirective,
+    SystemStatisticsComponent,
+    PacientCardComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     MatSlideToggleModule,
     InputMaskModule,
     ConfirmDialogModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CardModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]

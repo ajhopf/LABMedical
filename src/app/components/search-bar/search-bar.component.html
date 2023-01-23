@@ -1,0 +1,10 @@
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping"><i class="pi pi-search"></i></span>
+  <input
+	[(ngModel)]="searchTerm"
+	type="text"
+	class="form-control"
+	placeholder="Nome, email ou telefone (apenas números)"
+	aria-label="Username"
+	(keyup)="onInputKeyDown()">
+</div>

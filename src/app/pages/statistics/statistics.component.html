@@ -1,1 +1,21 @@
-<p>statistics works!</p>
+<div>
+  <app-system-statistics [pacients]="pacients"></app-system-statistics>
+</div>
+<h2>Informações Rápidas de Pacientes</h2>
+<div>
+  <app-search-bar (onSearchInput)="filterPacients($event)"></app-search-bar>
+</div>
+
+
+<div *ngIf="filteredPacients.length > 0" class="row">
+  <div *ngFor="let pacient of filteredPacients" class="col-3">
+      <app-pacient-card [pacient]="pacient"></app-pacient-card>
+  </div>
+</div>
+
+<div *ngIf="filteredPacients.length === 0" class="row">
+  <div *ngFor="let pacient of pacients" class="col-3">
+      <app-pacient-card [pacient]="pacient"></app-pacient-card>
+  </div>
+</div>
+
