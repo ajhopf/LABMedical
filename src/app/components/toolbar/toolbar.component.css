@@ -7,6 +7,10 @@ header {
     text-shadow: 2px 2px #000;
 }
 
+mat-slide-toggle {
+    text-shadow: none;
+}
+
 img {
     height: 80px;
     border: 1px solid black;

@@ -1,1 +1,459 @@
-<p>pacient-registration works!</p>
+<section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
+  <div>
+	<button class="btn btn-primary" disabled>Editar</button>
+	<button class="btn btn-primary" disabled>Editar</button>
+  </div>
+
+  <div>
+	<form
+	  (ngSubmit)="onCreatePacient()"
+      #newPacient="ngForm">
+	  <h2>Identificação</h2>
+	  <!--Nome,genero, dob-->
+	  <div class="row">
+		<!--Pacient Name-->
+		<div class="col-6 mb-3">
+		  <label
+			class="form-label"
+			for="pacientName"
+		  >
+			Nome
+		  </label>
+		  <input
+              #pacientName="ngModel"
+			  type="text"
+			  class="form-control"
+			  id="pacientName"
+			  name="pacientName"
+			  [(ngModel)]="pacient.identification.pacientName"
+			  required
+			  maxlength="64"
+			  minlength="8"
+			  placeholder="Nome Completo">
+		  <span *ngIf="pacientName.invalid && pacientName.touched"
+				class="text-danger">
+	  O nome do paciente deve ter ao menos 8 caracteres
+	</span>
+		</div>
+
+		<!--Pacient Gender-->
+		<div class="col mb-3">
+		  <label
+			for="pacientGender"
+			class="form-label">
+			Gênero
+		  </label>
+		  <select
+			id="pacientGender"
+			name="pacientGender"
+			class="form-select"
+			required
+			[(ngModel)]="pacient.identification.pacientGender">
+			<option value="feminino" selected="true">Feminino</option>
+			<option value="masculino">Masculino</option>
+			<option value="nao-binario">Não Binário</option>
+		  </select>
+		</div>
+
+		<!--Date of birth-->
+		<div class="col mb-3">
+		  <label for="dateOfBirth" class="form-label">
+			Data de nascimento
+		  </label>
+		  <input
+			type="date"
+			id="dateOfBirth"
+			name="dateOfBirth"
+			class="form-control"
+			required
+			[(ngModel)]="pacient.identification.dob"
+            #dob="ngModel"
+			appValidDob
+		  >
+		  <p
+			*ngIf="dob.errors?.['invalidDob'] && dob.touched"
+			class="text-danger">
+			A data de nascimento deve ser menor que a data atual
+		  </p>
+		</div>
+	  </div>
+	  <!--Cpf, rg, civil state-->
+	  <div class="row">
+		<!--CPF-->
+		<div class="col mb-3">
+		  <label for="pacientCpf" class="form-label">
+			Cpf
+		  </label>
+		  <input
+              #cpf="ngModel"
+			  type="text"
+			  class="form-control"
+			  id="pacientCpf"
+			  name="pacientCpf"
+			  minlength="14"
+			  maxlength="14"
+			  placeholder="000.000.000-00"
+			  validCpf
+			  required
+			  [(ngModel)]="pacient.identification.cpf"
+			  (change)="formatCpf()">
+		  <span
+			*ngIf="cpf.errors?.['invalidCpf'] && cpf.touched"
+			class="text-danger">
+	  Por favor, digite um cpf válido
+	</span>
+		</div>
+
+		<!--Rg-->
+		<div class="col mb-3">
+		  <div class="row">
+			<div class="col-7">
+			  <label
+				for="pacientRg"
+				class="form-label">
+				RG
+			  </label>
+			  <input
+				type="text"
+				id="pacientRg"
+				class="form-control"
+				name="pacientRg"
+				minlength="6"
+				maxlength="20"
+				required
+				[(ngModel)]="pacient.identification.rg.number"
+				placeholder="999999"
+                #rgNumber="ngModel">
+			  <span
+				*ngIf="rgNumber.invalid && rgNumber.touched"
+				class="text-danger d-block mb-3">
+			  	Digite um RG válido
+			  </span>
+			</div>
+			<div class="col">
+			  <label
+				for="rgDispatcher"
+				class="form-label">
+				Órgão Expedidor
+			  </label>
+			  <input
+				class="form-control"
+				type="text"
+				id="rgDispatcher"
+				name="rgDispatcher"
+				[(ngModel)]="pacient.identification.rg.dispatcher"
+				placeholder="Órgão Expedidor"
+				required>
+			</div>
+		  </div>
+		</div>
+
+		<!--Civil State-->
+		<div class="col mb-3">
+		  <label
+			for="civilState"
+			class="form-label">
+			Estado Civil
+		  </label>
+		  <select
+			id="civilState"
+			name="civilState"
+			class="form-select"
+			required
+			[(ngModel)]="pacient.identification.civilState">
+			<option value="solteiro" selected="true">Solteiro(a)</option>
+			<option value="casado">Casado(a)</option>
+			<option value="divorciado">Divorciado(a)</option>
+			<option value="viuvo">Viúvo(a)</option>
+		  </select>
+		</div>
+	  </div>
+	  <!--city of birth, phone, email-->
+	  <div class="row">
+		<!--City of Birth-->
+		<div class="col mb-3">
+		  <label
+			for="birthPlace"
+			class="form-label">
+			Naturalidade
+		  </label>
+		  <input
+              #cityOfBirth="ngModel"
+			  type="text"
+			  class="form-control"
+			  id="birthPlace"
+			  name="birthPlace"
+			  minlength="8"
+			  maxlength="64"
+			  required
+			  [(ngModel)]="pacient.identification.cityOfBirth">
+		  <span
+			*ngIf="cityOfBirth.invalid && cityOfBirth.touched"
+			class="text-danger">
+	  		A cidade de nascimento deve ter mais de 8 caracteres
+		  </span>
+		</div>
+
+		<!--Phone-->
+		<div class="col mb-3">
+		  <label for="phone" class="form-label">
+			Telefone
+		  </label>
+		  <p-inputMask
+			styleClass="form-control"
+			id="phone"
+			placeholder="(99) 9 9999-9999"
+			name="phone"
+			[required]="true"
+			[(ngModel)]="pacient.identification.phoneNumber"
+			mask="(99) 9 9999-9999">
+		  </p-inputMask>
+		</div>
+
+		<!--Email-->
+		<div class="col mb-3">
+		  <label for="email" class="form-label">
+			Email
+		  </label>
+		  <input
+              #email="ngModel"
+			  type="text"
+			  class="form-control"
+			  id="email"
+			  name="email"
+			  placeholder="email@email.com"
+			  email
+			  required
+			  [(ngModel)]="pacient.identification.email">
+
+		  <span
+			*ngIf="email.invalid && email.touched"
+			class="text-danger">
+	  		Email inválido
+		  </span>
+		</div>
+	  </div>
+	  <!--Emergency contact, alergies, special care-->
+	  <div class="row">
+		<!--Emergency Contact-->
+		<div class="col mb-3">
+		  <label for="emergencyContact" class="form-label">
+			Contato de Emergência
+		  </label>
+		  <p-inputMask
+			styleClass="form-control"
+			id="emergencyContact"
+			name="emergencyContact"
+			placeholder="(99) 9 9999-9999"
+			[required]="true"
+			[(ngModel)]="pacient.identification.emergencyContact"
+			mask="(99) 9 9999-9999">
+		  </p-inputMask>
+		</div>
+
+		<!--Alergies-->
+		<div class="col mb-3">
+		  <label for="alergies" class="form-label">
+			Alergias
+		  </label>
+		  <input
+			type="text"
+			class="form-control"
+			id="alergies"
+			name="alergies"
+			[(ngModel)]="pacient.identification.alergies">
+		</div>
+
+		<!--Special Care-->
+		<div class="col mb-3">
+		  <label for="specialCare" class="form-label">
+			Cuidados Especiais
+		  </label>
+		  <input
+			type="text"
+			class="form-control"
+			id="specialCare"
+			name="specialCare"
+			[(ngModel)]="pacient.identification.specialCare">
+		</div>
+	  </div>
+	  <!--Health Insurance-->
+	  <h2>Convênio</h2>
+	  <div class="row">
+		<div class="col mb-3">
+		  <label for="insurance" class="form-label">
+			Convênio
+		  </label>
+		  <input
+			type="text"
+			class="form-control"
+			id="insurance"
+			name="insurance"
+			[(ngModel)]="pacient.healthInsurance.insurance">
+		</div>
+		<!--insurance number-->
+		<div class="col mb-3">
+		  <label for="insuranceNumber" class="form-label">
+			Número do Convênio
+		  </label>
+		  <input
+			type="number"
+			class="form-control"
+			id="insuranceNumber"
+			name="insuranceNumber"
+			[(ngModel)]="pacient.healthInsurance.insuranceNumber">
+		</div>
+		<!--insurance validity-->
+		<div class="col mb-3">
+		  <label for="insuranceValidity" class="form-label">
+			Validade do Convênio
+		  </label>
+		  <input
+			type="date"
+			class="form-control"
+			id="insuranceValidity"
+			name="insuranceValidity"
+			[(ngModel)]="pacient.healthInsurance.insuranceValidity">
+		</div>
+	  </div>
+	  <!--Address-->
+	  <h2>Endereço</h2>
+	  <div class="d-flex flex-column">
+		<!--Cep, City, State-->
+		<div class="row">
+		  <div class="col mb-3">
+		  	<label for="cep" class="form-label">
+				CEP
+		  	</label>
+		  	<input
+				type="text"
+				class="form-control"
+				id="cep"
+				name="cep"
+				[(ngModel)]="pacient.address.cep"
+				required
+				(change)="getAdress()">
+		  </div>
+		  <!--City-->
+		  <div class="col mb-3">
+			<label for="city" class="form-label">
+			  Cidade
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="city"
+			  name="city"
+			  [(ngModel)]="pacient.address.city"
+			  required>
+		  </div>
+		  <!--State-->
+		  <div class="col mb-3">
+			<label for="state" class="form-label">
+			  Estado
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="state"
+			  name="state"
+			  [(ngModel)]="pacient.address.state"
+			  required>
+		  </div>
+		</div>
+		<!--street, number, complement-->
+		<div class="row">
+		  <!--Street-->
+		  <div class="col mb-3">
+			<label for="street" class="form-label">
+			  Logradouro
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="street"
+			  name="street"
+			  [(ngModel)]="pacient.address.street"
+			  required>
+		  </div>
+		  <!--Number-->
+		  <div class="col mb-3">
+			<label for="number" class="form-label">
+			  Número
+			</label>
+			<input
+			  type="number"
+			  class="form-control"
+			  id="number"
+			  name="number"
+			  ngModel
+			  required
+			  [(ngModel)]="pacient.address.number">
+		  </div>
+		  <!--Complement-->
+		  <div class="col mb-3">
+			<label for="complemento" class="form-label">
+			  Complemento
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="complemento"
+			  name="complemento"
+			  [(ngModel)]="pacient.address.complement">
+		  </div>
+		</div>
+		<!--Distric, Reference-->
+		<div class="row">
+		  <!--Distritc-->
+		  <div class="col mb-3">
+			<label for="district" class="form-label">
+			  Bairro
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="district"
+			  name="district"
+			  [(ngModel)]="pacient.address.district"
+			  required>
+		  </div>
+		  <!--Reference-->
+		  <div class="col mb-3">
+			<label for="reference" class="form-label">
+			  Ponto de Referência
+			</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="reference"
+			  name="reference"
+			  [(ngModel)]="pacient.address.reference"
+			>
+		  </div>
+		</div>
+	  </div>
+	  <div class="mb-3">
+		<button
+		  class="btn btn-primary"
+		  type="submit" [disabled]="!newPacient.valid">
+		  Cadastrar
+		</button>
+	  </div>
+	</form>
+  </div>
+</section>
+
+<!--Loading-->
+<div *ngIf="isSaving" class="text-center mt-5">
+  <h2 class="pt-5">Salvando informações no banco de dados</h2>
+  <p-progressSpinner styleClass="mt-5"></p-progressSpinner>
+</div>
+
+<!--Pacient info confirmation-->
+<p-confirmDialog
+  header="Confirme as informações do paciente"
+  icon="pi pi-database">
+</p-confirmDialog>
+
+

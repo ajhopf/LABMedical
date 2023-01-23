@@ -17,7 +17,15 @@ import { PacientRegistrationComponent } from './pages/pacient-registration/pacie
 import { AppointmentRegistrationComponent } from './pages/appointment-registration/appointment-registration.component';
 import { ExamRegistrationComponent } from './pages/exam-registration/exam-registration.component';
 import { RecordsListingComponent } from './pages/records-listing/records-listing.component';
-import { PacientRecordsComponent } from './pages/pacient-records/pacient-records.component'
+import { PacientRecordsComponent } from './pages/pacient-records/pacient-records.component';
+import { ValidDobDirective } from './validators/date-of-birth/valid-dob.directive';
+import { CpfDirective } from './validators/cpf/cpf.directive';
+import { InputMaskModule } from "primeng/inputmask";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
+
 
 @NgModule({
   declarations: [
@@ -32,7 +40,9 @@ import { PacientRecordsComponent } from './pages/pacient-records/pacient-records
     AppointmentRegistrationComponent,
     ExamRegistrationComponent,
     RecordsListingComponent,
-    PacientRecordsComponent
+    PacientRecordsComponent,
+    ValidDobDirective,
+    CpfDirective
   ],
   imports: [
     BrowserModule,
@@ -40,9 +50,12 @@ import { PacientRecordsComponent } from './pages/pacient-records/pacient-records
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    InputMaskModule,
+    ConfirmDialogModule,
+    ProgressSpinnerModule
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
