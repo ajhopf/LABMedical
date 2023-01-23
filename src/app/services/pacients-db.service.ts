@@ -11,8 +11,7 @@ export class PacientsDbService {
   constructor(private http: HttpClient) { }
 
   createPacient(newPacient) {
-    console.log(newPacient)
-
-    this.http.post(this.BASE_URL, newPacient).subscribe(createdPacient => console.log(createdPacient))
+    // this.http.post(this.BASE_URL, newPacient).subscribe(createdPacient => console.log(createdPacient))
+    return this.http.post(this.BASE_URL, newPacient)
   }
 }

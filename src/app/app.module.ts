@@ -21,6 +21,11 @@ import { PacientRecordsComponent } from './pages/pacient-records/pacient-records
 import { ValidDobDirective } from './validators/date-of-birth/valid-dob.directive';
 import { CpfDirective } from './validators/cpf/cpf.directive';
 import { InputMaskModule } from "primeng/inputmask";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
+
 
 @NgModule({
   declarations: [
@@ -46,9 +51,11 @@ import { InputMaskModule } from "primeng/inputmask";
     HttpClientModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    InputMaskModule
+    InputMaskModule,
+    ConfirmDialogModule,
+    ProgressSpinnerModule
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

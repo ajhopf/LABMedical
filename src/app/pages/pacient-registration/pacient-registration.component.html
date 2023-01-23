@@ -1,4 +1,4 @@
-<div class="mx-5">
+<section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
   <div>
 	<button class="btn btn-primary" disabled>Editar</button>
 	<button class="btn btn-primary" disabled>Editar</button>
@@ -331,7 +331,8 @@
 				id="cep"
 				name="cep"
 				[(ngModel)]="pacient.address.cep"
-				required (change)="getAdress()">
+				required
+				(change)="getAdress()">
 		  </div>
 		  <!--City-->
 		  <div class="col mb-3">
@@ -386,6 +387,7 @@
 			  id="number"
 			  name="number"
 			  ngModel
+			  required
 			  [(ngModel)]="pacient.address.number">
 		  </div>
 		  <!--Complement-->
@@ -439,8 +441,19 @@
 		</button>
 	  </div>
 	</form>
-
   </div>
+</section>
+
+<!--Loading-->
+<div *ngIf="isSaving" class="text-center mt-5">
+  <h2 class="pt-5">Salvando informações no banco de dados</h2>
+  <p-progressSpinner styleClass="mt-5"></p-progressSpinner>
 </div>
+
+<!--Pacient info confirmation-->
+<p-confirmDialog
+  header="Confirme as informações do paciente"
+  icon="pi pi-database">
+</p-confirmDialog>
 
 
