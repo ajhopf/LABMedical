@@ -12,13 +12,14 @@
 
 .lateral-menu {
    display: none;
-
 }
 
 .lateral-menu.open {
-
     display: initial;
     width: 200px;
     background-color: #1f879d;
 }
 
+.main-content {
+    width: 100%
+}
