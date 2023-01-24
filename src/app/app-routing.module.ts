@@ -28,6 +28,9 @@ const routes: Routes = [
       }, {
         path: 'pacient-registration',
         component: PacientRegistrationComponent,
+      },{
+        path: 'pacient-registration/:id',
+        component: PacientRegistrationComponent
       }, {
         path: 'records-listing',
         component: RecordsListingComponent

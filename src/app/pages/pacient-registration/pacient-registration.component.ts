@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViacepService } from "../../services/viacep.service";
 import { PacientsDbService } from "../../services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
+import { ActivatedRoute, Params } from "@angular/router";
 
 @Component({
   selector: 'app-pacient-registration',
@@ -13,7 +14,9 @@ export class PacientRegistrationComponent implements OnInit{
 
   isSaving = false
 
-  pacient = {
+  userId = ''
+
+  pacient: any = {
     identification: {
       pacientName: '',
       pacientGender: 'feminino',
@@ -51,9 +54,26 @@ export class PacientRegistrationComponent implements OnInit{
   constructor(
     private viacep: ViacepService,
     private pacientsDB: PacientsDbService,
-    private confirmationService: ConfirmationService
-  ) {
+    private confirmationService: ConfirmationService,
+    private route: ActivatedRoute
+  ) {}
 
+  ngOnInit() {
+    this.userId = this.route.snapshot.params['id']
+
+    if (this.userId) {
+      this.pacientsDB.getPacient(this.userId).subscribe(pacient => {
+        let returnedPacient = pacient
+
+        this.pacient = returnedPacient
+      })
+    }
+
+    console.log(this.userId)
+
+    this.route.params.subscribe((params: Params) => {
+      console.log(params)
+    })
   }
 
 
@@ -100,8 +120,7 @@ export class PacientRegistrationComponent implements OnInit{
     })
   }
 
-  ngOnInit() {
-  }
+
 
   formatCpf() {
     let pacientCpf = this.pacient.identification.cpf
