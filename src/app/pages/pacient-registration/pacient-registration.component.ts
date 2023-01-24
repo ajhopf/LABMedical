@@ -114,8 +114,7 @@ export class PacientRegistrationComponent implements OnInit{
               this.isSaving = false
             }
           )
-          },
-          1500)
+        },1500)
       }
     })
   }

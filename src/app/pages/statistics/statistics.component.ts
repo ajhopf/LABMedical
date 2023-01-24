@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PacientsDbService } from "../../services/pacients-db.service";
 import { FilterPacientsService } from "../../services/filter-pacients.service";
+import { AppointmentsDbService } from "../../services/appointments-db.service";
 
 @Component({
   selector: 'app-statistics',
@@ -10,15 +11,20 @@ import { FilterPacientsService } from "../../services/filter-pacients.service";
 export class StatisticsComponent implements OnInit {
   pacients
   filteredPacients = []
+  appointments
 
   constructor(
     private pacientsDB: PacientsDbService,
-    private pacientFilterService: FilterPacientsService
+    private pacientFilterService: FilterPacientsService,
+    private appointmentsDB: AppointmentsDbService
   ) {}
 
   ngOnInit(){
     this.pacientsDB.getPacients().subscribe(
       pacientsList => this.pacients = pacientsList
+    )
+    this.appointmentsDB.getAppointments().subscribe(
+      appointmentList => this.appointments = appointmentList
     )
   }
 

@@ -5,7 +5,6 @@ import { HttpClient } from "@angular/common/http";
   providedIn: 'root'
 })
 export class PacientsDbService {
-  pacients
   BASE_URL = 'http://localhost:3000/pacients'
   constructor(private http: HttpClient) {
   }
