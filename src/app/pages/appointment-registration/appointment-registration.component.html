@@ -1,1 +1,146 @@
-<p>appointment-registration works!</p>
+<h2>Encontre o paciente</h2>
+<app-search-bar
+  (onSearchInput)="filterPacients($event)"
+  [listOfFilteredPacients]="filteredPacients"
+></app-search-bar>
+
+<div *ngIf="filteredPacients">
+  <h3>Selecione o Paciente</h3>
+  <ul>
+	<li *ngFor="let pacient of filteredPacients">
+	  <button (click)="onSelectPacient(pacient)">
+		{{ pacient.identification.pacientName }}
+	  </button>
+	</li>
+  </ul>
+</div>
+
+<!-- *ngIf="selectedPacient"-->
+
+<hr>
+<div *ngIf="selectedPacient">
+
+
+  <form #newAppointment="ngForm" (ngSubmit)="onFormSubmit()">
+	<div class="row m-0 mb-3">
+	  <div class="col-7">
+		<h3>Consulta de {{ selectedPacient.identification.pacientName }}</h3>
+	  </div>
+
+	  <div class="col d-flex">
+		<button
+		  [disabled]="true"
+		  class="btn btn-primary">
+		  Deletar
+		</button>
+		<button
+		  type="submit"
+		  class="btn btn-primary"
+		  [disabled]="!newAppointment.valid">
+		  Cadastrar Consulta
+		</button>
+	  </div>
+	</div>
+	<!--Appointment reason, date and time-->
+	<div class="row m-0 mb-3">
+	  <div class="col">
+		<label
+		  for="reason"
+		  class="form-label">Motivo da Consulta
+		</label>
+		<input
+		  id="reason"
+		  name="reason"
+		  class="form-control"
+		  type="text"
+		  [(ngModel)]="appointment.reason"
+		  required maxlength="64" minlength="8">
+	  </div>
+	  <div class="col">
+		<div class="row m-0">
+		  <div class="col">
+			<label for="appointmentDate" class="form-label">
+			  Data da Consulta
+			</label>
+			<input
+			  type="date"
+			  id="appointmentDate"
+			  name="appointmentDate"
+			  class="form-control"
+			  required
+			  [(ngModel)]="appointment.date"
+			>
+		  </div>
+		  <div class="col">
+			<label for="appointmentTime" class="form-label">
+			  Horário da Consulta
+			</label>
+			<input
+			  type="time"
+			  id="appointmentTime"
+			  name="appointmentTime"
+			  class="form-control"
+			  required
+			  [(ngModel)]="appointment.time"
+			>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!--Description-->
+	<div class="row m-0 mb-3">
+	  <div class="col">
+		<label
+		  for="description"
+		  class="form-label">
+		  Descrição do Problema
+		</label>
+		<textarea
+		  id="description"
+		  name="description"
+		  class="form-control"
+		  required minlength="16" maxlength="1024"
+		  rows="8"
+		  [(ngModel)]="appointment.description">
+	  </textarea>
+	  </div>
+	</div>
+	<!--Medications-->
+	<div class="row m-0 mb-3">
+	  <div class="col">
+		<label
+		  for="medication"
+		  class="form-label">
+		  Medicações
+		</label>
+		<textarea
+		  id="medication"
+		  name="medication"
+		  class="form-control"
+		  rows="2"
+		  [(ngModel)]="appointment.medication">
+	  </textarea>
+	  </div>
+	</div>
+	<!--Dosage and Precautions-->
+	<div class="row m-0 mb-3">
+	  <div class="col">
+		<label
+		  for="dosage"
+		  class="form-label">
+		  Dosagem e Precauções
+		</label>
+		<textarea
+		  id="dosage"
+		  name="dosage"
+		  class="form-control"
+		  required minlength="16" maxlength="256"
+		  rows="3"
+		  [(ngModel)]="appointment.dosageAndPrecautions">
+	  </textarea>
+	  </div>
+	</div>
+	<!--Submit-->
+
+  </form>
+</div>
