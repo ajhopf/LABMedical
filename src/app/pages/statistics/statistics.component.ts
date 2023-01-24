@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PacientsDbService } from "../../services/pacients-db.service";
+import { FilterPacientsService } from "../../services/filter-pacients.service";
 
 @Component({
   selector: 'app-statistics',
@@ -11,7 +12,8 @@ export class StatisticsComponent implements OnInit {
   filteredPacients = []
 
   constructor(
-    private pacientsDB: PacientsDbService
+    private pacientsDB: PacientsDbService,
+    private pacientFilterService: FilterPacientsService
   ) {}
 
   ngOnInit(){
@@ -20,26 +22,7 @@ export class StatisticsComponent implements OnInit {
     )
   }
 
-  filterPacients(event: string) {
-    //filter by name
-    this.filteredPacients = this.pacients.filter(pacient => pacient.identification.pacientName.toLowerCase().includes(event.toLowerCase()))
-    //filter by email if no result by name
-    if(this.filteredPacients.length === 0) {
-      this.filteredPacients = this.pacients.filter(pacient => pacient.identification.email.includes(event))
-    }
-    //filter by phone if no resul by name and email
-    if(this.filteredPacients.length === 0) {
-      this.filteredPacients = this.pacients.filter(pacient => {
-        let formattedPhone = pacient.identification.phoneNumber.replace(/[^0-9]+/g, '')
-
-        return formattedPhone.includes(event)
-      })
-    }
+  filterPacients(filter: string) {
+    this.filteredPacients = this.pacientFilterService.filterPacients(this.pacients, filter)
   }
-
-  // filterPacients(event: string) {
-  //   if (this.pacientsDB.filterPacients(event)) {
-  //     this.filteredPacients = this.pacientsDB.filterPacients(event)
-  //   }
-  // }
 }
