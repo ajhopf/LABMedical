@@ -11,4 +11,8 @@ export class AppointmentsDbService {
   createAppointment(newAppointment) {
     return this.http.post(this.BASE_URL, newAppointment)
   }
+
+  getAppointments() {
+    return this.http.get(this.BASE_URL)
+  }
 }
