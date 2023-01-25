@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
+import { ExamsDbService } from "../../shared/services/exams-db.service";
 
 @Component({
   selector: 'app-statistics',
@@ -10,13 +11,15 @@ import { AppointmentsDbService } from "../../shared/services/appointments-db.ser
 })
 export class StatisticsComponent implements OnInit {
   pacients
-  filteredPacients = []
   appointments
+  exams
+  filteredPacients = []
 
   constructor(
-    private pacientsDB: PacientsDbService,
     private pacientFilterService: FilterPacientsService,
-    private appointmentsDB: AppointmentsDbService
+    private pacientsDB: PacientsDbService,
+    private appointmentsDB: AppointmentsDbService,
+    private examsDB: ExamsDbService
   ) {}
 
   ngOnInit(){
@@ -25,6 +28,10 @@ export class StatisticsComponent implements OnInit {
     )
     this.appointmentsDB.getAppointments().subscribe(
       appointmentList => this.appointments = appointmentList
+    )
+
+    this.examsDB.getExams().subscribe(
+      examsList => this.exams = examsList
     )
   }
 
