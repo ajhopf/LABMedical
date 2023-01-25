@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { DoctorsDBService } from "../../../services/doctors-db.service";
+import { DoctorsDBService } from "../../../shared/services/doctors-db.service";
 
 @Component({
   selector: 'app-new-user',

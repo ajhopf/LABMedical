@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ViacepService } from "../../services/viacep.service";
-import { PacientsDbService } from "../../services/pacients-db.service";
+import { ViacepService } from "../../shared/services/viacep.service";
+import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
 import { ActivatedRoute, Params } from "@angular/router";
 
