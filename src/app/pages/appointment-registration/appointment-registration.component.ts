@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+// @ts-ignore
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
+// @ts-ignore
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { ConfirmationService } from "primeng/api";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";

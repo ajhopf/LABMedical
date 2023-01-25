@@ -1,1 +1,37 @@
-<p>records-listing works!</p>
+<h2>Utilize a barra de pesquisa para buscar</h2>
+<div class="mb-3">
+  <app-search-bar (onSearchInput)="filterPacients($event)"></app-search-bar>
+</div>
+
+<table class="table">
+  <thead>
+	<tr>
+	  <th scope="col">Registro</th>
+	  <th scope="col">Nome do Paciente</th>
+	  <th scope="col">Convênio</th>
+	  <th scope="col"></th>
+	</tr>
+  </thead>
+
+  <!--List if there is no active filter-->
+  <tbody *ngIf="filteredPacients.length === 0">
+  	<tr
+	*ngFor="let pacient of pacients"
+	(click)="onPacientClick(pacient)">
+		<td>{{ pacient.id }}</td>
+		<td>{{ pacient.identification.pacientName }}</td>
+		<td>{{ pacient.healthInsurance.insurance ? pacient.healthInsurance.insurance : 'Sem Plano'}}</td>
+		<td class="pacientListArrow"><i class="pi pi-chevron-right"></i></td>
+  	</tr>
+  </tbody>
+
+  <!--List if there is no active filter-->
+  <tbody *ngIf="filteredPacients.length > 0">
+	<tr *ngFor="let pacient of filteredPacients">
+	  <td>{{ pacient.id }}</td>
+	  <td>{{ pacient.identification.pacientName }}</td>
+	  <td>{{ pacient.healthInsurance.insurance ? pacient.healthInsurance.insurance : 'Sem Plano'}}</td>
+	  <td class="pacientListArrow"><i class="pi pi-chevron-right"></i></td>
+	</tr>
+  </tbody>
+</table>

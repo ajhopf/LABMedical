@@ -29,8 +29,6 @@ import { CardModule } from 'primeng/card';
 import { PacientCardComponent } from './components/pacient-card/pacient-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
