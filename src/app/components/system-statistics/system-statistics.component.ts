@@ -24,7 +24,6 @@ export class SystemStatisticsComponent implements OnChanges{
 
     if(this.pacients) {
       for (let pacient of this.pacients) {
-        console.log(this.pacientsNumber)
         this.pacientsNumber++
       }
     }

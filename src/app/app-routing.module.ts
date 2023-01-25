@@ -8,6 +8,7 @@ import { PacientRegistrationComponent } from "./pages/pacient-registration/pacie
 import { RecordsListingComponent } from "./pages/records-listing/records-listing.component";
 import { AppointmentRegistrationComponent } from "./pages/appointment-registration/appointment-registration.component";
 import { ExamRegistrationComponent } from "./pages/exam-registration/exam-registration.component";
+import { PacientRecordsComponent } from "./pages/pacient-records/pacient-records.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,9 @@ const routes: Routes = [
       }, {
         path: 'exam-registration',
         component: ExamRegistrationComponent
+      }, {
+        path: 'pacient-records/:id',
+        component: PacientRecordsComponent
       }
     ]
   }, {
