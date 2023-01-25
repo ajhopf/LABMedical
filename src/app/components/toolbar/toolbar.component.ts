@@ -8,10 +8,10 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { LocalStorageService } from "../../services/local-storage.service";
+import { LocalStorageService } from "../../shared/services/local-storage.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { DoctorsDBService } from "../../services/doctors-db.service";
-import { PageHeaders } from "../../constants/page-headers";
+import { DoctorsDBService } from "../../shared/services/doctors-db.service";
+import { PageHeaders } from "../../shared/constants/page-headers";
 
 @Component({
   selector: 'app-toolbar',

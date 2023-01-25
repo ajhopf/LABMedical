@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { PacientsDbService } from "../../services/pacients-db.service";
+import { PacientsDbService } from "../../shared/services/pacients-db.service";
 
 @Component({
   selector: 'app-system-statistics',

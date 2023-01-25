@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PacientsDbService } from "../../services/pacients-db.service";
-import { FilterPacientsService } from "../../services/filter-pacients.service";
-import { AppointmentsDbService } from "../../services/appointments-db.service";
+import { PacientsDbService } from "../../shared/services/pacients-db.service";
+import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
+import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 
 @Component({
   selector: 'app-statistics',

@@ -1,9 +1,9 @@
 import { Component, DoCheck, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { DoctorsDBService } from "../../services/doctors-db.service";
-import { URLS } from "../../constants/urls";
+import { DoctorsDBService } from "../../shared/services/doctors-db.service";
+import { URLS } from "../../shared/constants/urls";
 import { NgForm } from "@angular/forms";
 import { filter } from "rxjs";
-import { AuthenticationService } from "../../services/authentication.service";
+import { AuthenticationService } from "../../shared/services/authentication.service";
 import { Router } from "@angular/router";
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PacientsDbService } from "../../services/pacients-db.service";
-import { FilterPacientsService } from "../../services/filter-pacients.service";
+import { PacientsDbService } from "../../shared/services/pacients-db.service";
+import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { ConfirmationService } from "primeng/api";
-import { AppointmentsDbService } from "../../services/appointments-db.service";
+import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 
 @Component({
   selector: 'app-appointment-registration',
@@ -42,7 +42,7 @@ export class AppointmentRegistrationComponent implements OnInit{
   }
 
   filterPacients(filter: string) {
-    if(filter) {
+    if (filter) {
       this.filteredPacients = this.filterPacientsService.filterPacients(this.pacients, filter)
     } else {
       this.filteredPacients = ''

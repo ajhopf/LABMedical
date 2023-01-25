@@ -18,16 +18,6 @@ export class PacientsDbService {
   }
 
   getPacient(pacientId: string) {
-    return this.http.get(`${this.BASE_URL}/${+pacientId}`)
+    return this.http.get(`${ this.BASE_URL }/${ +pacientId }`)
   }
-
-  // populatePacientsArray() {
-  //   this.getPacients().subscribe(pacients => {
-  //       this.pacients = pacients
-  //       console.log(this.pacients)
-  //       return this.pacients
-  //     }
-  //   )
-  // }
-
 }
