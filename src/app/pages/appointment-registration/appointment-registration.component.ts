@@ -42,7 +42,7 @@ export class AppointmentRegistrationComponent implements OnInit{
   }
 
   filterPacients(filter: string) {
-    if(filter) {
+    if (filter) {
       this.filteredPacients = this.filterPacientsService.filterPacients(this.pacients, filter)
     } else {
       this.filteredPacients = ''

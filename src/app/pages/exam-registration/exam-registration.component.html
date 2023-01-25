@@ -1,1 +1,171 @@
-<p>exam-registration works!</p>
+<section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
+  <h2>Encontre o paciente</h2>
+  <app-search-bar
+	(onSearchInput)="filterPacients($event)"
+	[listOfFilteredPacients]="filteredPacients"
+  ></app-search-bar>
+
+  <div *ngIf="filteredPacients">
+	<h3>Selecione o Paciente</h3>
+	<ul>
+	  <li *ngFor="let pacient of filteredPacients">
+		<button (click)="onSelectPacient(pacient)">
+		  {{ pacient.identification.pacientName }}
+		</button>
+	  </li>
+	</ul>
+  </div>
+
+  <!-- *ngIf="selectedPacient"-->
+  <hr>
+  <div *ngIf="selectedPacient">
+	<form #newExam="ngForm" (ngSubmit)="onFormSubmit()">
+	  <div class="row m-0 mb-3">
+		<div class="col-7">
+		  <h3>Consulta de {{ selectedPacient.identification.pacientName }}</h3>
+		</div>
+
+		<div class="col d-flex">
+		  <button
+			[disabled]="true"
+			class="btn btn-primary">
+			Deletar
+		  </button>
+		  <button
+			type="submit"
+			class="btn btn-primary"
+			[disabled]="!newExam.valid">
+			Cadastrar Consulta
+		  </button>
+		</div>
+	  </div>
+	  <!--Exam name, date and time-->
+	  <div class="row m-0 mb-3">
+
+		<div class="col">
+		  <label
+			for="examName"
+			class="form-label">Nome do Exame
+		  </label>
+		  <input
+			id="examName"
+			name="examName"
+			class="form-control"
+			type="text"
+			[(ngModel)]="exam.examName"
+			required maxlength="64" minlength="8">
+		</div>
+
+		<div class="col">
+		  <div class="row m-0">
+			<div class="col">
+			  <label for="examDate" class="form-label">
+				Data do Exame
+			  </label>
+			  <input
+				type="date"
+				id="examDate"
+				name="examDate"
+				class="form-control"
+				required
+				[(ngModel)]="exam.date"
+			  >
+			</div>
+			<div class="col">
+			  <label for="examTime" class="form-label">
+				Horário do Exame
+			  </label>
+			  <input
+				type="time"
+				id="examTime"
+				name="examTime"
+				class="form-control"
+				required
+				[(ngModel)]="exam.time"
+			  >
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <!--Exam Type, Exam Lab-->
+	  <div class="row m-0 mb-3">
+		<!--Exam Type-->
+		<div class="col">
+		  <label
+			for="examType"
+			class="form-label">
+			Tipo do Exame
+		  </label>
+		  <input
+			id="examType"
+			name="examType"
+			class="form-control"
+			required minlength="4" maxlength="32"
+			[(ngModel)]="exam.examType">
+		</div>
+		<!--Exam Lab-->
+		<div class="col">
+		  <label
+			for="examLab"
+			class="form-label">
+			Laboratório
+		  </label>
+		  <input
+			id="examLab"
+			name="examLab"
+			class="form-control"
+			required minlength="4" maxlength="32"
+			[(ngModel)]="exam.examLab">
+		</div>
+	  </div>
+	  <!--Exam URL-->
+	  <div class="row m-0 mb-3">
+		<div class="col">
+		  <label
+			for="examUrl"
+			class="form-label">
+			URL do Documento do Exame
+		  </label>
+		  <input
+			id="examUrl"
+			name="examUrl"
+			class="form-control"
+			[(ngModel)]="exam.examUrl">
+		</div>
+	  </div>
+	  <!--Exam Result-->
+	  <div class="row m-0 mb-3">
+		<div class="col">
+		  <label
+			for="examResul"
+			class="form-label">
+			Resultado do Exame
+		  </label>
+		  <textarea
+			id="examResul"
+			name="examResul"
+			class="form-control"
+			required minlength="16" maxlength="1024"
+			rows="3"
+			[(ngModel)]="exam.examResult">
+	  </textarea>
+		</div>
+	  </div>
+	  <!--Submit-->
+
+	</form>
+  </div>
+</section>
+
+
+<!--Loading-->
+<div *ngIf="isSaving" class="text-center mt-5">
+  <h2 class="pt-5">Salvando informações no banco de dados</h2>
+  <p-progressSpinner styleClass="mt-5"></p-progressSpinner>
+</div>
+
+<!--Pacient info confirmation-->
+<p-confirmDialog
+  header="Confirme as informações da Consulta"
+  icon="pi pi-database">
+</p-confirmDialog>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 interface Doctor {
   name?: string;
@@ -15,9 +16,8 @@ export class DoctorsDBService {
   BASE_URL = 'http://localhost:3000/doctors'
   constructor(private http: HttpClient) { }
 
-  createUser(createdUser: Doctor) {
+  createUser(createdUser: Doctor): void {
     console.log(createdUser)
-
     this.http.post(
       this.BASE_URL,
       createdUser
