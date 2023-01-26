@@ -1,1 +1,11 @@
-<p>pacient-records works!</p>
+<div class="row">
+  <div class="col">
+	<div *ngIf="pacient">
+	  <h2>{{ pacient.identification.pacientName }}</h2>
+	  <p>Convênio:
+		{{ pacient.healthInsurance.insurance || "paciente sem plano" }}
+	  </p>
+	  <p>Alergias: {{ pacient.identification.alergies || "Sem alergia"  }}</p>
+	</div>
+  </div>
+</div>
