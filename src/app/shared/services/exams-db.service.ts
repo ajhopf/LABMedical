@@ -15,4 +15,8 @@ export class ExamsDbService {
   getExams(){
     return this.http.get(this.BASE_URL)
   }
+
+  getExamsByPacientId(pacientId: string) {
+    return this.http.get(`${this.BASE_URL}?pacientId=${pacientId}`)
+  }
 }

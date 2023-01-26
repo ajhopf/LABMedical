@@ -4,6 +4,10 @@ import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
+import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
+import { ExamsDbService } from "../../shared/services/exams-db.service";
+import { Appointment } from "../../shared/models/appointment.model";
+import { Exam } from "../../shared/models/exam.model";
 
 @Component({
   selector: 'app-pacient-registration',
@@ -16,6 +20,7 @@ export class PacientRegistrationComponent implements OnInit{
   isSaving: boolean = false
 
   userId: string = ''
+  hasRecords: boolean = false
 
   pacient: Pacient = {
     identification: {
@@ -56,7 +61,9 @@ export class PacientRegistrationComponent implements OnInit{
     private viacep: ViacepService,
     private pacientsDB: PacientsDbService,
     private confirmationService: ConfirmationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appointmentsDB: AppointmentsDbService,
+    private examsDB: ExamsDbService
   ) {}
 
   ngOnInit() {
@@ -66,6 +73,23 @@ export class PacientRegistrationComponent implements OnInit{
       this.pacientsDB.getPacient(this.userId).subscribe((pacient: Pacient) => {
         this.pacient = pacient
       })
+
+      this.appointmentsDB.getAppointmentsByUserId(this.userId).subscribe(
+        (appointments: Appointment[]) => {
+
+          if (appointments.length > 0) {
+            this.hasRecords = true
+          }
+        }
+      )
+
+      this.examsDB.getExamsByPacientId(this.userId).subscribe(
+        (exams: Exam[] ) => {
+          if (exams.length > 0) {
+            this.hasRecords = true
+          }
+        }
+      )
     }
   }
 

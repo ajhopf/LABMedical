@@ -1,7 +1,7 @@
 <section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
   <div>
 	<button class="btn btn-primary" [disabled]="!userId">Editar</button>
-	<button class="btn btn-primary" disabled>Editar</button>
+	<button class="btn btn-primary" [disabled]="hasRecords">Deletar Cadastro</button>
   </div>
 
   <div>

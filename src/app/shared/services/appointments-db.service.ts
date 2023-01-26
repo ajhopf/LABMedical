@@ -15,4 +15,8 @@ export class AppointmentsDbService {
   getAppointments() {
     return this.http.get(this.BASE_URL)
   }
+
+  getAppointmentsByUserId(pacientId: string) {
+    return this.http.get(`${this.BASE_URL}?pacientId=${pacientId}`)
+  }
 }
