@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViacepService } from "../../shared/services/viacep.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
@@ -63,7 +63,8 @@ export class PacientRegistrationComponent implements OnInit{
     private confirmationService: ConfirmationService,
     private route: ActivatedRoute,
     private appointmentsDB: AppointmentsDbService,
-    private examsDB: ExamsDbService
+    private examsDB: ExamsDbService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -116,6 +117,7 @@ export class PacientRegistrationComponent implements OnInit{
 
     this.confirmationService.confirm({
       message: confirmationMessage,
+      header: 'Confirme as informações do paciente',
       accept: () => {
         this.isSaving = true
 
@@ -159,6 +161,30 @@ export class PacientRegistrationComponent implements OnInit{
           console.error(error.message)
           alert('CEP inválido!')
       })
+  }
+
+  onDeleteRegistration(): void{
+    this.confirmationService.confirm({
+      message: `<pre>
+        Você está prestes a deletar o registro de ${this.pacient.identification.pacientName}\n
+        Confirmar deleção?
+        </pre>`,
+      header: 'Deletar paciente',
+      accept: () => {
+        this.isSaving = true
+
+        setTimeout(() => {
+          this.pacientsDB.deletePacient(this.userId).subscribe(
+            response => {
+              this.isSaving = false
+              this.router.navigate(['/home/pacient-registration'])
+            }, error => {
+              console.error('Paciente não foi deletado!', error.message)
+            }
+          )
+        },1500)
+      }
+    })
   }
 }
 

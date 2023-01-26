@@ -22,4 +22,8 @@ export class PacientsDbService {
   getPacient(pacientId: string): Observable<any> {
     return this.http.get(`${ this.BASE_URL }/${ +pacientId }`)
   }
+
+  deletePacient(pacientId: string) {
+    return this.http.delete(`${this.BASE_URL}/${pacientId}`)
+  }
 }
