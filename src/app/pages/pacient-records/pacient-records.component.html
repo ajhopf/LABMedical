@@ -16,9 +16,9 @@
 		<div *ngIf="record.examName">
 		  <p class="text-bg-secondary">{{ i + 1 }} Exame</p>
 		  <h3>{{ record.examName }}</h3>
-		  <h4>Laboratório: {{ record.examLab }}</h4>
-		  <p>{{ record.date }}</p>
-		  <p>{{ record.time }}</p>
+		  <p>Laboratório: {{ record.examLab }}</p>
+		  <p>Data: {{ record.date | date: 'dd/MM/yyyy' }}</p>
+		  <p>Horário do exame: {{ record.time }}</p>
 		  <p>{{ record.examUrl || "Sem link para este exame" }}</p>
 		  <p>{{ record.examResult }}</p>
 		  <button (click)="onExamEdit(record.id)">Editar</button>
@@ -29,8 +29,8 @@
 		<div *ngIf="record.reason">
 		  <p class="text-bg-secondary">{{ i + 1 }} Consulta</p>
 		  <h3>{{ record.reason }}</h3>
-		  <p>Data: {{ record.date }}</p>
-		  <p>{{ record.time }}</p>
+		  <p>Data: {{ record.date | date: 'dd/MM/yyyy' }}</p>
+		  <p>Horário da consulta: {{ record.time }}</p>
 		  <p>{{ record.description }}</p>
 		  <p>{{ record.medication || "Sem medicação" }}</p>
 		  <p>{{ record.dosageAndPrecautions }}</p>

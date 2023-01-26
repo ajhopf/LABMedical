@@ -23,7 +23,8 @@ export class AppointmentRegistrationComponent implements OnInit{
     pacientId: '',
     reason: '',
     date: new Date().toISOString().slice(0,10),
-    time: `${new Date().getHours()}:${new Date().getMinutes()}`,
+    // time: `${new Date().getHours()}:${new Date().getMinutes()}`,
+    time: new Date().toLocaleTimeString().slice(0,5),
     description: '',
     medication: '',
     dosageAndPrecautions: ''
