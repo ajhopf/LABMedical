@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { ConfirmationService } from "primeng/api";
-import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
+import { Exam } from "../../shared/models/exam.model";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Pacient } from "../../shared/models/pacient.model";
 
 @Component({
   selector: 'app-exam-registration',
@@ -16,13 +18,13 @@ export class ExamRegistrationComponent implements OnInit{
   filteredPacients
   selectedPacient
   isSaving
+  examId
+  newExamRegistration = true
 
-  exam = {
-    pacientId: '',
+  exam: Exam = {
+    pacientId: 0,
     examName: '',
     date: new Date().toISOString().slice(0,10),
-    // date: new Date().toLocaleDateString(),
-    //time: `${new Date().getHours()}:${new Date().getMinutes()}`,
     time: new Date().toLocaleTimeString().slice(0,5),
     examType: '',
     examLab: '',
@@ -35,6 +37,8 @@ export class ExamRegistrationComponent implements OnInit{
     private examsDB: ExamsDbService,
     private filterPacientsService: FilterPacientsService,
     private confirmationService: ConfirmationService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(){
@@ -43,11 +47,24 @@ export class ExamRegistrationComponent implements OnInit{
         this.pacients = pacientsList;
       }
     )
+
+    if (this.route.snapshot.params['id']) {
+      this.examId = this.route.snapshot.params['id']
+      this.examsDB.getExam(this.examId).subscribe(
+        (exam: Exam) => {
+          this.exam = exam
+
+          this.pacientsDB.getPacient(exam.pacientId.toString())
+            .subscribe((pacient: Pacient) => {
+              this.selectedPacient = pacient
+              this.newExamRegistration = false
+            })
+        }
+      )
+    }
   }
 
   filterPacients(filter: string) {
-    console.log(filter)
-    console.log(this.pacients)
     if (filter) {
       this.filteredPacients = this.filterPacientsService.filterPacients(this.pacients, filter)
     } else {
@@ -56,7 +73,6 @@ export class ExamRegistrationComponent implements OnInit{
   }
 
   onSelectPacient(pacient) {
-    console.log(pacient.id)
     this.filteredPacients = ''
     this.exam.pacientId = pacient.id
     this.selectedPacient = pacient
@@ -93,4 +109,37 @@ export class ExamRegistrationComponent implements OnInit{
       }
     })
   }
+
+  onEditExam() {
+    this.examsDB.editExam(this.exam).subscribe(
+      response => console.log(response)
+    )
+  }
+
+  onDeleteExam() {
+    this.confirmationService.confirm({
+      message: `<pre>
+      Você está prestes a deletar o exame ${this.exam.examName} de ${this.selectedPacient.identification.pacientName}\n
+      Confirmar deleção?</pre>`,
+      header: 'Deletar exame',
+      accept: () => {
+        this.isSaving = true
+
+        setTimeout(() => {
+          this.examsDB.deleteExam(this.examId).subscribe(
+            createdExam => {
+              alert('Exame deletado com sucesso!')
+              this.isSaving = false
+              this.router.navigate(['/home/exam-registration'])
+            },
+            error => {
+              alert('Exame não foi deletado do banco de Dados! Motivo: ' + error.message)
+              this.isSaving = false
+            }
+          )
+        }, 1500)
+      }
+    })
+  }
+
 }

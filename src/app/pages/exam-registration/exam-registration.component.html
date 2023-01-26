@@ -1,43 +1,56 @@
 <section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
-  <h2>Encontre o paciente</h2>
-  <app-search-bar
-	(onSearchInput)="filterPacients($event)"
-	[listOfFilteredPacients]="filteredPacients"
-  ></app-search-bar>
+  <div *ngIf="newExamRegistration">
 
-  <div *ngIf="filteredPacients">
-	<h3>Selecione o Paciente</h3>
-	<ul>
-	  <li *ngFor="let pacient of filteredPacients">
-		<button (click)="onSelectPacient(pacient)">
-		  {{ pacient.identification.pacientName }}
-		</button>
-	  </li>
-	</ul>
+	<h2>Encontre o paciente</h2>
+
+	<app-search-bar
+	  (onSearchInput)="filterPacients($event)"
+	  [listOfFilteredPacients]="filteredPacients"
+	></app-search-bar>
+
+	<div *ngIf="filteredPacients">
+	  <h3>Selecione o Paciente</h3>
+	  <ul>
+		<li *ngFor="let pacient of filteredPacients">
+		  <button (click)="onSelectPacient(pacient)">
+			{{ pacient.identification.pacientName }}
+		  </button>
+		</li>
+	  </ul>
+	</div>
+	<hr>
   </div>
 
   <!-- *ngIf="selectedPacient"-->
-  <hr>
-  <div *ngIf="selectedPacient">
+
+  <div *ngIf="selectedPacient || !newExamRegistration">
 	<form #newExam="ngForm" (ngSubmit)="onFormSubmit()">
 	  <div class="row m-0 mb-3">
 		<div class="col-7">
-		  <h3>Consulta de {{ selectedPacient.identification.pacientName }}</h3>
+		  <h3>Exame de {{ selectedPacient.identification.pacientName }}</h3>
 		</div>
 
-		<div class="col d-flex">
+		<div class="row">
 		  <button
-			[disabled]="true"
-			class="btn btn-primary">
-			Deletar
+		  	type="submit"
+		  	class="btn btn-primary col"
+		  	[disabled]="!newExam.valid || !newExamRegistration">
+		  	Cadastrar Exame
 		  </button>
 		  <button
-			type="submit"
-			class="btn btn-primary"
-			[disabled]="!newExam.valid">
-			Cadastrar Consulta
+			type="button"
+			[disabled]="newExamRegistration || !newExam.valid"
+			class="btn btn-primary col" (click)="onEditExam()">
+			Editar Exame
+		  </button>
+		  <button
+			type="button"
+			class="btn btn-primary col"
+			[disabled]="newExamRegistration" (click)="onDeleteExam()">
+			Deletar Exame
 		  </button>
 		</div>
+
 	  </div>
 	  <!--Exam name, date and time-->
 	  <div class="row m-0 mb-3">
@@ -160,7 +173,7 @@
 
 <!--Loading-->
 <div *ngIf="isSaving" class="text-center mt-5">
-  <h2 class="pt-5">Salvando informações no banco de dados</h2>
+  <h2 class="pt-5">Enviando requisição ao banco de dados</h2>
   <p-progressSpinner styleClass="mt-5"></p-progressSpinner>
 </div>
 
