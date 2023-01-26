@@ -138,8 +138,6 @@ export class PacientRegistrationComponent implements OnInit{
     })
   }
 
-
-
   formatCpf(): void {
     let pacientCpf = this.pacient.identification.cpf
 
@@ -163,6 +161,14 @@ export class PacientRegistrationComponent implements OnInit{
       })
   }
 
+  onEditRegistration() {
+    this.pacientsDB.editPacient(this.pacient).subscribe(
+      response => {
+        console.log(response)
+      }
+    )
+  }
+  
   onDeleteRegistration(): void{
     this.confirmationService.confirm({
       message: `<pre>
@@ -175,7 +181,7 @@ export class PacientRegistrationComponent implements OnInit{
 
         setTimeout(() => {
           this.pacientsDB.deletePacient(this.userId).subscribe(
-            response => {
+            () => {
               this.isSaving = false
               this.router.navigate(['/home/pacient-registration'])
             }, error => {

@@ -23,6 +23,10 @@ export class PacientsDbService {
     return this.http.get(`${ this.BASE_URL }/${ +pacientId }`)
   }
 
+  editPacient(pacient: Pacient) {
+    return this.http.put(`${this.BASE_URL}/${pacient.id}`, pacient)
+  }
+
   deletePacient(pacientId: string) {
     return this.http.delete(`${this.BASE_URL}/${pacientId}`)
   }
