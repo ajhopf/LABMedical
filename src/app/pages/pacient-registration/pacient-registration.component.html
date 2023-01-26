@@ -7,7 +7,7 @@
 	</button>
 	<button
 	  class="btn btn-primary"
-	  [disabled]="!userId" (click)="onEditRegistration()">
+	  [disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
 	  Editar Cadastro
 	</button>
 	<button
