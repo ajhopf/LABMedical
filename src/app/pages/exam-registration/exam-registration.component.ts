@@ -21,6 +21,7 @@ export class ExamRegistrationComponent implements OnInit{
     pacientId: '',
     examName: '',
     date: new Date().toISOString().slice(0,10),
+    // date: new Date().toLocaleDateString(),
     time: `${new Date().getHours()}:${new Date().getMinutes()}`,
     examType: '',
     examLab: '',
