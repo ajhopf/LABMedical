@@ -3,6 +3,7 @@ import { ViacepService } from "../../shared/services/viacep.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
 import { ActivatedRoute, Params } from "@angular/router";
+import { Pacient } from "../../shared/models/pacient.model";
 
 @Component({
   selector: 'app-pacient-registration',
@@ -12,11 +13,11 @@ import { ActivatedRoute, Params } from "@angular/router";
 export class PacientRegistrationComponent implements OnInit{
   @ViewChild('newPacient') newPacientForm
 
-  isSaving = false
+  isSaving: boolean = false
 
-  userId = ''
+  userId: string = ''
 
-  pacient: any = {
+  pacient: Pacient = {
     identification: {
       pacientName: '',
       pacientGender: 'feminino',
@@ -62,22 +63,14 @@ export class PacientRegistrationComponent implements OnInit{
     this.userId = this.route.snapshot.params['id']
 
     if (this.userId) {
-      this.pacientsDB.getPacient(this.userId).subscribe(pacient => {
-        let returnedPacient = pacient
-
-        this.pacient = returnedPacient
+      this.pacientsDB.getPacient(this.userId).subscribe((pacient: Pacient) => {
+        this.pacient = pacient
       })
     }
-
-    console.log(this.userId)
-
-    this.route.params.subscribe((params: Params) => {
-      console.log(params)
-    })
   }
 
 
-  onCreatePacient(){
+  onCreatePacient(): void{
     let confirmationMessage = `<pre>
     <strong>Nome:</strong> ${this.pacient.identification.pacientName}\n
     <strong>Gênero: </strong>${this.pacient.identification.pacientGender}\n
@@ -104,8 +97,8 @@ export class PacientRegistrationComponent implements OnInit{
 
         setTimeout(() => {
           this.pacientsDB.createPacient(this.pacient).subscribe(
-            createdPacient => {
-              alert(`Paciente ${createdPacient} criado com sucesso`)
+            (createdPacient: Pacient) => {
+              alert(`Cadastro para o(a) paciente ${createdPacient.identification.pacientName} criado com sucesso`)
               this.isSaving = false
               this.newPacientForm.reset()
             },
@@ -121,7 +114,7 @@ export class PacientRegistrationComponent implements OnInit{
 
 
 
-  formatCpf() {
+  formatCpf(): void {
     let pacientCpf = this.pacient.identification.cpf
 
     if ( pacientCpf.length === 11 && pacientCpf.match(/^\d{11}$/)) {
@@ -129,7 +122,7 @@ export class PacientRegistrationComponent implements OnInit{
     }
   }
 
-  getAdress(){
+  getAdress(): void{
     this.viacep.getAddress(+this.pacient.address.cep)
       .subscribe(
         address => {

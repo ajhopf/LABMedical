@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Pacient } from "../models/pacient.model";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +11,15 @@ export class PacientsDbService {
   constructor(private http: HttpClient) {
   }
 
-  createPacient(newPacient) {
+  createPacient(newPacient: Pacient): Observable<any> {
     return this.http.post(this.BASE_URL, newPacient)
   }
 
-  getPacients() {
+  getPacients(): Observable<any> {
     return this.http.get(this.BASE_URL)
   }
 
-  getPacient(pacientId: string) {
+  getPacient(pacientId: string): Observable<any> {
     return this.http.get(`${ this.BASE_URL }/${ +pacientId }`)
   }
 }
