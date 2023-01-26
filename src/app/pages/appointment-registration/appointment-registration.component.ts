@@ -5,6 +5,7 @@ import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { ConfirmationService } from "primeng/api";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-appointment-registration',
@@ -22,7 +23,8 @@ export class AppointmentRegistrationComponent implements OnInit{
     pacientId: '',
     reason: '',
     date: new Date().toISOString().slice(0,10),
-    time: `${new Date().getHours()}:${new Date().getMinutes()}`,
+    // time: `${new Date().getHours()}:${new Date().getMinutes()}`,
+    time: new Date().toLocaleTimeString().slice(0,5),
     description: '',
     medication: '',
     dosageAndPrecautions: ''
@@ -32,7 +34,8 @@ export class AppointmentRegistrationComponent implements OnInit{
     private pacientsDB: PacientsDbService,
     private filterPacientsService: FilterPacientsService,
     private confirmationService: ConfirmationService,
-    private appointmentsDB: AppointmentsDbService
+    private appointmentsDB: AppointmentsDbService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(){
@@ -41,6 +44,8 @@ export class AppointmentRegistrationComponent implements OnInit{
         this.pacients = pacientsList;
       }
     )
+
+    console.log(this.route.snapshot.params['id'])
   }
 
   filterPacients(filter: string) {
@@ -88,6 +93,4 @@ export class AppointmentRegistrationComponent implements OnInit{
       }
     })
   }
-
-
 }

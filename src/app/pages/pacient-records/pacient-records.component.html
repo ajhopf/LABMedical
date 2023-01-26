@@ -1,1 +1,43 @@
-<p>pacient-records works!</p>
+<div class="row">
+  <div class="col">
+	<div *ngIf="pacient">
+	  <h2>{{ pacient.identification.pacientName }}</h2>
+	  <p>Convênio:
+		{{ pacient.healthInsurance.insurance || "paciente sem plano" }}
+	  </p>
+	  <p>Alergias: {{ pacient.identification.alergies || "Sem alergia"  }}</p>
+	</div>
+
+	<div *ngIf="pacientRecords">
+
+	  <div *ngFor="let record of pacientRecords; let i = index">
+
+		<!--Render if record is an Exam-->
+		<div *ngIf="record.examName">
+		  <p class="text-bg-secondary">{{ i + 1 }} Exame</p>
+		  <h3>{{ record.examName }}</h3>
+		  <p>Laboratório: {{ record.examLab }}</p>
+		  <p>Data: {{ record.date | date: 'dd/MM/yyyy' }}</p>
+		  <p>Horário do exame: {{ record.time }}</p>
+		  <p>{{ record.examUrl || "Sem link para este exame" }}</p>
+		  <p>{{ record.examResult }}</p>
+		  <button (click)="onExamEdit(record.id)">Editar</button>
+		  <hr>
+		</div>
+
+		<!--Render if record is an Appointment-->
+		<div *ngIf="record.reason">
+		  <p class="text-bg-secondary">{{ i + 1 }} Consulta</p>
+		  <h3>{{ record.reason }}</h3>
+		  <p>Data: {{ record.date | date: 'dd/MM/yyyy' }}</p>
+		  <p>Horário da consulta: {{ record.time }}</p>
+		  <p>{{ record.description }}</p>
+		  <p>{{ record.medication || "Sem medicação" }}</p>
+		  <p>{{ record.dosageAndPrecautions }}</p>
+		  <button (click)="onAppointmentEdit(record.id)">Editar</button>
+		  <hr>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>

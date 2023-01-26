@@ -38,8 +38,14 @@ const routes: Routes = [
       }, {
         path: 'appointment-registration',
         component: AppointmentRegistrationComponent
+      },{
+        path: 'appointment-registration/:id',
+        component: AppointmentRegistrationComponent
       }, {
         path: 'exam-registration',
+        component: ExamRegistrationComponent
+      }, {
+        path: 'exam-registration/:id',
         component: ExamRegistrationComponent
       }, {
         path: 'pacient-records/:id',
