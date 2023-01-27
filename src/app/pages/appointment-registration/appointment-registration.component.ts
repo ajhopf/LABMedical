@@ -113,10 +113,6 @@ export class AppointmentRegistrationComponent implements OnInit{
   }
 
   onEditAppointment(){
-    this.appointmentsDB.editAppointment(this.appointment).subscribe(
-      response => console.log(response)
-    )
-
     let confirmationMessage = `<pre>
     <strong>Motivo:</strong> ${this.appointment.reason}\n
     <strong>Data e hora:</strong> ${this.appointment.date} / ${this.appointment.time}\n

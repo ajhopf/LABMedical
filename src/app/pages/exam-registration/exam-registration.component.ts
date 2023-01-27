@@ -111,9 +111,37 @@ export class ExamRegistrationComponent implements OnInit{
   }
 
   onEditExam() {
-    this.examsDB.editExam(this.exam).subscribe(
-      response => console.log(response)
-    )
+    let confirmationMessage = `<pre>
+    <strong>Nome do Exame:</strong> ${ this.exam.examName }\n
+    <strong>Data e hora:</strong> ${ this.exam.date } / ${ this.exam.time }\n
+    <strong>Tipo do Exame:</strong> ${ this.exam.examType }\n
+    <strong>Url do Exame:</strong> ${ this.exam.examUrl || 'Sem link para exame' }\n
+    <strong>Resultado do Exame:</strong> ${ this.exam.examResult }\n\n
+    
+    Confirmar edição?
+    `
+
+    this.confirmationService.confirm({
+      message: confirmationMessage,
+      header: 'Editar Exame',
+      accept: () => {
+        this.isSaving = true
+
+        setTimeout(() => {
+          this.examsDB.editExam(this.exam).subscribe(
+            createdExam => {
+              alert('Exame atualizado com sucesso!')
+              this.isSaving = false
+            },
+            error => {
+              alert('Exame não foi adicionada ao banco de Dados! Motivo: ' + error.message)
+              this.isSaving = false
+            }
+          )
+        }, 1500)
+      }
+    })
+
   }
 
   onDeleteExam() {
