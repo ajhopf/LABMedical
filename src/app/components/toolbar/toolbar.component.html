@@ -1,23 +1,19 @@
-<header>
-  <div class="d-flex align-items-center ms-2">
-    <mat-slide-toggle
-
-      [(ngModel)]="isMenuOpen"
+<header class="row m-0">
+  <div class="d-flex align-items-center ms-2 col">
+    <i
+      class="pi pi-bars"
+      style="font-size: 2rem; cursor: pointer"
       (click)="onSliderClick()"
-    >
-      {{ isMenuOpen ? 'Close' : 'Open'}} Menu
-    </mat-slide-toggle>
+    ></i>
   </div>
 
+  <h1 class="text-center my-auto fs-3">{{ pageHeader }}</h1>
 
-  <h1 class="text-center my-auto">{{ pageHeader }}</h1>
   <div class="d-flex align-items-center justify-content-end">
-    <h2 class="m-2 d-none d-md-inline">{{ currentUser['name'] }}</h2>
-
-    <div class="dropdown">
+    <div>
+      <h2 class="m-2 fs-4  d-none d-xl-inline">{{ currentUser['name'] }}</h2>
       <button
-        class="btn dropdown-toggle"
-        type="button"
+        class="btn"
         data-bs-toggle="dropdown"
         aria-expanded="false">
         <img
@@ -34,6 +30,10 @@
           <button class="dropdown-item" (click)="onEditProfile()">Editar Perfil</button>
         </li>
       </ul>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
+      <app-dark-mode-toggle></app-dark-mode-toggle>
     </div>
   </div>
 </header>

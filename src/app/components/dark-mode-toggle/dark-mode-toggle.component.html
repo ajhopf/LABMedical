@@ -1,0 +1,12 @@
+<!--<input-->
+<!--  type="checkbox"-->
+<!--  [checked]="darkMode$ | async"-->
+<!--  (change)="onToggleDarkMode()"-->
+<!--&gt;-->
+
+<p-toggleButton
+  onIcon="pi pi-sun"
+  offIcon="pi pi-moon"
+  [(ngModel)]="darkMode"
+  (click)="onToggleDarkMode()" >
+</p-toggleButton>

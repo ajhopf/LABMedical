@@ -64,6 +64,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
   }
 
   onSliderClick(){
+    this.isMenuOpen = !this.isMenuOpen
     this.onToggleMenu.emit(this.isMenuOpen)
   }
 }

@@ -1,0 +1,16 @@
+.toggleDarkModeBtn {
+    border-color: pink;
+}
+
+:host ::ng-deep .p-togglebutton.p-button.p-highlight  {
+    background: #343944;
+    border-color: #343944;
+}
+
+:host ::ng-deep .p-button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #3a4b5c, 0 1px 2px 0 black;
+}
+
+:host ::ng-deep .p-togglebutton {
+    border-radius: 50%;
+}

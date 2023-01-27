@@ -1,14 +1,21 @@
 header {
     display: grid;
-    grid-template-columns: 0.5fr 1fr 0.5fr;
-    height: 100px;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 6rem;
     background-color: #1f879d;
     color: white;
-    text-shadow: 2px 2px #000;
 }
 
-mat-slide-toggle {
-    text-shadow: none;
+body.dark-mode > header {
+    background-color: black;
+}
+
+.btn.show, btn.active, btn-check {
+    border-color: transparent;
+}
+
+.btn:focus {
+    border-color: transparent
 }
 
 img {
@@ -18,14 +25,14 @@ img {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+.img:hover {
+    background-color: slategrey;
+    filter: grayscale(80%);
+}
+
 .dropdown {
     border: solid 1px black;
     border-radius: 10px;
-}
-
-.dropdown:hover {
-    background-color: slategrey;
-    filter: grayscale(80%);
 }
 
 .dropdown-menu {

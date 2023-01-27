@@ -28,6 +28,8 @@ import { SystemStatisticsComponent } from './components/system-statistics/system
 import { CardModule } from 'primeng/card';
 import { PacientCardComponent } from './components/pacient-card/pacient-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { DarkModeToggleComponent } from './components/dark-mode-toggle/dark-mode-toggle.component';
+import { ToggleButtonModule } from "primeng/togglebutton";
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     CpfDirective,
     SystemStatisticsComponent,
     PacientCardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    DarkModeToggleComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     InputMaskModule,
     ConfirmDialogModule,
     ProgressSpinnerModule,
-    CardModule
+    CardModule,
+    ToggleButtonModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]
