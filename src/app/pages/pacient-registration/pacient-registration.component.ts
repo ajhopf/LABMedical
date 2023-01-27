@@ -2,7 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViacepService } from "../../shared/services/viacep.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Pacient } from "../../shared/models/pacient.model";
+import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
+import { ExamsDbService } from "../../shared/services/exams-db.service";
+import { Appointment } from "../../shared/models/appointment.model";
+import { Exam } from "../../shared/models/exam.model";
 
 @Component({
   selector: 'app-pacient-registration',
@@ -12,11 +17,12 @@ import { ActivatedRoute, Params } from "@angular/router";
 export class PacientRegistrationComponent implements OnInit{
   @ViewChild('newPacient') newPacientForm
 
-  isSaving = false
+  isSaving: boolean = false
 
-  userId = ''
+  userId: string = ''
+  hasRecords: boolean = false
 
-  pacient: any = {
+  pacient: Pacient = {
     identification: {
       pacientName: '',
       pacientGender: 'feminino',
@@ -55,29 +61,41 @@ export class PacientRegistrationComponent implements OnInit{
     private viacep: ViacepService,
     private pacientsDB: PacientsDbService,
     private confirmationService: ConfirmationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appointmentsDB: AppointmentsDbService,
+    private examsDB: ExamsDbService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.userId = this.route.snapshot.params['id']
 
     if (this.userId) {
-      this.pacientsDB.getPacient(this.userId).subscribe(pacient => {
-        let returnedPacient = pacient
-
-        this.pacient = returnedPacient
+      this.pacientsDB.getPacient(this.userId).subscribe((pacient: Pacient) => {
+        this.pacient = pacient
       })
+
+      this.appointmentsDB.getAppointmentsByUserId(this.userId).subscribe(
+        (appointments: Appointment[]) => {
+
+          if (appointments.length > 0) {
+            this.hasRecords = true
+          }
+        }
+      )
+
+      this.examsDB.getExamsByPacientId(this.userId).subscribe(
+        (exams: Exam[] ) => {
+          if (exams.length > 0) {
+            this.hasRecords = true
+          }
+        }
+      )
     }
-
-    console.log(this.userId)
-
-    this.route.params.subscribe((params: Params) => {
-      console.log(params)
-    })
   }
 
 
-  onCreatePacient(){
+  onCreatePacient(): void{
     let confirmationMessage = `<pre>
     <strong>Nome:</strong> ${this.pacient.identification.pacientName}\n
     <strong>Gênero: </strong>${this.pacient.identification.pacientGender}\n
@@ -99,13 +117,14 @@ export class PacientRegistrationComponent implements OnInit{
 
     this.confirmationService.confirm({
       message: confirmationMessage,
+      header: 'Confirme as informações do paciente',
       accept: () => {
         this.isSaving = true
 
         setTimeout(() => {
           this.pacientsDB.createPacient(this.pacient).subscribe(
-            createdPacient => {
-              alert(`Paciente ${createdPacient} criado com sucesso`)
+            (createdPacient: Pacient) => {
+              alert(`Cadastro para o(a) paciente ${createdPacient.identification.pacientName} criado com sucesso`)
               this.isSaving = false
               this.newPacientForm.reset()
             },
@@ -119,9 +138,7 @@ export class PacientRegistrationComponent implements OnInit{
     })
   }
 
-
-
-  formatCpf() {
+  formatCpf(): void {
     let pacientCpf = this.pacient.identification.cpf
 
     if ( pacientCpf.length === 11 && pacientCpf.match(/^\d{11}$/)) {
@@ -129,7 +146,7 @@ export class PacientRegistrationComponent implements OnInit{
     }
   }
 
-  getAdress(){
+  getAdress(): void{
     this.viacep.getAddress(+this.pacient.address.cep)
       .subscribe(
         address => {
@@ -142,6 +159,82 @@ export class PacientRegistrationComponent implements OnInit{
           console.error(error.message)
           alert('CEP inválido!')
       })
+  }
+
+  onEditRegistration() {
+    let confirmationMessage = `
+    <pre>\n
+    <strong>Nome:</strong> ${this.pacient.identification.pacientName}\n
+    <strong>Gênero: </strong>${this.pacient.identification.pacientGender}\n
+    <strong>Data de Nascimento:</strong>${this.pacient.identification.dob}\n
+    <strong>CPF: </strong>${this.pacient.identification.cpf}\n
+    <strong>Rg: </strong>${this.pacient.identification.rg.number} / ${this.pacient.identification.rg.dispatcher}\n
+    <strong>Estado Civil: </strong>${this.pacient.identification.civilState}\n
+    <strong>Naturalidade: </strong>${this.pacient.identification.cityOfBirth}\n
+    <strong>Telefone: </strong>${this.pacient.identification.phoneNumber}\n
+    <strong>Email: </strong>${this.pacient.identification.email}\n
+    <strong>Contato de Emergência: </strong>${this.pacient.identification.emergencyContact}\n
+    <strong>Alergias: </strong>${this.pacient.identification.alergies ? this.pacient.identification.alergies : 'Sem alergias'}\n
+    <strong>Cuidados Especiais: </strong>${this.pacient.identification.specialCare ? this.pacient.identification.specialCare : 'Não' +
+      ' necessita cuidados especiais'}\n
+    <strong>Convênio: </strong>${this.pacient.healthInsurance.insurance ?
+      (this.pacient.healthInsurance.insurance + ' / Número: ' + this.pacient.healthInsurance.insuranceNumber + ' /' +
+        ' / Validade: ' + this.pacient.healthInsurance.insuranceValidity) : 'Sem convênio'}\n
+    <strong>Endereço: </strong>${this.pacient.address.street}, ${this.pacient.address.number} ${this.pacient.address.complement} / ${this.pacient.address.district}, ${this.pacient.address.state}, ${this.pacient.address.city}
+    </pre>`
+
+    this.confirmationService.confirm({
+      message: confirmationMessage,
+      header: 'Editar Cadastro de Paciente',
+      accept: () => {
+        this.isSaving = true
+
+        setTimeout(() => {
+          this.pacientsDB.editPacient(this.pacient).subscribe(
+            () => {
+              alert(`Cadastro para o(a) paciente ${this.pacient.identification.pacientName} atualizado com sucesso`)
+              this.isSaving = false
+            },
+            error => {
+              alert('Paciente não foi atualizado! ' + `${error.message}`)
+              this.isSaving = false
+            }
+          )
+        },1500)
+      }
+    })
+
+
+
+    this.pacientsDB.editPacient(this.pacient).subscribe(
+      response => {
+        console.log(response)
+      }
+    )
+  }
+
+  onDeleteRegistration(): void{
+    this.confirmationService.confirm({
+      message: `<pre>
+        Você está prestes a deletar o registro de ${this.pacient.identification.pacientName}\n
+        Confirmar deleção?
+        </pre>`,
+      header: 'Deletar paciente',
+      accept: () => {
+        this.isSaving = true
+
+        setTimeout(() => {
+          this.pacientsDB.deletePacient(this.userId).subscribe(
+            () => {
+              this.isSaving = false
+              this.router.navigate(['/home/pacient-registration'])
+            }, error => {
+              console.error('Paciente não foi deletado!', error.message)
+            }
+          )
+        },1500)
+      }
+    })
   }
 }
 

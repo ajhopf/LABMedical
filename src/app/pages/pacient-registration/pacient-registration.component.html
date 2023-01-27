@@ -1,13 +1,28 @@
 <section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
-  <div>
-	<button class="btn btn-primary" [disabled]="!userId">Editar</button>
-	<button class="btn btn-primary" disabled>Editar</button>
-  </div>
-
-  <div>
+   <div>
 	<form
 	  (ngSubmit)="onCreatePacient()"
       #newPacient="ngForm">
+	  <div>
+		<button
+		  class="btn btn-primary"
+		  type="submit" [disabled]="!newPacient.valid || this.userId">
+		  Cadastrar
+		</button>
+		<button
+		  type="button"
+		  class="btn btn-primary"
+		  [disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
+		  Editar Cadastro
+		</button>
+		<button
+		  type="button"
+		  class="btn btn-primary"
+		  [disabled]="!userId || hasRecords"
+		  (click)="onDeleteRegistration()">
+		  Deletar Cadastro
+		</button>
+	  </div>
 	  <h2>Identificação</h2>
 	  <!--Nome,genero, dob-->
 	  <div class="row">
@@ -433,26 +448,19 @@
 		  </div>
 		</div>
 	  </div>
-	  <div class="mb-3">
-		<button
-		  class="btn btn-primary"
-		  type="submit" [disabled]="!newPacient.valid">
-		  Cadastrar
-		</button>
-	  </div>
 	</form>
   </div>
 </section>
 
 <!--Loading-->
 <div *ngIf="isSaving" class="text-center mt-5">
-  <h2 class="pt-5">Salvando informações no banco de dados</h2>
+  <h2 class="pt-5">Enviando requisição ao banco de dados</h2>
   <p-progressSpinner styleClass="mt-5"></p-progressSpinner>
 </div>
 
 <!--Pacient info confirmation-->
 <p-confirmDialog
-  header="Confirme as informações do paciente"
+  header="Confirme as informações"
   icon="pi pi-database">
 </p-confirmDialog>
 

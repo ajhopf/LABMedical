@@ -1,41 +1,53 @@
 <section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
-  <h2>Encontre o paciente</h2>
-  <app-search-bar
-	(onSearchInput)="filterPacients($event)"
-	[listOfFilteredPacients]="filteredPacients"
-  ></app-search-bar>
 
-  <div *ngIf="filteredPacients">
-	<h3>Selecione o Paciente</h3>
-	<ul>
-	  <li *ngFor="let pacient of filteredPacients">
-		<button (click)="onSelectPacient(pacient)">
-		  {{ pacient.identification.pacientName }}
-		</button>
-	  </li>
-	</ul>
+  <div *ngIf="!appointmentId">
+	<h2>Encontre o paciente</h2>
+	<app-search-bar
+	  (onSearchInput)="filterPacients($event)"
+	  [listOfFilteredPacients]="filteredPacients"
+	></app-search-bar>
+
+	<div *ngIf="filteredPacients">
+	  <h3>Selecione o Paciente</h3>
+	  <ul>
+		<li *ngFor="let pacient of filteredPacients">
+		  <button (click)="onSelectPacient(pacient)">
+			{{ pacient.identification.pacientName }}
+		  </button>
+		</li>
+	  </ul>
+	</div>
+	<hr>
   </div>
 
+
   <!-- *ngIf="selectedPacient"-->
-  <hr>
+
   <div *ngIf="selectedPacient">
-	<form #newAppointment="ngForm" (ngSubmit)="onFormSubmit()">
+	<form #newAppointment="ngForm" (ngSubmit)="onSubmitAppointment()">
 	  <div class="row m-0 mb-3">
 		<div class="col-7">
 		  <h3>Consulta de {{ selectedPacient.identification.pacientName }}</h3>
 		</div>
 
-		<div class="col d-flex">
-		  <button
-			[disabled]="true"
-			class="btn btn-primary">
-			Deletar
-		  </button>
+		<div class="row">
 		  <button
 			type="submit"
-			class="btn btn-primary"
-			[disabled]="!newAppointment.valid">
+			class="btn btn-primary col"
+			[disabled]="!newAppointment.valid || !newAppointmentRegistration">
 			Cadastrar Consulta
+		  </button>
+		  <button
+			type="button"
+			[disabled]="newAppointmentRegistration || !newAppointment.valid"
+			class="btn btn-primary col" (click)="onEditAppointment()">
+			Editar Consulta
+		  </button>
+		  <button
+			type="button"
+			class="btn btn-primary col"
+			[disabled]="newAppointmentRegistration" (click)="onDeleteAppointment()">
+			Deletar Consulta
 		  </button>
 		</div>
 	  </div>
