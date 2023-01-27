@@ -1,27 +1,26 @@
 <section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
-  <div>
-	<button
-	  class="btn btn-primary"
-	  type="submit" [disabled]="!newPacient.valid || this.userId">
-	  Cadastrar
-	</button>
-	<button
-	  class="btn btn-primary"
-	  [disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
-	  Editar Cadastro
-	</button>
-	<button
-	  class="btn btn-primary"
-	  [disabled]="!userId || hasRecords"
-	  (click)="onDeleteRegistration()">
-	  Deletar Cadastro
-	</button>
-  </div>
-
-  <div>
+   <div>
 	<form
 	  (ngSubmit)="onCreatePacient()"
       #newPacient="ngForm">
+	  <div>
+		<button
+		  class="btn btn-primary"
+		  type="submit" [disabled]="!newPacient.valid || this.userId">
+		  Cadastrar
+		</button>
+		<button
+		  class="btn btn-primary"
+		  [disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
+		  Editar Cadastro
+		</button>
+		<button
+		  class="btn btn-primary"
+		  [disabled]="!userId || hasRecords"
+		  (click)="onDeleteRegistration()">
+		  Deletar Cadastro
+		</button>
+	  </div>
 	  <h2>Identificação</h2>
 	  <!--Nome,genero, dob-->
 	  <div class="row">
