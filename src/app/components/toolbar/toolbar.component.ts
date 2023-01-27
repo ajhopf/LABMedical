@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  Component,
+  Component, DoCheck,
   EventEmitter,
   Injectable, Input,
   OnChanges,
@@ -19,7 +19,7 @@ import { PageHeaders } from "../../shared/constants/page-headers";
   styleUrls: ['./toolbar.component.css']
 })
 
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, DoCheck {
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<boolean>()
   @Input() pageHeader: string = ''
 
@@ -43,9 +43,15 @@ export class ToolbarComponent implements OnInit {
         this.currentUser = user
         this.userAvatar = user['avatar']
       })
+  }
 
-    //Garantindo o nome do header mesmo que digite diretamente a rota
+  ngDoCheck() {
+    //checando o título da página conforme a rota
     this.pageHeader = this.possibleHeaders[this.router.url.substring(6)]
+    //checando o título da página se a rota tiver /home/algumacoisa/restante
+    if(typeof this.pageHeader === 'undefined'){
+      this.pageHeader = this.possibleHeaders[this.router.url.substring(6, this.router.url.lastIndexOf('/'))]
+    }
   }
 
   onLogOut(){

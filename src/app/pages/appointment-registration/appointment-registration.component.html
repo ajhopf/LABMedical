@@ -24,7 +24,7 @@
   <!-- *ngIf="selectedPacient"-->
 
   <div *ngIf="selectedPacient">
-	<form #newAppointment="ngForm" (ngSubmit)="onFormSubmit()">
+	<form #newAppointment="ngForm" (ngSubmit)="onSubmitAppointment()">
 	  <div class="row m-0 mb-3">
 		<div class="col-7">
 		  <h3>Consulta de {{ selectedPacient.identification.pacientName }}</h3>

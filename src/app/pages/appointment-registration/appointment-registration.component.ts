@@ -82,12 +82,12 @@ export class AppointmentRegistrationComponent implements OnInit{
     this.selectedPacient = pacient
   }
 
-  onFormSubmit(){
+  onSubmitAppointment(){
     let confirmationMessage = `<pre>
     <strong>Motivo:</strong> ${this.appointment.reason}\n
     <strong>Data e hora:</strong> ${this.appointment.date} / ${this.appointment.time}\n
     <strong>Descrição:</strong> ${this.appointment.description}\n
-    <strong>Medicação:</strong> ${this.appointment.medication ? this.appointment.medication : 'Sem medicação'}
+    <strong>Medicação:</strong> ${this.appointment.medication || 'Sem medicação'}\n
     <strong>Dosagem e Precauções:</strong> ${this.appointment.dosageAndPrecautions}`
 
     this.confirmationService.confirm({
@@ -116,6 +116,36 @@ export class AppointmentRegistrationComponent implements OnInit{
     this.appointmentsDB.editAppointment(this.appointment).subscribe(
       response => console.log(response)
     )
+
+    let confirmationMessage = `<pre>
+    <strong>Motivo:</strong> ${this.appointment.reason}\n
+    <strong>Data e hora:</strong> ${this.appointment.date} / ${this.appointment.time}\n
+    <strong>Descrição:</strong> ${this.appointment.description}\n
+    <strong>Medicação:</strong> ${this.appointment.medication || 'Sem medicação'}\n
+    <strong>Dosagem e Precauções:</strong> ${this.appointment.dosageAndPrecautions}\n\n
+
+    Confirmar edição?`
+
+    this.confirmationService.confirm({
+      message: confirmationMessage,
+      header: 'Editar Consulta',
+      accept: () => {
+        this.isSaving = true
+
+        setTimeout(() => {
+          this.appointmentsDB.editAppointment(this.appointment).subscribe(
+            createdAppointment => {
+              alert('Consulta editada com sucesso!')
+              this.isSaving = false
+            },
+            error => {
+              alert('Consulta não foi editada! Motivo: ' + error.message)
+              this.isSaving = false
+            }
+          )
+        }, 1500)
+      }
+    })
   }
 
   onDeleteAppointment(){
