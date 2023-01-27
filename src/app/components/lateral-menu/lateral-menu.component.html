@@ -1,44 +1,52 @@
-<div class="d-flex flex-column">
-  <h3>Geral</h3>
-  <a
-    class="btn btn-primary"
-    routerLink="/home/statistics"
-    (click)="updateHeader('Estatísticas e Informações')">
-    Início
-  </a>
-  <button
-    class="btn btn-primary"
-    (click)="onLogOut()">
-    Sair
-  </button>
-</div>
-<div class="d-flex flex-column">
-  <h3>Pacientes</h3>
-  <a
-    class="btn btn-primary"
-    routerLink="/home/pacient-registration"
-    (click)="updateHeader('Cadastro de Paciente')">
-    Cadastrar
-  </a>
-  <a
-    class="btn btn-primary"
-    routerLink="/home/records-listing"
-    (click)="updateHeader('Listagem de Prontuários')">
-    Listar Prontuário
-  </a>
-</div>
-<div class="d-flex flex-column">
-  <h3>Exames</h3>
-  <a
-    class="btn btn-primary"
-    routerLink="/home/appointment-registration"
-    (click)="updateHeader('Cadastro de Consulta')">
-    Cadastrar Consulta
-  </a>
-  <a
-    class="btn btn-primary"
-    routerLink="/home/exam-registration"
-    (click)="updateHeader('Cadastro de Exame')">
-    Cadastrar Exame
-  </a>
-</div>
+<nav class="lateralMenu d-flex flex-column">
+  <div>
+    <div class="d-flex flex-column mb-3">
+      <h3 class="ms-1">Geral</h3>
+      <a
+        class="btn btn-outline-light mb-1 mx-1"
+        routerLink="/home/statistics"
+        (click)="updateHeader('Estatísticas e Informações')">
+        Início
+      </a>
+      <button
+        class="btn btn-outline-light mx-1"
+        (click)="onLogOut()">
+        Sair
+      </button>
+    </div>
+    <div class="d-flex flex-column">
+      <h3 class="ms-1">Pacientes</h3>
+      <a
+        class="btn btn-outline-light mb-1 mx-1"
+        routerLink="/home/pacient-registration"
+        (click)="updateHeader('Cadastro de Paciente')">
+        Cadastrar
+      </a>
+      <a
+        class="btn btn-outline-light mb-1 mx-1"
+        routerLink="/home/records-listing"
+        (click)="updateHeader('Listagem de Prontuários')">
+        Listar Prontuário
+      </a>
+    </div>
+    <div class="d-flex flex-column">
+      <h3 class="ms-1">Exames</h3>
+      <a
+        class="btn btn-outline-light mb-1 mx-1"
+        routerLink="/home/appointment-registration"
+        (click)="updateHeader('Cadastro de Consulta')">
+        Cadastrar Consulta
+      </a>
+      <a
+        class="btn btn-outline-light mb-1 mx-1"
+        routerLink="/home/exam-registration"
+        (click)="updateHeader('Cadastro de Exame')">
+        Cadastrar Exame
+      </a>
+    </div>
+  </div>
+  <div class="darkToggle d-flex flex-column align-items-center justify-content-end flex-grow-1 mb-5">
+    <h3>{{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}</h3>
+    <app-dark-mode-toggle (darkMode)="onDarkModeClick($event)"></app-dark-mode-toggle>
+  </div>
+</nav>

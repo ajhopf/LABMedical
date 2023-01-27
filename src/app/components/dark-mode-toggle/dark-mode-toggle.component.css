@@ -11,6 +11,6 @@
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #3a4b5c, 0 1px 2px 0 black;
 }
 
-:host ::ng-deep .p-togglebutton {
-    border-radius: 50%;
-}
+/*:host ::ng-deep .p-togglebutton {*/
+/*    border-radius: 50%;*/
+/*}*/

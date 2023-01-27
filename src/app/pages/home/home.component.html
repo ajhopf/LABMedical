@@ -12,7 +12,7 @@
 	  (onPageChange)="changePageName($event)">
 	  </app-lateral-menu>
 	</div>
-	<div class="main-content">
+	<div class="main-content" [ngClass]="toggleLateralMenu ? 'hide' : ''">
 	  <router-outlet></router-outlet>
 	</div>
   </div>

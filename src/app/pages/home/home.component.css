@@ -16,10 +16,22 @@
 
 .lateral-menu.open {
     display: initial;
-    width: 200px;
+    width: 300px;
     background-color: #1f879d;
+    color: white;
 }
 
 .main-content {
-    width: 100%
+    width: 100%;
 }
+
+@media (max-width:576px) {
+    .lateral-menu.open {
+        width: 100vw;
+    }
+
+    .main-content.hide {
+        display: none;
+    }
+}
+

@@ -1,17 +1,10 @@
 header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     height: 6rem;
-    background-color: #1f879d;
     color: white;
-}
-
-body.dark-mode > header {
-    background-color: black;
-}
-
-.btn.show, btn.active, btn-check {
-    border-color: transparent;
+    background-color: #1f879d;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .btn:focus {
@@ -23,11 +16,13 @@ img {
     border: 1px solid black;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.7);
+    transition: all 1s;
 }
 
-.img:hover {
+img:hover {
     background-color: slategrey;
     filter: grayscale(80%);
+    transition: all 1s;
 }
 
 .dropdown {

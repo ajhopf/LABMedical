@@ -1,5 +1,5 @@
-<header class="row m-0">
-  <div class="d-flex align-items-center ms-2 col">
+<header>
+  <div class="d-flex align-items-center ms-4">
     <i
       class="pi pi-bars"
       style="font-size: 2rem; cursor: pointer"
@@ -7,11 +7,11 @@
     ></i>
   </div>
 
-  <h1 class="text-center my-auto fs-3">{{ pageHeader }}</h1>
+  <h1 class="flex-grow-1 align-self-start ms-5 my-auto fs-3">{{ pageHeader }}</h1>
 
-  <div class="d-flex align-items-center justify-content-end">
+  <div class="d-flex align-items-center justify-content-end me-4">
     <div>
-      <h2 class="m-2 fs-4  d-none d-xl-inline">{{ currentUser['name'] }}</h2>
+      <h2 class="m-2 fs-4  d-none d-md-inline">{{ currentUser['name'] }}</h2>
       <button
         class="btn"
         data-bs-toggle="dropdown"
@@ -30,10 +30,6 @@
           <button class="dropdown-item" (click)="onEditProfile()">Editar Perfil</button>
         </li>
       </ul>
-    </div>
-
-    <div class="d-flex align-items-center justify-content-end">
-      <app-dark-mode-toggle></app-dark-mode-toggle>
     </div>
   </div>
 </header>

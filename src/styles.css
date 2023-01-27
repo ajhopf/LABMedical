@@ -17,7 +17,11 @@
     color: #2d3436;
  }
 
- body.dark-mode header {
+ body.dark-mode header, body.dark-mode .lateral-menu.open {
     background-color: black;
+ }
+
+ body.dark-mode .lateralMenu .btn {
+     --bs-btn-bg: slategrey!important;
  }
 

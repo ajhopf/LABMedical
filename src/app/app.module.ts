@@ -30,6 +30,7 @@ import { PacientCardComponent } from './components/pacient-card/pacient-card.com
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { DarkModeToggleComponent } from './components/dark-mode-toggle/dark-mode-toggle.component';
 import { ToggleButtonModule } from "primeng/togglebutton";
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ToggleButtonModule } from "primeng/togglebutton";
     ConfirmDialogModule,
     ProgressSpinnerModule,
     CardModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    TooltipModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]

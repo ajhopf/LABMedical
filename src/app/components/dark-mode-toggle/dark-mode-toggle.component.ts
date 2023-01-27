@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from "rxjs";
 import { DarkModeService } from "angular-dark-mode";
 
@@ -8,6 +8,7 @@ import { DarkModeService } from "angular-dark-mode";
   styleUrls: ['./dark-mode-toggle.component.css']
 })
 export class DarkModeToggleComponent implements OnInit{
+  @Output('darkMode') darkModeEmit = new EventEmitter<boolean>()
   darkMode = false
   darkMode$: Observable<boolean> = this.darkModeService.darkMode$
 
@@ -20,5 +21,6 @@ export class DarkModeToggleComponent implements OnInit{
 
   onToggleDarkMode(): void {
     this.darkModeService.toggle()
+    this.darkModeEmit.emit(this.darkMode)
   }
 }
