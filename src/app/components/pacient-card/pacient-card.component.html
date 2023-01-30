@@ -1,9 +1,23 @@
-  <div class="card h-100 my-2" (click)="onCardClick(pacient.id)">
-	<div class="card-body">
-	  <h5 class="card-title">{{ pacient.identification.pacientName }}</h5>
-
-	  <p class="card-text">{{ pacient.identification.dob }}</p>
-	  <p>{{ pacient.healthInsurance.insurance }}</p>
-	  <button>Ver mais</button>
-	</div>
+<p-card
+  styleClass="p-card-shadow my-2"
+  (click)="onCardClick(pacient.id)">
+  <ng-template pTemplate="header">
+	<img
+	  alt="Avatar do paciente"
+	  src="{{ 'https://robohash.org/' + pacient.identification.email }}"
+	>
+  </ng-template>
+  <div class="cardContent">
+	<h3>{{ pacient.identification.pacientName }}</h3>
+	<p>Idade: {{ calculateAge(pacient.identification.dob) }} anos</p>
+	<p>Convênio: {{ pacient.healthInsurance.insurance || "Sem convênio" }}</p>
   </div>
+
+  <ng-template pTemplate="footer">
+	<p-button
+	  label="Ver mais"
+	  icon="pi pi-search"
+	  styleClass="p-button-secondary">
+	</p-button>
+  </ng-template>
+</p-card>

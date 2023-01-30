@@ -1,3 +1,25 @@
-.card:hover {
+p-card:hover {
     cursor: pointer;
+}
+
+:host ::ng-deep .p-card-header {
+    text-align: center;
+}
+
+img {
+    border: 0 solid black;
+    border-radius: 50%;
+    height: 150px;
+    width: auto;
+    margin: 0.2rem 0;
+}
+
+:host ::ng-deep .cardContent {
+    height: 8rem;
+}
+
+@media (max-width: 768px) {
+    :host ::ng-deep .cardContent{
+        height: 5rem;
+    }
 }

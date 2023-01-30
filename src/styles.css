@@ -1,5 +1,6 @@
  /*You can add global styles to this file, and also import other style files */
 
+ /*Estilização de cores*/
  html, body { height: 100%; }
 
  body {
@@ -17,6 +18,8 @@
     color: #2d3436;
  }
 
+ /*Menus*/
+
  body.dark-mode header, body.dark-mode .lateral-menu.open {
     background-color: black;
  }
@@ -24,4 +27,40 @@
  body.dark-mode .lateralMenu .btn {
      --bs-btn-bg: slategrey!important;
  }
+
+ /*Cards*/
+
+ /*Light mode*/
+
+ .p-card {
+     text-align: center;
+ }
+
+ body.light-mode .p-card {
+     background-color: #E5E5E7;
+ }
+
+ body.light-mode .p-card-header {
+     background-color: #3a4b5c;
+ }
+
+ body.light-mode .p-card-header img {
+     background-color: #E5E5E7;
+ }
+
+ /*dark mode*/
+
+ body.dark-mode .p-card {
+     background-color: rgba(255, 255, 255, 0.7);
+     color: rgb(52, 57, 68);
+ }
+
+ body.dark-mode .p-card-header {
+     background-color: black;
+ }
+
+ body.dark-mode .p-card-header img {
+     background-color: rgb(52, 57, 68);
+ }
+
 
