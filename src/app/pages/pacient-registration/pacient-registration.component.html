@@ -3,12 +3,14 @@
 	<form
 	  (ngSubmit)="onCreatePacient()"
       #newPacient="ngForm">
+	  <!--Title and buttons-->
+
 	  <div class="row mt-2">
 		<h2 class="col">Identificação</h2>
-		<div class="col d-flex justify-content-between">
+		<div class="col d-flex p-0 justify-content-between justify-content-lg-end">
 		  <button
 			type="button"
-			class="btn btn-warning"
+			class="btn btn-warning mx-1"
 			[disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
 			Editar Cadastro
 		  </button>
@@ -20,36 +22,31 @@
 			tooltipPosition="bottom">
 			<button
 			  type="button"
-			  class="btn btn-danger"
+			  class="btn btn-danger mx-1"
 			  [disabled]="!userId || hasRecords"
 			  (click)="onDeleteRegistration()"
 			>
 			  Deletar Cadastro
 			</button>
 		  </div>
-
-		<div
-		  class="d-flex"
-		  [pTooltip]="(!newPacient.valid) ? 'Preencha todas informações para cadastrar um novo paciente' :
-		  userId ? 'Paciente já cadastrado.' : ''"
-		  tooltipPosition="bottom">
-		  <button
-			class="btn btn-success"
-			type="submit"
-			[disabled]="!newPacient.valid || userId">
-			Cadastrar
-		  </button>
-		</div>
-
-
+		  <div
+			class="d-flex"
+			[pTooltip]="(!newPacient.valid) ? 'Preencha todas informações para cadastrar um novo paciente' :
+			userId ? 'Paciente já cadastrado.' : ''"
+			tooltipPosition="bottom">
+			<button
+			  class="btn btn-success mx-1"
+			  type="submit"
+			  [disabled]="!newPacient.valid || userId">
+			  Cadastrar
+			</button>
+		  </div>
 	  	</div>
 	  </div>
-
-
 	  <!--Nome,genero, dob-->
 	  <div class="row">
 		<!--Pacient Name-->
-		<div class="col-6 mb-3">
+		<div class="col-12 col-md-6 my-3">
 		  <label
 			class="form-label"
 			for="pacientName"
@@ -75,7 +72,7 @@
 		</div>
 
 		<!--Pacient Gender-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3 mt-sm-3">
 		  <label
 			for="pacientGender"
 			class="form-label">
@@ -94,7 +91,7 @@
 		</div>
 
 		<!--Date of birth-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3 mt-sm-3">
 		  <label for="dateOfBirth" class="form-label">
 			Data de nascimento
 		  </label>
@@ -119,7 +116,7 @@
 	  <!--Cpf, rg, civil state-->
 	  <div class="row">
 		<!--CPF-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3">
 		  <label for="pacientCpf" class="form-label">
 			Cpf
 		  </label>
@@ -145,9 +142,9 @@
 		</div>
 
 		<!--Rg-->
-		<div class="col mb-3">
+		<div class="col-12 col-lg mb-3">
 		  <div class="row">
-			<div class="col-7">
+			<div class="col-12 col-sm">
 			  <label
 				for="pacientRg"
 				class="form-label">
@@ -171,7 +168,7 @@
 			  	Digite um RG válido
 			  </span>
 			</div>
-			<div class="col">
+			<div class="col mt-3 mt-sm-0">
 			  <label
 				for="rgDispatcher"
 				class="form-label">
@@ -214,7 +211,7 @@
 	  <!--city of birth, phone, email-->
 	  <div class="row">
 		<!--City of Birth-->
-		<div class="col mb-3">
+		<div class="col-12 col-md mb-3">
 		  <label
 			for="birthPlace"
 			class="form-label">
@@ -229,6 +226,7 @@
 			  name="birthPlace"
 			  minlength="8"
 			  maxlength="64"
+			  placeholder="Naturalidade"
 			  required
 			  [(ngModel)]="pacient.identification.cityOfBirth">
 		  <span
@@ -239,7 +237,7 @@
 		</div>
 
 		<!--Phone-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3">
 		  <label for="phone" class="form-label">
 			Telefone
 		  </label>
@@ -256,7 +254,7 @@
 		</div>
 
 		<!--Email-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3">
 		  <label for="email" class="form-label">
 			Email
 		  </label>
@@ -282,7 +280,7 @@
 	  <!--Emergency contact, alergies, special care-->
 	  <div class="row">
 		<!--Emergency Contact-->
-		<div class="col mb-3">
+		<div class="col-12 col-md mb-3">
 		  <label for="emergencyContact" class="form-label">
 			Contato de Emergência
 		  </label>
@@ -299,7 +297,7 @@
 		</div>
 
 		<!--Alergies-->
-		<div class="col mb-3">
+		<div class="col-12 col-md mb-3">
 		  <label for="alergies" class="form-label">
 			Alergias
 		  </label>
@@ -308,11 +306,12 @@
 			class="form-control"
 			id="alergies"
 			name="alergies"
+			placeholder="Alergias"
 			[(ngModel)]="pacient.identification.alergies">
 		</div>
 
 		<!--Special Care-->
-		<div class="col mb-3">
+		<div class="col-12 col-md mb-3">
 		  <label for="specialCare" class="form-label">
 			Cuidados Especiais
 		  </label>
@@ -321,13 +320,14 @@
 			class="form-control"
 			id="specialCare"
 			name="specialCare"
+			placeholder="Cuidados Especiais"
 			[(ngModel)]="pacient.identification.specialCare">
 		</div>
 	  </div>
 	  <!--Health Insurance-->
 	  <h2>Convênio</h2>
 	  <div class="row">
-		<div class="col mb-3">
+		<div class="col-12 col-md mb-3">
 		  <label for="insurance" class="form-label">
 			Convênio
 		  </label>
@@ -336,10 +336,11 @@
 			class="form-control"
 			id="insurance"
 			name="insurance"
+			placeholder="Convênio"
 			[(ngModel)]="pacient.healthInsurance.insurance">
 		</div>
 		<!--insurance number-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3">
 		  <label for="insuranceNumber" class="form-label">
 			Número do Convênio
 		  </label>
@@ -348,10 +349,11 @@
 			class="form-control"
 			id="insuranceNumber"
 			name="insuranceNumber"
+			placeholder="Número do Convênio"
 			[(ngModel)]="pacient.healthInsurance.insuranceNumber">
 		</div>
 		<!--insurance validity-->
-		<div class="col mb-3">
+		<div class="col-12 col-sm mb-3">
 		  <label for="insuranceValidity" class="form-label">
 			Validade do Convênio
 		  </label>
@@ -368,7 +370,7 @@
 	  <div class="d-flex flex-column">
 		<!--Cep, City, State-->
 		<div class="row">
-		  <div class="col mb-3">
+		  <div class="col-12 col-sm mb-3">
 		  	<label for="cep" class="form-label">
 				CEP
 		  	</label>
@@ -380,11 +382,12 @@
 				id="cep"
 				name="cep"
 				[(ngModel)]="pacient.address.cep"
+				placeholder="0000000"
 				required
 				(change)="getAdress()">
 		  </div>
 		  <!--City-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-sm mb-3">
 			<label for="city" class="form-label">
 			  Cidade
 			</label>
@@ -395,11 +398,12 @@
 			  [ngClass]="(city.invalid && city.touched) ? 'invalidInput': ''"
 			  id="city"
 			  name="city"
+			  placeholder="Cidade"
 			  [(ngModel)]="pacient.address.city"
 			  required>
 		  </div>
 		  <!--State-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-sm mb-3">
 			<label for="state" class="form-label">
 			  Estado
 			</label>
@@ -410,6 +414,7 @@
 			  [ngClass]="(state.invalid && state.touched) ? 'invalidInput' : ''"
 			  id="state"
 			  name="state"
+			  placeholder="UF"
 			  [(ngModel)]="pacient.address.state"
 			  required>
 		  </div>
@@ -417,7 +422,7 @@
 		<!--street, number, complement-->
 		<div class="row">
 		  <!--Street-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-lg mb-3">
 			<label for="street" class="form-label">
 			  Logradouro
 			</label>
@@ -428,11 +433,12 @@
 			  [ngClass]="(street.invalid && street.touched) ? 'invalidInput' : ''"
 			  id="street"
 			  name="street"
+			  placeholder="Logradouro"
 			  [(ngModel)]="pacient.address.street"
 			  required>
 		  </div>
 		  <!--Number-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-sm mb-3">
 			<label for="number" class="form-label">
 			  Número
 			</label>
@@ -445,10 +451,11 @@
 			  name="number"
 			  ngModel
 			  required
+			  placeholder="Número"
 			  [(ngModel)]="pacient.address.number">
 		  </div>
 		  <!--Complement-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-sm mb-3">
 			<label for="complemento" class="form-label">
 			  Complemento
 			</label>
@@ -457,13 +464,14 @@
 			  class="form-control"
 			  id="complemento"
 			  name="complemento"
+			  placeholder="Complemento"
 			  [(ngModel)]="pacient.address.complement">
 		  </div>
 		</div>
 		<!--Distric, Reference-->
 		<div class="row">
 		  <!--Distritc-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-md mb-3">
 			<label for="district" class="form-label">
 			  Bairro
 			</label>
@@ -474,11 +482,12 @@
 			  [ngClass]="(district.invalid && district.touched) ? 'invalidInput' : ''"
 			  id="district"
 			  name="district"
+			  placeholder="Bairro"
 			  [(ngModel)]="pacient.address.district"
 			  required>
 		  </div>
 		  <!--Reference-->
-		  <div class="col mb-3">
+		  <div class="col-12 col-md mb-3">
 			<label for="reference" class="form-label">
 			  Ponto de Referência
 			</label>
@@ -487,6 +496,7 @@
 			  class="form-control"
 			  id="reference"
 			  name="reference"
+			  placeholder="Referência"
 			  [(ngModel)]="pacient.address.reference"
 			>
 		  </div>
