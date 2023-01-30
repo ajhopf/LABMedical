@@ -2,7 +2,9 @@ header {
     display: flex;
     height: 6rem;
     color: white;
-    background-color: #1f879d;
+    /*background-color: #1f879d;*/
+    /*#343944*/
+    background-color: #116174;
     align-items: center;
     justify-content: space-between;
 }
