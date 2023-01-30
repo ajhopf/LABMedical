@@ -1,10 +1,6 @@
 header {
     display: flex;
     height: 6rem;
-    color: white;
-    /*background-color: #1f879d;*/
-    /*#343944*/
-    background-color: #3a4b5c;
     align-items: center;
     justify-content: space-between;
 }
@@ -25,13 +21,4 @@ img:hover {
     background-color: slategrey;
     filter: grayscale(80%);
     transition: all 1s;
-}
-
-.dropdown {
-    border: solid 1px black;
-    border-radius: 10px;
-}
-
-.dropdown-menu {
-    text-shadow: none;
 }

@@ -4,6 +4,7 @@ p-card:hover {
 
 :host ::ng-deep .p-card-header {
     text-align: center;
+    border-radius: 5px 5px 0 0;
 }
 
 img {
@@ -15,7 +16,7 @@ img {
 }
 
 :host ::ng-deep .cardContent {
-    height: 8rem;
+    height: 9rem;
 }
 
 @media (max-width: 768px) {

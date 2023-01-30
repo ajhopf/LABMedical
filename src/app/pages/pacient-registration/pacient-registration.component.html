@@ -3,27 +3,49 @@
 	<form
 	  (ngSubmit)="onCreatePacient()"
       #newPacient="ngForm">
-	  <div>
-		<button
-		  class="btn btn-primary"
-		  type="submit" [disabled]="!newPacient.valid || this.userId">
-		  Cadastrar
-		</button>
-		<button
-		  type="button"
-		  class="btn btn-primary"
-		  [disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
-		  Editar Cadastro
-		</button>
-		<button
-		  type="button"
-		  class="btn btn-primary"
-		  [disabled]="!userId || hasRecords"
-		  (click)="onDeleteRegistration()">
-		  Deletar Cadastro
-		</button>
-	  </div>1
-	  <h2>Identificação</h2>
+	  <div class="row mt-2">
+		<h2 class="col">Identificação</h2>
+		<div class="col d-flex justify-content-between">
+		  <button
+			type="button"
+			class="btn btn-warning"
+			[disabled]="!userId || !newPacient.valid" (click)="onEditRegistration()">
+			Editar Cadastro
+		  </button>
+		  <div
+			class="d-flex"
+			[pTooltip]="(hasRecords) ?
+			'O paciente possui ao menos uma consulta e/ou exame cadastrado. Não é possível deletar o registro de paciente!' :
+		  ''"
+			tooltipPosition="bottom">
+			<button
+			  type="button"
+			  class="btn btn-danger"
+			  [disabled]="!userId || hasRecords"
+			  (click)="onDeleteRegistration()"
+			>
+			  Deletar Cadastro
+			</button>
+		  </div>
+
+		<div
+		  class="d-flex"
+		  [pTooltip]="(!newPacient.valid) ? 'Preencha todas informações para cadastrar um novo paciente' :
+		  userId ? 'Paciente já cadastrado.' : ''"
+		  tooltipPosition="bottom">
+		  <button
+			class="btn btn-success"
+			type="submit"
+			[disabled]="!newPacient.valid || userId">
+			Cadastrar
+		  </button>
+		</div>
+
+
+	  	</div>
+	  </div>
+
+
 	  <!--Nome,genero, dob-->
 	  <div class="row">
 		<!--Pacient Name-->
@@ -38,6 +60,7 @@
               #pacientName="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(pacientName.invalid && pacientName.touched) ? 'invalidInput' : ''"
 			  id="pacientName"
 			  name="pacientName"
 			  [(ngModel)]="pacient.identification.pacientName"
@@ -80,6 +103,7 @@
 			id="dateOfBirth"
 			name="dateOfBirth"
 			class="form-control"
+			[ngClass]="(dob.errors?.['invalidDob'] && dob.touched) ? 'invalidInput' : ''"
 			required
 			[(ngModel)]="pacient.identification.dob"
             #dob="ngModel"
@@ -103,6 +127,7 @@
               #cpf="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(cpf.errors?.['invalidCpf'] && cpf.touched) ? 'invalidInput' : ''"
 			  id="pacientCpf"
 			  name="pacientCpf"
 			  minlength="14"
@@ -132,6 +157,7 @@
 				type="text"
 				id="pacientRg"
 				class="form-control"
+				[ngClass]="(rgNumber.invalid && rgNumber.touched) ? 'invalidInput' : ''"
 				name="pacientRg"
 				minlength="6"
 				maxlength="20"
@@ -152,7 +178,9 @@
 				Órgão Expedidor
 			  </label>
 			  <input
+				#rgDispatcher="ngModel"
 				class="form-control"
+				[ngClass]="(rgDispatcher.invalid && rgDispatcher.touched) ? 'invalidInput': ''"
 				type="text"
 				id="rgDispatcher"
 				name="rgDispatcher"
@@ -196,6 +224,7 @@
               #cityOfBirth="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(cityOfBirth.invalid && cityOfBirth.touched) ? 'invalidInput': ''"
 			  id="birthPlace"
 			  name="birthPlace"
 			  minlength="8"
@@ -215,7 +244,8 @@
 			Telefone
 		  </label>
 		  <p-inputMask
-			styleClass="form-control"
+			#phone="ngModel"
+			[styleClass]="(phone.invalid && phone.touched)  ? 'form-control invalidInput' : 'form-control'"
 			id="phone"
 			placeholder="(99) 9 9999-9999"
 			name="phone"
@@ -234,6 +264,7 @@
               #email="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(email.invalid && email.touched) ? 'invalidInput' : ''"
 			  id="email"
 			  name="email"
 			  placeholder="email@email.com"
@@ -256,7 +287,8 @@
 			Contato de Emergência
 		  </label>
 		  <p-inputMask
-			styleClass="form-control"
+			#emergencyPhone="ngModel"
+			[styleClass]="(emergencyPhone.invalid && emergencyPhone.touched)  ? 'form-control invalidInput' : 'form-control'"
 			id="emergencyContact"
 			name="emergencyContact"
 			placeholder="(99) 9 9999-9999"
@@ -341,8 +373,10 @@
 				CEP
 		  	</label>
 		  	<input
+				#cep="ngModel"
 				type="text"
 				class="form-control"
+				[ngClass]="(cep.invalid && cep.touched) ? 'invalidInput': ''"
 				id="cep"
 				name="cep"
 				[(ngModel)]="pacient.address.cep"
@@ -355,8 +389,10 @@
 			  Cidade
 			</label>
 			<input
+			  #city="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(city.invalid && city.touched) ? 'invalidInput': ''"
 			  id="city"
 			  name="city"
 			  [(ngModel)]="pacient.address.city"
@@ -368,8 +404,10 @@
 			  Estado
 			</label>
 			<input
+			  #state="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(state.invalid && state.touched) ? 'invalidInput' : ''"
 			  id="state"
 			  name="state"
 			  [(ngModel)]="pacient.address.state"
@@ -384,8 +422,10 @@
 			  Logradouro
 			</label>
 			<input
+			  #street="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(street.invalid && street.touched) ? 'invalidInput' : ''"
 			  id="street"
 			  name="street"
 			  [(ngModel)]="pacient.address.street"
@@ -397,8 +437,10 @@
 			  Número
 			</label>
 			<input
+			  #number="ngModel"
 			  type="number"
 			  class="form-control"
+			  [ngClass]="(number.invalid && number.touched) ? 'invalidInput' : ''"
 			  id="number"
 			  name="number"
 			  ngModel
@@ -426,8 +468,10 @@
 			  Bairro
 			</label>
 			<input
+			  #district="ngModel"
 			  type="text"
 			  class="form-control"
+			  [ngClass]="(district.invalid && district.touched) ? 'invalidInput' : ''"
 			  id="district"
 			  name="district"
 			  [(ngModel)]="pacient.address.district"
