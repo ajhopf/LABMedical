@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SearchBarComponent {
   @Output('onSearchInput') searchInput = new EventEmitter<string>()
   @Input() listOfFilteredPacients
+  @Input() filterById
   searchTerm = ''
   onInputKeyDown(){
     this.searchInput.emit(this.searchTerm)

@@ -4,7 +4,7 @@
 	[(ngModel)]="searchTerm"
 	type="text"
 	class="form-control"
-	placeholder="Nome, email ou telefone (apenas números)"
+	[placeholder]="filterById ? 'Nome ou Id do paciente' : 'Nome, email ou telefone (apenas números)'"
 	aria-label="Username"
 	(keyup)="onInputKeyDown()">
 </div>

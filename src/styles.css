@@ -76,6 +76,14 @@ html, body { height: 100%; }
  body.dark-mode .p-card-header img {
      background-color: var(--card-color-dark-mode);
  }
+ /*Records listing*/
+
+.dark-mode tr {
+    background-color: var(--ultra-light-blue);
+}
+
+
+
 /*-------------------------------------------------------------*/
 
 /*forms*/
