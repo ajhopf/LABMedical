@@ -1,13 +1,12 @@
 <section class="mx-5" [ngClass]="isSaving ? 'd-none' : ''">
 
   <div *ngIf="!appointmentId">
-	<h2 class="mt-2">Encontre o paciente</h2>
+	<h2 class="mt-3">Encontre o paciente</h2>
 	<app-search-bar
 	  (onSearchInput)="filterPacients($event)"
 	  [clearSearch]="clearSearch"
 	  [listOfFilteredPacients]="filteredPacients"
 	></app-search-bar>
-
 	<div *ngIf="filteredPacients">
 	  <h3 class="mt-3" *ngIf="filteredPacients.length > 0">Selecione o Paciente</h3>
 	  <ul class="list-group">
@@ -32,8 +31,8 @@
 		<h3 class="col-12 col-md mb-3 mb-md-0">Consulta de
 		  {{ selectedPacient.identification.pacientName }}
 		</h3>
-
-		<div class="col-12 col-md d-flex p-0 justify-content-center justify-content-lg-end">
+		<!--buttons-->
+		<div class="col-12 col-md d-flex p-0 justify-content-center justify-content-lg-end me-2">
 		  <button
 			type="button"
 			[disabled]="newAppointmentRegistration || !newAppointment.valid"
@@ -60,80 +59,107 @@
 			  Cadastrar Consulta
 			</button>
 		  </div>
-
-
-
-
 		</div>
 	  </div>
 	  <hr>
 	  <!--Appointment reason, date and time-->
 	  <div class="row m-0 mb-3">
-		<div class="col-12 col-md">
+		<!--reason-->
+		<div class="col-12 col-md px-0 pe-lg-4">
 		  <label
 			for="reason"
 			class="form-label">Motivo da Consulta
 		  </label>
 		  <input
+			#reason="ngModel"
 			id="reason"
 			name="reason"
 			class="form-control"
+			[ngClass]="(reason.invalid && reason.touched) ? 'invalidInput' : '' "
 			type="text"
 			[(ngModel)]="appointment.reason"
 			required maxlength="64" minlength="8">
+		  <span
+			*ngIf="reason.invalid && reason.touched"
+			class="text-danger">
+	  		O motivo da consulta deve conter ao menos 8 caracteres.
+		  </span>
 		</div>
+		<!--Date and time-->
 		<div class="col-12 p-0 col-lg mt-3 mt-lg-0">
 		  <div class="row m-0">
-			<div class="col-12 col-sm">
+			<!--Date-->
+			<div class="col-12 col-sm px-0 pe-sm-2 mb-3 mb-sm-0">
 			  <label for="appointmentDate" class="form-label">
 				Data da Consulta
 			  </label>
 			  <input
+				#date="ngModel"
 				type="date"
 				id="appointmentDate"
 				name="appointmentDate"
 				class="form-control"
+				[ngClass]="(date.invalid && date.touched) ? 'invalidInput' : '' "
 				required
-				[(ngModel)]="appointment.date"
-			  >
+				[(ngModel)]="appointment.date">
+			  <span
+				*ngIf="date.invalid && date.touched"
+				class="text-danger">
+	  			Selecione uma data válida
+			  </span>
 			</div>
-			<div class="col-12 col-sm">
+			<!--Time-->
+			<div class="col-12 col-sm px-0 ps-sm-2">
 			  <label for="appointmentTime" class="form-label">
 				Horário
 			  </label>
 			  <input
+				#time="ngModel"
 				type="time"
 				id="appointmentTime"
 				name="appointmentTime"
 				class="form-control"
+				[ngClass]="(time.invalid && time.touched) ? 'invalidInput' : '' "
 				required
 				[(ngModel)]="appointment.time"
 			  >
+			  <span
+				*ngIf="time.invalid && time.touched"
+				class="text-danger">
+	  			Selecione um horário válido.
+			  </span>
 			</div>
 		  </div>
 		</div>
 	  </div>
 	  <!--Description-->
 	  <div class="row m-0 mb-3">
-		<div class="col">
+		<div class="col px-0">
 		  <label
 			for="description"
 			class="form-label">
 			Descrição do Problema
 		  </label>
 		  <textarea
+			#description="ngModel"
 			id="description"
 			name="description"
 			class="form-control"
+			[ngClass]="(description.invalid && description.touched) ? 'invalidInput' : '' "
 			required minlength="16" maxlength="1024"
 			rows="8"
 			[(ngModel)]="appointment.description">
-	  </textarea>
+		  </textarea>
+		  <span
+			*ngIf="description.invalid && description.touched"
+			class="text-danger">
+			A descrição deve conter ao menos 16 caracteres.
+		  </span>
 		</div>
 	  </div>
 	  <!--Medications-->
 	  <div class="row m-0 mb-3">
-		<div class="col">
+		<div class="col px-0">
 		  <label
 			for="medication"
 			class="form-label">
@@ -150,20 +176,27 @@
 	  </div>
 	  <!--Dosage and Precautions-->
 	  <div class="row m-0 mb-3">
-		<div class="col">
+		<div class="col px-0">
 		  <label
 			for="dosage"
 			class="form-label">
 			Dosagem e Precauções
 		  </label>
 		  <textarea
+			#dosage="ngModel"
 			id="dosage"
 			name="dosage"
 			class="form-control"
+			[ngClass]="(dosage.invalid && dosage.touched) ? 'invalidInput' : '' "
 			required minlength="16" maxlength="256"
 			rows="3"
 			[(ngModel)]="appointment.dosageAndPrecautions">
-	  </textarea>
+		  </textarea>
+		  <span
+			*ngIf="dosage.invalid && dosage.touched"
+			class="text-danger">
+			Este campo deve conter ao menos 16 caracteres.
+		  </span>
 		</div>
 	  </div>
 	  <!--Submit-->
@@ -171,8 +204,6 @@
 	</form>
   </div>
 </section>
-
-
 
 <!--Loading-->
 <div *ngIf="isSaving" class="text-center mt-5">
