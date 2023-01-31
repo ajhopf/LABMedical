@@ -22,6 +22,7 @@ export class AppointmentRegistrationComponent implements OnInit{
   isSaving: boolean
   appointmentId: string
   newAppointmentRegistration = true
+  clearSearch: boolean = false
 
   appointment: Appointment = {
     pacientId: 0,
@@ -75,11 +76,12 @@ export class AppointmentRegistrationComponent implements OnInit{
   }
 
   onSelectPacient(pacient) {
-    console.log(pacient.id)
-
     this.filteredPacients = []
+    this.clearSearch = true
     this.appointment.pacientId = pacient.id
     this.selectedPacient = pacient
+    //remove clear search=true to enable another search
+    setTimeout(() => this.clearSearch = false, 300)
   }
 
   onSubmitAppointment(){
