@@ -9,6 +9,10 @@ header {
     border-color: transparent
 }
 
+.pageHeader {
+    font-size: 1.5rem;
+}
+
 img {
     height: 80px;
     border: 1px solid black;
@@ -21,4 +25,10 @@ img:hover {
     background-color: slategrey;
     filter: grayscale(80%);
     transition: all 1s;
+}
+
+@media (max-width: 576px) {
+    .pageHeader {
+        font-size: 1.25rem;
+    }
 }

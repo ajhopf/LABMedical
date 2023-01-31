@@ -6,3 +6,7 @@ app-login-start {
 .loginComponent {
     height: 100vh;
 }
+
+img {
+    background-color: transparent;
+}
