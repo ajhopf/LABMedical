@@ -1,4 +1,153 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --dark-blue: #2d3436;
+    --medium-blue: #3a4b5c;
+    --ultra-light-blue: #dfe6e9;
+    /*Cards*/
+    --card-bg-light-mode: #E5E5E7;
+    --card-bg-dark-mode: #FFFFFFB2;
+    --card-color-dark-mode: #343944FF;
+
+    --invalid-input-bg-dark-mode: #FF7F50FF; /*coral*/
+}
+
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+ body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+ }
+
+/*Estilização de cores*/
+ body.dark-mode {
+    background-color: var(--dark-blue);
+    color: var(--ultra-light-blue);
+ }
+
+ body.light-mode {
+    background-color: whitesmoke;
+    color: var(--dark-blue);
+ }
+ /*-----------------------------------------------------------*/
+ /*Menus*/
+
+ body.light-mode header, body.light-mode .lateralMenu {
+     background-color: var(--medium-blue);
+     color: white;
+ }
+
+ body.dark-mode header, body.dark-mode .lateralMenu {
+    background-color: black;
+ }
+
+ body.dark-mode .lateralMenu .btn {
+     --bs-btn-bg: slategrey;
+ }
+
+ /*-----------------------------------------------------------*/
+ /*Cards*/
+
+ /*Light mode*/
+
+ .p-card {
+     text-align: center;
+ }
+
+ body.light-mode .p-card, body.light-mode .p-card-header img {
+     /*background-color: #E5E5E7;*/
+     background-color: var(--card-bg-light-mode);
+ }
+
+ body.light-mode .p-card-header {
+     background-color: var(--medium-blue);
+ }
+
+ /*dark mode*/
+
+ body.dark-mode .p-card {
+     background-color: var(--card-bg-dark-mode);
+     color: var(--card-color-dark-mode);
+ }
+
+ body.dark-mode .p-card-header {
+     background-color: black;
+ }
+
+ body.dark-mode .p-card-header img {
+     background-color: var(--card-color-dark-mode);
+ }
+ /*Records listing*/
+
+.dark-mode tr {
+    background-color: var(--ultra-light-blue);
+}
+
+
+
+/*-------------------------------------------------------------*/
+
+/*forms*/
+
+ .form-control:focus, .p-inputtext.form-control:focus {
+     border-color: var(--medium-blue);
+     box-shadow: 0 0 0 0.2rem rgba(58, 75, 92, 0.7);
+ }
+
+ .p-inputtext.form-control:hover {
+     border-color: #ced4da;
+ }
+
+ .p-inputtext.form-control.invalidInput:hover {
+     border-color: red;
+ }
+
+ .form-control.invalidInput {
+     border-color: red;
+ }
+
+ .form-control.invalidInput:focus {
+     box-shadow: 0 0 0 0.2rem rgb(181, 92, 55);
+ }
+
+ /*Dark Mode*/
+
+ body.dark-mode .form-control, body.dark-mode .form-select {
+     background-color: #e7e3da;
+ }
+
+ body.dark-mode .form-control:focus {
+     border-color: #535c6a;
+     box-shadow: 0 0 0 0.2rem rgba(101, 120, 141, 0.7);
+ }
+
+ body.dark-mode .invalidInput, body.dark-mode .invalidInput:focus {
+     border: 2px solid var(--invalid-input-bg-dark-mode);
+ }
+
+ body.dark-mode .form-control.invalidInput:focus {
+     box-shadow: 0 0 0 0.2rem rgb(184, 118, 90);
+ }
+
+ body.dark-mode .text-danger {
+     color: var(--invalid-input-bg-dark-mode)!important;
+ }
+ /*----------------------------------------------------------------------------*/
+ /*Pacient records*/
+
+ body.dark-mode .record-details-container {
+     background-color: rgb(33,37,41);
+ }
+
+ body.dark-mode .record-details-container .btn-outline-light {
+     --bs-btn-hover-bg: var(--card-bg-dark-mode);
+ }
+
+ body.light-mode .record-details-container {
+     background-color: var(--ultra-light-blue)
+ }
+
+ body.light-mode .record-details-container .btn-outline-light {
+     --bs-btn-border-color: var(--medium-blue);
+     --bs-btn-color: var(--medium-blue);
+     --bs-btn-hover-border-color: var(--medium-blue)
+ }

@@ -11,6 +11,8 @@ export class LateralMenuComponent {
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<any>()
   @Output('onPageChange') pageChange = new EventEmitter<string>()
 
+  isDarkMode: boolean
+
   constructor(
     private localStorage: LocalStorageService,
     private router: Router
@@ -25,5 +27,9 @@ export class LateralMenuComponent {
     this.pageChange.emit(
       page
     )
+  }
+
+  onDarkModeClick(event: boolean) {
+    this.isDarkMode = event
   }
 }

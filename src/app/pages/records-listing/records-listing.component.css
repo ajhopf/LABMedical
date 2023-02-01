@@ -1,8 +1,8 @@
-tr {
+tbody {
     cursor: pointer;
 }
 
-tr:hover {
+tbody tr:hover {
     background-color: slategrey;
     color: white;
 }

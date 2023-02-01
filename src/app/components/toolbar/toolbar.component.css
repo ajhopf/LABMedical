@@ -1,14 +1,19 @@
 header {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 0.5fr;
-    height: 100px;
-    background-color: #1f879d;
-    color: white;
-    text-shadow: 2px 2px #000;
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    z-index: 1000;
+    height: 6rem;
+    align-items: center;
+    justify-content: space-between;
 }
 
-mat-slide-toggle {
-    text-shadow: none;
+.btn:focus {
+    border-color: transparent
+}
+
+.pageHeader {
+    font-size: 1.5rem;
 }
 
 img {
@@ -16,18 +21,17 @@ img {
     border: 1px solid black;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.7);
+    transition: all 1s;
 }
 
-.dropdown {
-    border: solid 1px black;
-    border-radius: 10px;
-}
-
-.dropdown:hover {
+img:hover {
     background-color: slategrey;
     filter: grayscale(80%);
+    transition: all 1s;
 }
 
-.dropdown-menu {
-    text-shadow: none;
+@media (max-width: 576px) {
+    .pageHeader {
+        font-size: 1.25rem;
+    }
 }

@@ -20,6 +20,7 @@ export class ExamRegistrationComponent implements OnInit{
   isSaving
   examId
   newExamRegistration = true
+  clearSearch: boolean = false
 
   exam: Exam = {
     pacientId: 0,
@@ -76,6 +77,9 @@ export class ExamRegistrationComponent implements OnInit{
     this.filteredPacients = ''
     this.exam.pacientId = pacient.id
     this.selectedPacient = pacient
+    this.clearSearch = true;
+    //remove clear search=true to enable another search
+    setTimeout(() => this.clearSearch = false, 300)
   }
 
   onFormSubmit() {

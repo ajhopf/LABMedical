@@ -8,18 +8,37 @@
     flex-grow: 1;
     display: flex;
     height: 100%;
+    margin-top: 6rem;
 }
 
 .lateral-menu {
    display: none;
 }
 
-.lateral-menu.open {
+.content-container.open .lateral-menu {
     display: initial;
+    position: fixed;
+    height: calc(100vh - 6rem);
     width: 200px;
-    background-color: #1f879d;
+    background-color: #3a4b5c;
+    color: white;
+}
+
+.content-container.open .main-content {
+    margin-left: 200px;
 }
 
 .main-content {
-    width: 100%
+    width: 100%;
 }
+
+@media (max-width:768px) {
+    .content-container.open .lateral-menu {
+        width: 100vw;
+    }
+
+    .main-content.hide {
+        display: none;
+    }
+}
+

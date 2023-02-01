@@ -1,21 +1,20 @@
 
 <div class="row m-0 justify-content-center">
-  <h2>Estatísticas do Sistema</h2>
-  <div class="col-10 col-md text-center">
-	<p-card>
+  <h2 class="p-0 pt-1">Estatísticas do Sistema</h2>
+  <div class="col-11 col-lg text-center p-0 py-1">
+	<p-card styleClass="systemStatisticsCard">
 	  <div class="d-flex justify-content-center">
 		<i class="pi pi-user mx-2" style="font-size: 3rem"></i>
 		<h2>{{ pacientsNumber }}</h2>
 	  </div>
-
 	  <ng-template pTemplate="footer">
 		<h3>Pacientes</h3>
 	  </ng-template>
 	</p-card>
   </div>
 
-  <div class="col-10 col-md mx-2 text-center">
-	<p-card>
+  <div class="col-11 col-lg text-center p-0 px-lg-2 py-1">
+	<p-card styleClass="systemStatisticsCard">
 	  <div class="d-flex justify-content-center">
 		<i class="pi pi-file mx-2" style="font-size: 3rem"></i>
 		<h2>{{ appointmentsNumber }}</h2>
@@ -27,8 +26,8 @@
 	</p-card>
   </div>
 
-  <div class="col-10 col-md mx-2 text-center">
-	<p-card>
+  <div class="col-11 col-lg p-0 text-center py-1">
+	<p-card styleClass="systemStatisticsCard">
 	  <div class="d-flex justify-content-center">
 		<i class="pi pi-search mx-2" style="font-size: 3rem"></i>
 		<h2>{{ examsNumber }}</h2>
@@ -40,4 +39,6 @@
 	</p-card>
   </div>
 </div>
+
+
 

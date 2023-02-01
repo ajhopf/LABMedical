@@ -1,22 +1,31 @@
-<div>
+<div class="row m-0">
   <app-system-statistics
-    [pacients]="pacients" [appointments]="appointments" [exams]="exams"></app-system-statistics>
-</div>
-<h2>Informações Rápidas de Pacientes</h2>
-<div>
-  <app-search-bar (onSearchInput)="filterPacients($event)"></app-search-bar>
+    [pacients]="pacients"
+    [appointments]="appointments"
+    [exams]="exams">
+  </app-system-statistics>
+
 </div>
 
+<hr class="mx-2">
 
-<div *ngIf="filteredPacients.length > 0" class="row">
-  <div *ngFor="let pacient of filteredPacients" class="col-3">
+<div class="row m-0 justify-content-center">
+  <h2>Informações Rápidas de Pacientes</h2>
+  <div>
+    <app-search-bar (onSearchInput)="filterPacients($event)"></app-search-bar>
+  </div>
+
+  <div *ngIf="filteredPacients.length > 0" class="row justify-content-center">
+    <div *ngFor="let pacient of filteredPacients" class="col-12 col-md-5 col-lg-3">
       <app-pacient-card [pacient]="pacient"></app-pacient-card>
+    </div>
+  </div>
+
+  <div *ngIf="filteredPacients.length === 0" class="row justify-content-center">
+    <div *ngFor="let pacient of pacients" class="col-12 col-md-5 col-xl-3">
+      <app-pacient-card [pacient]="pacient"></app-pacient-card>
+    </div>
   </div>
 </div>
 
-<div *ngIf="filteredPacients.length === 0" class="row">
-  <div *ngFor="let pacient of pacients" class="col-3">
-      <app-pacient-card [pacient]="pacient"></app-pacient-card>
-  </div>
-</div>
 
