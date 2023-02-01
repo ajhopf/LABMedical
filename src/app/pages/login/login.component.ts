@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit{
 
   urls = URLS
 
+  triedLogin: boolean = false
+
   constructor(
     private doctorsDB: DoctorsDBService,
     private authenticationService: AuthenticationService,
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit{
           this.authenticationService.logIn(loggedUser)
           this.router.navigate(['/home'])
         } else {
+          this.triedLogin = true
           alert('Usuário não cadastrado ou credenciais inválidas!')
         }
       })
@@ -53,5 +56,9 @@ export class LoginComponent implements OnInit{
 
   fetchUsers() {
     return this.doctorsDB.getUsers()
+  }
+
+  onForgotPasswordClick() {
+    alert('Desculpe, ainda estamos trabalhando para implementar essa função!')
   }
 }

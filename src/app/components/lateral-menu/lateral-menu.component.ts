@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { LocalStorageService } from "../../shared/services/local-storage.service";
 import { Router } from "@angular/router";
+import { AuthGuardGuard } from "../../shared/guards/auth-guard.guard";
 
 @Component({
   selector: 'app-lateral-menu',
@@ -27,7 +28,6 @@ export class LateralMenuComponent implements OnInit{
   }
 
   onLogOut(){
-    this.localStorage.userLoggedOut()
     this.router.navigate(['/'])
   }
 

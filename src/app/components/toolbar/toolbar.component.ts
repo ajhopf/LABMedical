@@ -55,7 +55,6 @@ export class ToolbarComponent implements OnInit, DoCheck {
   }
 
   onLogOut(){
-    this.localStorage.userLoggedOut()
     this.router.navigate(['/'])
   }
 

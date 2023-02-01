@@ -43,12 +43,15 @@
       <div class="d-flex">
         <button
           type="submit"
-          class="btn btn-primary flex-grow-1"
+          class="btn btn-secondary flex-grow-1"
           [disabled]="!loginForm.valid">
           Entrar
         </button>
       </div>
     </form>
+    <div class="text-center" *ngIf="triedLogin">
+      <button class="btn mt-3 text-danger" (click)="onForgotPasswordClick()">Esqueceu sua senha?</button>
+    </div>
     <hr>
     <div class="row text-center">
       <p>Não possui uma conta?</p>

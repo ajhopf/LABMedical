@@ -11,12 +11,6 @@ export class AuthenticationService {
   ) { }
 
   isAuthenticated() {
-    // const promise = new Promise (
-    //   resolve => {
-    //     resolve(this.loggedIn)
-    //   }
-    // )
-    // return promise
     if (this.loggedIn || this.localStorage.getStorage()) {
       return true
     } else {
@@ -29,9 +23,5 @@ export class AuthenticationService {
     if (!this.localStorage.getStorage()) {
       this.localStorage.userLoggedIn(user)
     }
-  }
-
-  logOut() {
-    this.loggedIn = false
   }
 }

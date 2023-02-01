@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViacepService } from "../../shared/services/viacep.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { ConfirmationService } from "primeng/api";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Router} from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
 import { Appointment } from "../../shared/models/appointment.model";
 import { Exam } from "../../shared/models/exam.model";
+
 
 @Component({
   selector: 'app-pacient-registration',
@@ -77,7 +78,6 @@ export class PacientRegistrationComponent implements OnInit{
 
       this.appointmentsDB.getAppointmentsByUserId(this.userId).subscribe(
         (appointments: Appointment[]) => {
-
           if (appointments.length > 0) {
             this.hasRecords = true
           }
