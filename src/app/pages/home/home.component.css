@@ -19,20 +19,20 @@
     display: initial;
     position: fixed;
     height: calc(100vh - 6rem);
-    width: 300px;
+    width: 200px;
     background-color: #3a4b5c;
     color: white;
 }
 
 .content-container.open .main-content {
-    margin-left: 300px;
+    margin-left: 200px;
 }
 
 .main-content {
     width: 100%;
 }
 
-@media (max-width:576px) {
+@media (max-width:768px) {
     .content-container.open .lateral-menu {
         width: 100vw;
     }
