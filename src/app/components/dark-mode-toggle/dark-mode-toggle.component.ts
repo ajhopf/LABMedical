@@ -16,7 +16,6 @@ export class DarkModeToggleComponent implements OnInit{
 
   ngOnInit() {
     let isDarkModeOn = JSON.parse(localStorage.getItem('dark-mode'))
-    console.log(isDarkModeOn)
     this.darkMode = isDarkModeOn['darkMode']
   }
 
