@@ -31,12 +31,12 @@ html, body { height: 100%; }
  /*-----------------------------------------------------------*/
  /*Menus*/
 
- body.light-mode header, body.light-mode .lateral-menu.open {
+ body.light-mode header, body.light-mode .lateralMenu {
      background-color: var(--medium-blue);
      color: white;
  }
 
- body.dark-mode header, body.dark-mode .lateral-menu.open {
+ body.dark-mode header, body.dark-mode .lateralMenu {
     background-color: black;
  }
 

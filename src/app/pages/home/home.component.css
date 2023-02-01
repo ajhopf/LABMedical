@@ -8,17 +8,24 @@
     flex-grow: 1;
     display: flex;
     height: 100%;
+    margin-top: 6rem;
 }
 
 .lateral-menu {
    display: none;
 }
 
-.lateral-menu.open {
+.content-container.open .lateral-menu {
     display: initial;
+    position: fixed;
+    height: calc(100vh - 6rem);
     width: 300px;
     background-color: #3a4b5c;
     color: white;
+}
+
+.content-container.open .main-content {
+    margin-left: 300px;
 }
 
 .main-content {
@@ -26,7 +33,7 @@
 }
 
 @media (max-width:576px) {
-    .lateral-menu.open {
+    .content-container.open .lateral-menu {
         width: 100vw;
     }
 

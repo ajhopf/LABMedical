@@ -3,11 +3,11 @@
 	[pageHeader]="pageName"
 	(onToggleMenu)="openMenu($event)">
   </app-toolbar>
-  <div class="content-container">
-	<div
-	  class="lateral-menu"
-	  [ngClass]="toggleLateralMenu ? 'open' : ''"
-	>
+  <div
+	class="content-container"
+	[ngClass]="toggleLateralMenu ? 'open' : ''">
+
+	<div class="lateral-menu">
 	  <app-lateral-menu
 	  (onPageChange)="changePageName($event)">
 	  </app-lateral-menu>
