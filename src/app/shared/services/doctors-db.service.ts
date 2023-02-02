@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Doctor } from "../models/doctor.model";
 import { Observable } from "rxjs";
-
-interface Doctor {
-  name?: string;
-  email: string;
-  password: string;
-  avatar?: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +20,11 @@ export class DoctorsDBService {
     })
   }
 
-  getUsers() {
+  getUsers(): Observable<any> {
     return this.http.get(this.BASE_URL)
   }
 
-  getUser(userId) {
-    return this.http.get(`${this.BASE_URL}/${+userId}`)
+  getUser(userId: number): Observable<any> {
+    return this.http.get(`${this.BASE_URL}/${userId}`)
   }
 }

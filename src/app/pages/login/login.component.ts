@@ -2,7 +2,7 @@ import { Component, DoCheck, EventEmitter, OnInit, ViewChild } from '@angular/co
 import { DoctorsDBService } from "../../shared/services/doctors-db.service";
 import { URLS } from "../../shared/constants/urls";
 import { NgForm } from "@angular/forms";
-import { filter } from "rxjs";
+import { filter, Observable } from "rxjs";
 import { AuthenticationService } from "../../shared/services/authentication.service";
 import { Router } from "@angular/router";
 
@@ -11,10 +11,10 @@ import { Router } from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent {
   @ViewChild('loginForm') loginForm: NgForm | undefined
 
-  loginAllowed = false
+  loginAllowed:boolean = false
 
   urls = URLS
 
@@ -26,10 +26,7 @@ export class LoginComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit() {
-  }
-
-  onLogin(){
+  onLogin(): void {
     let userEmail = this.loginForm.value.email
     let userPassword = this.loginForm.value.password
 
@@ -54,11 +51,11 @@ export class LoginComponent implements OnInit{
       })
   }
 
-  fetchUsers() {
+  fetchUsers(): Observable<any> {
     return this.doctorsDB.getUsers()
   }
 
-  onForgotPasswordClick() {
+  onForgotPasswordClick(): void {
     alert('Desculpe, ainda estamos trabalhando para implementar essa função!')
   }
 }

@@ -23,11 +23,11 @@ export class PacientsDbService {
     return this.http.get(`${ this.BASE_URL }/${ +pacientId }`)
   }
 
-  editPacient(pacient: Pacient) {
+  editPacient(pacient: Pacient): Observable<any> {
     return this.http.put(`${this.BASE_URL}/${pacient.id}`, pacient)
   }
 
-  deletePacient(pacientId: string) {
+  deletePacient(pacientId: string): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/${pacientId}`)
   }
 }

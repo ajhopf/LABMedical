@@ -23,8 +23,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<boolean>()
   @Input() pageHeader: string = ''
 
-  isMenuOpen = false
-  currentUserId = 0
+  isMenuOpen: boolean = false
+  currentUserId: number = 0
   currentUser = {}
   userAvatar = ''
   possibleHeaders = PageHeaders

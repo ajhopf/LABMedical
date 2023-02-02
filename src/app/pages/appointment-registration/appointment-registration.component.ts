@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-// @ts-ignore
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
-// @ts-ignore
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { ConfirmationService } from "primeng/api";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
@@ -84,16 +82,19 @@ export class AppointmentRegistrationComponent implements OnInit{
     setTimeout(() => this.clearSearch = false, 300)
   }
 
-  onSubmitAppointment(){
-    let confirmationMessage = `<pre>
+  generateConfirmationMessage(): string {
+    return `<pre>
     <strong>Motivo:</strong> ${this.appointment.reason}\n
     <strong>Data e hora:</strong> ${new Date(this.appointment.date).toLocaleDateString()} / ${this.appointment.time}\n
     <strong>Descrição:</strong> ${this.appointment.description}\n
     <strong>Medicação:</strong> ${this.appointment.medication || 'Sem medicação'}\n
-    <strong>Dosagem e Precauções:</strong> ${this.appointment.dosageAndPrecautions}`
+    <strong>Dosagem e Precauções:</strong> ${this.appointment.dosageAndPrecautions}\n
+    </pre>`
+  }
 
+  onSubmitAppointment(){
     this.confirmationService.confirm({
-      message: confirmationMessage,
+      message: this.generateConfirmationMessage(),
       header: 'Confirme as informações do paciente',
       accept: () => {
         this.isSaving = true
@@ -116,18 +117,9 @@ export class AppointmentRegistrationComponent implements OnInit{
   }
 
   onEditAppointment(){
-    let confirmationMessage = `<pre>
-    <strong>Motivo:</strong> ${this.appointment.reason}\n
-    <strong>Data e hora:</strong> ${new Date(this.appointment.date).toLocaleDateString()} / ${this.appointment.time}\n
-    <strong>Descrição:</strong> ${this.appointment.description}\n
-    <strong>Medicação:</strong> ${this.appointment.medication || 'Sem medicação'}\n
-    <strong>Dosagem e Precauções:</strong> ${this.appointment.dosageAndPrecautions}\n\n
-
-    Confirmar edição?`
-
-    this.confirmationService.confirm({
-      message: confirmationMessage,
-      header: 'Editar Consulta',
+       this.confirmationService.confirm({
+      message: this.generateConfirmationMessage() + 'Confirmar edição?',
+      header: 'Confirme as informações para editar a consulta',
       accept: () => {
         this.isSaving = true
 

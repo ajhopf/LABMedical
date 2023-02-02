@@ -7,16 +7,16 @@ import { Component } from '@angular/core';
 })
 
 export class HomeComponent {
-  toggleLateralMenu
-  pageName = 'Estatísticas e Informações'
+  toggleLateralMenu: boolean
+  pageName: string = 'Estatísticas e Informações'
 
   constructor( ) {  }
 
-  openMenu(event) {
-    this.toggleLateralMenu = event
+  openMenu(toggleMenu: boolean): void {
+    this.toggleLateralMenu = toggleMenu
   }
 
-  changePageName(event: string) {
+  changePageName(event: string): void {
     this.pageName = event
   }
 }

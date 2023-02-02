@@ -10,16 +10,14 @@ import { Pacient } from "../../shared/models/pacient.model";
 export class PacientCardComponent {
   @Input() pacient: Pacient
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) { }
 
 
-  onCardClick(pacientId: number){
-    console.log(pacientId)
+  onCardClick(pacientId: number): void{
     this.router.navigate([`./home/pacient-registration/${pacientId}`])
   }
 
-  calculateAge(pacientDob: string){
+  calculateAge(pacientDob: string): number {
     let today = new Date();
     let birthDate = new Date(pacientDob);
     let age = today.getFullYear() - birthDate.getFullYear();

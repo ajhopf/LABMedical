@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Pacient } from "../models/pacient.model";
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class FilterPacientsService {
   constructor() { }
 
-  filterPacients(pacients, filter: string, filterBy?: string) {
+  filterPacients(pacients: Pacient[], filter: string, filterBy?: string): Pacient[] {
     let filteredPacients
     //filter by name
     filteredPacients = pacients.filter(pacient => pacient.identification.pacientName.toLowerCase().includes(filter.toLowerCase()))

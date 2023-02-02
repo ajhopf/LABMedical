@@ -5,6 +5,9 @@ import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
 import { Router } from "@angular/router";
+import { Pacient } from "../../shared/models/pacient.model";
+import { Appointment } from "../../shared/models/appointment.model";
+import { Exam } from "../../shared/models/exam.model";
 
 @Component({
   selector: 'app-records-listing',
@@ -12,9 +15,9 @@ import { Router } from "@angular/router";
   styleUrls: ['./records-listing.component.css']
 })
 export class RecordsListingComponent implements OnInit{
-  pacients
-  appointments
-  exams
+  pacients: Pacient[]
+  appointments: Appointment[]
+  exams: Exam[]
   filteredPacients = []
 
   constructor(
@@ -27,24 +30,23 @@ export class RecordsListingComponent implements OnInit{
 
   ngOnInit(){
     this.pacientsDB.getPacients().subscribe(
-      pacientsList => this.pacients = pacientsList
+      (pacientsList: Pacient[]) => this.pacients = pacientsList
     )
 
     this.appointmentsDB.getAppointments().subscribe(
-      appointmentList => this.appointments = appointmentList
+      (appointmentList: Appointment[]) => this.appointments = appointmentList
     )
 
     this.examsDB.getExams().subscribe(
-      examsList => this.exams = examsList
+      (examsList: Exam[]) => this.exams = examsList
     )
   }
 
-  filterPacients(filter: string) {
+  filterPacients(filter: string): void {
     this.filteredPacients = this.pacientFilterService.filterPacients(this.pacients, filter, 'id')
   }
 
-  onPacientClick(pacient) {
-    console.log(pacient)
+  onPacientClick(pacient): void {
     this.router.navigate([`/home/pacient-records/${pacient.id}`])
   }
 }

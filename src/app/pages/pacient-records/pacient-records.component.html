@@ -5,13 +5,14 @@
 	  <p>Convênio:
 		{{ pacient.healthInsurance.insurance || "Sem convênio" }}
 	  </p>
+	  <p>Contato de Emergência: {{ pacient.identification.emergencyContact }}</p>
 	  <p>Alergias: {{ pacient.identification.alergies || "Sem alergia"  }}</p>
+	  <p>Cuidados Específicos: {{ pacient.identification.specialCare || "Sem necessidades especiais" }}</p>
 	</div>
 
 	<div *ngIf="pacientRecords">
 
 	  <div *ngFor="let record of pacientRecords; let i = index">
-
 		<!--Render if record is an Exam-->
 		<div *ngIf="record.examName">
 		  <div class="d-flex align-items-center">
@@ -30,11 +31,11 @@
 				</button>
 			  </div>
 			  <hr class="mt-0">
-			  <p>Data: {{ record.date | date: 'dd/MM/yyyy' }}</p>
-			  <p>Horário do exame: {{ record.time }}</p>
-			  <p>Laboratório: {{ record.examLab }}</p>
+			  <h5>Data: {{ record.date | date: 'dd/MM/yyyy' }}</h5>
+			  <h5>Horário do exame: {{ record.time }}</h5>
+			  <h5>Laboratório: {{ record.examLab }}</h5>
 			  <p>{{ record.examUrl || "Sem link para este exame" }}</p>
-			  <p>{{ record.examResult }}</p>
+			  <p>Resultado: {{ record.examResult }}</p>
 			</div>
 		  </div>
 		</div>
@@ -48,7 +49,7 @@
 		  <div class="border-start border-4 record-container p-2">
 			<div class="ms-2 p-2 record-details-container">
 			  <div class="row mx-0 my-2">
-				<h4 class="col p-0 m-0 align-self-center">{{ record.reason }}</h4>
+				<h4 class="col p-0 m-0 align-self-center">Motivo da Consulta: {{ record.reason }}</h4>
 				<button
 				  class="col-12 col-sm-3 btn btn-outline-light"
 				  (click)="onAppointmentEdit(record.id)">
@@ -57,13 +58,11 @@
 				</button>
 			  </div>
 			  <hr class="mt-0">
-
-			  <p>Data: {{ record.date | date: 'dd/MM/yyyy' }}</p>
-			  <p>Horário da consulta: {{ record.time }}</p>
-			  <p>{{ record.description }}</p>
-			  <p>{{ record.medication || "Sem medicação" }}</p>
-			  <p>{{ record.dosageAndPrecautions }}</p>
-
+			  <h5>Data: {{ record.date | date: 'dd/MM/yyyy' }}</h5>
+			  <h5>Horário da consulta: {{ record.time }}</h5>
+			  <p>Descrição: {{ record.description }}</p>
+			  <p>Medicação: {{ record.medication || "Sem medicação" }}</p>
+			  <p>Dosagem e precauções: {{ record.dosageAndPrecautions }}</p>
 			</div>
 		  </div>
 		</div>

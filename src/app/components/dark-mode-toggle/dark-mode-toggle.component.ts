@@ -9,13 +9,12 @@ import { DarkModeService } from "angular-dark-mode";
 })
 export class DarkModeToggleComponent implements OnInit{
   @Output('darkMode') darkModeEmit = new EventEmitter<boolean>()
-  darkMode = false
-  darkMode$: Observable<boolean> = this.darkModeService.darkMode$
+  darkMode: boolean = false
 
   constructor(private darkModeService: DarkModeService) {}
 
-  ngOnInit() {
-    let isDarkModeOn = JSON.parse(localStorage.getItem('dark-mode'))
+  ngOnInit(): void {
+    let isDarkModeOn: boolean = JSON.parse(localStorage.getItem('dark-mode'))
     this.darkMode = isDarkModeOn['darkMode']
   }
 

@@ -6,6 +6,7 @@ import { ExamsDbService } from "../../shared/services/exams-db.service";
 import { Exam } from "../../shared/models/exam.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-exam-registration',
@@ -13,13 +14,13 @@ import { Pacient } from "../../shared/models/pacient.model";
   styleUrls: ['./exam-registration.component.css']
 })
 export class ExamRegistrationComponent implements OnInit{
-  @ViewChild('newExam') newExamForm
-  pacients
-  filteredPacients
-  selectedPacient
-  isSaving
-  examId
-  newExamRegistration = true
+  @ViewChild('newExam') newExamForm: NgForm
+  pacients: Pacient[]
+  filteredPacients: Pacient[]
+  selectedPacient: Pacient
+  isSaving: boolean
+  examId: string
+  newExamRegistration: boolean = true
   clearSearch: boolean = false
 
   exam: Exam = {
@@ -42,7 +43,7 @@ export class ExamRegistrationComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.pacientsDB.getPacients().subscribe(
       pacientsList => {
         this.pacients = pacientsList;
@@ -65,16 +66,16 @@ export class ExamRegistrationComponent implements OnInit{
     }
   }
 
-  filterPacients(filter: string) {
+  filterPacients(filter: string): void {
     if (filter) {
       this.filteredPacients = this.filterPacientsService.filterPacients(this.pacients, filter)
     } else {
-      this.filteredPacients = ''
+      this.filteredPacients = []
     }
   }
 
-  onSelectPacient(pacient) {
-    this.filteredPacients = ''
+  onSelectPacient(pacient): void {
+    this.filteredPacients = []
     this.exam.pacientId = pacient.id
     this.selectedPacient = pacient
     this.clearSearch = true;
@@ -82,24 +83,27 @@ export class ExamRegistrationComponent implements OnInit{
     setTimeout(() => this.clearSearch = false, 300)
   }
 
-  onFormSubmit() {
-    let confirmationMessage = `<pre>
+  generateConfirmationMessage(): string {
+    return `<pre>
     <strong>Nome do Exame:</strong> ${ this.exam.examName }\n
-    <strong>Data e hora:</strong> ${ this.exam.date } / ${ this.exam.time }\n
+    <strong>Data e hora:</strong> ${ new Date(this.exam.date).toLocaleDateString() } / ${ this.exam.time }\n
     <strong>Tipo do Exame:</strong> ${ this.exam.examType }\n
     <strong>Url do Exame:</strong> ${ this.exam.examUrl ? this.exam.examUrl : 'Sem link para exame' }\n
-    <strong>Resultado do Exame:</strong> ${ this.exam.examResult }
+    <strong>Resultado do Exame:</strong> ${ this.exam.examResult }\n
     `
+  }
 
+  onFormSubmit(): void {
     this.confirmationService.confirm({
-      message: confirmationMessage,
+      message: this.generateConfirmationMessage(),
+      header: 'Confirme as informações do exame',
       accept: () => {
         this.isSaving = true
 
         setTimeout(() => {
           console.log(this.exam)
           this.examsDB.createExam(this.exam).subscribe(
-            createdExam => {
+            () => {
               alert('Exame adicionado com sucesso!')
               this.isSaving = false
               this.newExamForm.reset()
@@ -114,26 +118,16 @@ export class ExamRegistrationComponent implements OnInit{
     })
   }
 
-  onEditExam() {
-    let confirmationMessage = `<pre>
-    <strong>Nome do Exame:</strong> ${ this.exam.examName }\n
-    <strong>Data e hora:</strong> ${ this.exam.date } / ${ this.exam.time }\n
-    <strong>Tipo do Exame:</strong> ${ this.exam.examType }\n
-    <strong>Url do Exame:</strong> ${ this.exam.examUrl || 'Sem link para exame' }\n
-    <strong>Resultado do Exame:</strong> ${ this.exam.examResult }\n\n
-    
-    Confirmar edição?
-    `
-
-    this.confirmationService.confirm({
-      message: confirmationMessage,
-      header: 'Editar Exame',
+  onEditExam(): void {
+     this.confirmationService.confirm({
+      message: this.generateConfirmationMessage() + 'Confirmar Edição?',
+      header: 'Confirme as informações para editar o exame',
       accept: () => {
         this.isSaving = true
 
         setTimeout(() => {
           this.examsDB.editExam(this.exam).subscribe(
-            createdExam => {
+            () => {
               alert('Exame atualizado com sucesso!')
               this.isSaving = false
             },
@@ -148,7 +142,7 @@ export class ExamRegistrationComponent implements OnInit{
 
   }
 
-  onDeleteExam() {
+  onDeleteExam(): void {
     this.confirmationService.confirm({
       message: `<pre>
       Você está prestes a deletar o exame ${this.exam.examName} de ${this.selectedPacient.identification.pacientName}\n
@@ -159,7 +153,7 @@ export class ExamRegistrationComponent implements OnInit{
 
         setTimeout(() => {
           this.examsDB.deleteExam(this.examId).subscribe(
-            createdExam => {
+            () => {
               alert('Exame deletado com sucesso!')
               this.isSaving = false
               this.router.navigate(['/home/exam-registration'])

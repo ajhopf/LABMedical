@@ -10,8 +10,8 @@ import { DoctorsDBService } from "../../../shared/services/doctors-db.service";
 export class NewUserComponent {
   @ViewChild('newUser') newUserForm: NgForm | undefined
 
-  userAvatarNumber = 1
-  userCreated = false;
+  userAvatarNumber: number = 1
+  userCreated: boolean = false;
 
   constructor(private doctorsDB: DoctorsDBService) {}
 
@@ -19,7 +19,7 @@ export class NewUserComponent {
     this.userAvatarNumber++
   }
 
-  onCreateUser(){
+  onCreateUser(): void{
     let createdUser = {
       name: this.newUserForm.value.username,
       email: this.newUserForm.value.email,

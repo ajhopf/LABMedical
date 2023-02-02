@@ -19,7 +19,7 @@ export class LateralMenuComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     let currentMode = JSON.parse(localStorage.getItem('dark-mode'))
 
     if (currentMode) {
@@ -27,17 +27,15 @@ export class LateralMenuComponent implements OnInit{
     }
   }
 
-  onLogOut(){
+  onLogOut(): void {
     this.router.navigate(['/'])
   }
 
-  updateHeader(page: string) {
-    this.pageChange.emit(
-      page
-    )
+  updateHeader(page: string): void {
+    this.pageChange.emit(page)
   }
 
-  onDarkModeClick(darkMode: boolean) {
+  onDarkModeClick(darkMode: boolean): void {
     this.isDarkMode = darkMode
   }
 }
