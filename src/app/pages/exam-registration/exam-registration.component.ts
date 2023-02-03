@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { NgForm } from "@angular/forms";
+import { ConfirmationService } from "primeng/api";
+
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
-import { ConfirmationService } from "primeng/api";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
 import { Exam } from "../../shared/models/exam.model";
-import { ActivatedRoute, Router } from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
-import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-exam-registration',
@@ -27,7 +28,7 @@ export class ExamRegistrationComponent implements OnInit{
     pacientId: 0,
     examName: '',
     date: new Date().toISOString().slice(0,10),
-    time: new Date().toLocaleTimeString().slice(0,5),
+    time: new Date().toLocaleTimeString('pt-BR', {timeZone: 'UTC'}).slice(0,5),
     examType: '',
     examLab: '',
     examUrl: '',
@@ -86,7 +87,7 @@ export class ExamRegistrationComponent implements OnInit{
   generateConfirmationMessage(): string {
     return `<pre>
     <strong>Nome do Exame:</strong> ${ this.exam.examName }\n
-    <strong>Data e hora:</strong> ${ new Date(this.exam.date).toLocaleDateString() } / ${ this.exam.time }\n
+    <strong>Data e hora:</strong> ${ new Date(this.exam.date).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) } / ${ this.exam.time }\n
     <strong>Tipo do Exame:</strong> ${ this.exam.examType }\n
     <strong>Url do Exame:</strong> ${ this.exam.examUrl ? this.exam.examUrl : 'Sem link para exame' }\n
     <strong>Resultado do Exame:</strong> ${ this.exam.examResult }\n
@@ -101,7 +102,6 @@ export class ExamRegistrationComponent implements OnInit{
         this.isSaving = true
 
         setTimeout(() => {
-          console.log(this.exam)
           this.examsDB.createExam(this.exam).subscribe(
             () => {
               alert('Exame adicionado com sucesso!')

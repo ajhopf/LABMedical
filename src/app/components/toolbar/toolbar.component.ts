@@ -1,17 +1,16 @@
 import {
-  AfterViewInit,
   Component, DoCheck,
   EventEmitter,
-  Injectable, Input,
-  OnChanges,
+  Input,
   OnInit,
   Output,
-  SimpleChanges
 } from '@angular/core';
+import { Router } from "@angular/router";
+
 import { LocalStorageService } from "../../shared/services/local-storage.service";
-import { ActivatedRoute, Router } from "@angular/router";
 import { DoctorsDBService } from "../../shared/services/doctors-db.service";
 import { PageHeaders } from "../../shared/constants/page-headers";
+import { Doctor } from "../../shared/models/doctor.model";
 
 @Component({
   selector: 'app-toolbar',
@@ -25,8 +24,12 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
   isMenuOpen: boolean = false
   currentUserId: number = 0
-  currentUser = {}
-  userAvatar = ''
+  currentUser: Doctor = {
+    name: '',
+    email: '',
+    password: ''
+  }
+  userAvatar: string = ''
   possibleHeaders = PageHeaders
 
   constructor(
@@ -39,7 +42,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
     this.currentUserId = +this.localStorage.getStorage()
 
     this.doctorsDB.getUser(this.currentUserId)
-      .subscribe((user) => {
+      .subscribe((user: Doctor) => {
         this.currentUser = user
         this.userAvatar = user['avatar']
       })

@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router} from "@angular/router";
+import { ConfirmationService } from "primeng/api";
+
 import { ViacepService } from "../../shared/services/viacep.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
-import { ConfirmationService } from "primeng/api";
-import { ActivatedRoute, Router} from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
 import { Appointment } from "../../shared/models/appointment.model";
 import { Exam } from "../../shared/models/exam.model";
-
 
 @Component({
   selector: 'app-pacient-registration',
@@ -119,7 +119,7 @@ export class PacientRegistrationComponent implements OnInit{
     return `<pre>
     <strong>Nome:</strong> ${this.pacient.identification.pacientName}
     <strong>Gênero: </strong>${this.pacient.identification.pacientGender}
-    <strong>Data de Nascimento:</strong>${this.pacient.identification.dob}
+    <strong>Data de Nascimento:</strong>${new Date(this.pacient.identification.dob).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}
     <strong>CPF: </strong>${this.pacient.identification.cpf}
     <strong>Rg: </strong>${this.pacient.identification.rg.number} / ${this.pacient.identification.rg.dispatcher}
     <strong>Estado Civil: </strong>${this.pacient.identification.civilState}
@@ -131,8 +131,8 @@ export class PacientRegistrationComponent implements OnInit{
     <strong>Cuidados Especiais: </strong>${this.pacient.identification.specialCare ? this.pacient.identification.specialCare : 'Não' +
       ' necessita cuidados especiais'}\n
     <strong>Convênio: </strong>${this.pacient.healthInsurance.insurance ?
-      (this.pacient.healthInsurance.insurance + ' / Número: ' + this.pacient.healthInsurance.insuranceNumber + ' /' +
-        ' / Validade: ' + this.pacient.healthInsurance.insuranceValidity) : 'Sem convênio'}\n
+      (this.pacient.healthInsurance.insurance + ' / Número: ' + this.pacient.healthInsurance.insuranceNumber +
+        ' / Validade: ' + new Date(this.pacient.healthInsurance.insuranceValidity).toLocaleDateString('pt-BR', {timeZone: 'UTC'})) : 'Sem convênio'}\n
     <strong>Endereço: </strong>${this.pacient.address.street}, ${this.pacient.address.number} ${this.pacient.address.complement} / ${this.pacient.address.district}, ${this.pacient.address.state}, ${this.pacient.address.city}\n
     </pre>`
   }

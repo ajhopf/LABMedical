@@ -11,13 +11,10 @@ export class DoctorsDBService {
   constructor(private http: HttpClient) { }
 
   createUser(createdUser: Doctor): void {
-    console.log(createdUser)
     this.http.post(
       this.BASE_URL,
       createdUser
-    ).subscribe(response => {
-      console.log(response)
-    })
+    ).subscribe()
   }
 
   getUsers(): Observable<any> {

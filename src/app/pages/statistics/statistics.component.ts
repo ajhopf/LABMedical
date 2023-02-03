@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-// @ts-ignore
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
-// @ts-ignore
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";

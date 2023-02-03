@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable } from "rxjs";
 import { DarkModeService } from "angular-dark-mode";
 
 @Component({

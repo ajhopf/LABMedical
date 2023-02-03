@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { LocalStorageService } from "../../shared/services/local-storage.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from "@angular/router";
-import { AuthGuardGuard } from "../../shared/guards/auth-guard.guard";
+
+import { LocalStorageService } from "../../shared/services/local-storage.service";
 
 @Component({
   selector: 'app-lateral-menu',

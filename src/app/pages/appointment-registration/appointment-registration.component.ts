@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from "primeng/api";
+import { ActivatedRoute, Router } from "@angular/router";
+
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
-import { ConfirmationService } from "primeng/api";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
-import { ActivatedRoute, Router } from "@angular/router";
 import { Appointment } from "../../shared/models/appointment.model";
 import { Pacient } from "../../shared/models/pacient.model";
 
@@ -19,7 +20,7 @@ export class AppointmentRegistrationComponent implements OnInit{
   selectedPacient: Pacient
   isSaving: boolean
   appointmentId: string
-  newAppointmentRegistration = true
+  newAppointmentRegistration: boolean = true
   clearSearch: boolean = false
 
   appointment: Appointment = {
@@ -27,7 +28,7 @@ export class AppointmentRegistrationComponent implements OnInit{
     reason: '',
     date: new Date().toISOString().slice(0,10),
     // time: `${new Date().getHours()}:${new Date().getMinutes()}`,
-    time: new Date().toLocaleTimeString().slice(0,5),
+    time: new Date().toLocaleTimeString('pt-BR', {timeZone: 'UTC'}).slice(0,5),
     description: '',
     medication: '',
     dosageAndPrecautions: ''
@@ -85,7 +86,7 @@ export class AppointmentRegistrationComponent implements OnInit{
   generateConfirmationMessage(): string {
     return `<pre>
     <strong>Motivo:</strong> ${this.appointment.reason}\n
-    <strong>Data e hora:</strong> ${new Date(this.appointment.date).toLocaleDateString()} / ${this.appointment.time}\n
+    <strong>Data e hora:</strong> ${new Date(this.appointment.date).toLocaleDateString('pt-BR', {timeZone: 'UTC'})} / ${this.appointment.time}\n
     <strong>Descrição:</strong> ${this.appointment.description}\n
     <strong>Medicação:</strong> ${this.appointment.medication || 'Sem medicação'}\n
     <strong>Dosagem e Precauções:</strong> ${this.appointment.dosageAndPrecautions}\n

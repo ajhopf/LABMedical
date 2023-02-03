@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
-import { Router } from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
 import { Appointment } from "../../shared/models/appointment.model";
 import { Exam } from "../../shared/models/exam.model";

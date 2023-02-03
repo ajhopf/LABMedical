@@ -1,10 +1,11 @@
-import { Component, DoCheck, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
+
 import { DoctorsDBService } from "../../shared/services/doctors-db.service";
 import { URLS } from "../../shared/constants/urls";
-import { NgForm } from "@angular/forms";
-import { filter, Observable } from "rxjs";
 import { AuthenticationService } from "../../shared/services/authentication.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',

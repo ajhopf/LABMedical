@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
+
 import { Pacient } from "../../shared/models/pacient.model";
 
 @Component({
@@ -11,7 +12,6 @@ export class PacientCardComponent {
   @Input() pacient: Pacient
 
   constructor(private router: Router) { }
-
 
   onCardClick(pacientId: number): void{
     this.router.navigate([`./home/pacient-registration/${pacientId}`])

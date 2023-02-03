@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { PacientsDbService } from "../../shared/services/pacients-db.service";
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
 import { Pacient } from "../../shared/models/pacient.model";
 import { Appointment } from "../../shared/models/appointment.model";
 import { Exam } from "../../shared/models/exam.model";

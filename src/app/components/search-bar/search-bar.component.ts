@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { PacientsDbService } from "../../shared/services/pacients-db.service";
+
 import { Pacient } from "../../shared/models/pacient.model";
 
 @Component({

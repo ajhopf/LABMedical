@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from "@angular/forms";
+
 import { DoctorsDBService } from "../../../shared/services/doctors-db.service";
 
 @Component({
