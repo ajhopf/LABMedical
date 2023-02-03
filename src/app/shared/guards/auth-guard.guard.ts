@@ -11,6 +11,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthenticationService } from "../services/authentication.service";
 import { LocalStorageService } from "../services/local-storage.service";
+import { ConfirmationService } from "primeng/api";
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,15 @@ import { LocalStorageService } from "../services/local-storage.service";
 export class AuthGuardGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown> {
   constructor(
     private authenticationService: AuthenticationService,
-    private localStorage: LocalStorageService,
-    private router: Router
-
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {}
 
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authenticationService.isAuthenticated() || this.localStorage.getStorage()) {
+    if (this.authenticationService.isAuthenticated()) {
       return true
     } else {
       this.router.navigate(['/'])
@@ -39,12 +39,18 @@ export class AuthGuardGuard implements CanActivate, CanActivateChild, CanDeactiv
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }
+
   canDeactivate(
     component: unknown,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+
+    if (confirm('Você está prestes a sair da área logada, deseja continuar?')) {
+      localStorage.removeItem('userId')
+      return true;
+    } else {
+      return false
+    }
   }
-  
 }

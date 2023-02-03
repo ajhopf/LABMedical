@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router} from "@angular/router";
+import { ConfirmationService } from "primeng/api";
+
 import { ViacepService } from "../../shared/services/viacep.service";
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
-import { ConfirmationService } from "primeng/api";
-import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Pacient } from "../../shared/models/pacient.model";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
@@ -16,9 +17,7 @@ import { Exam } from "../../shared/models/exam.model";
 })
 export class PacientRegistrationComponent implements OnInit{
   @ViewChild('newPacient') newPacientForm
-
   isSaving: boolean = false
-
   userId: string = ''
   hasRecords: boolean = false
 
@@ -67,7 +66,7 @@ export class PacientRegistrationComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userId = this.route.snapshot.params['id']
 
     if (this.userId) {
@@ -77,7 +76,6 @@ export class PacientRegistrationComponent implements OnInit{
 
       this.appointmentsDB.getAppointmentsByUserId(this.userId).subscribe(
         (appointments: Appointment[]) => {
-
           if (appointments.length > 0) {
             this.hasRecords = true
           }
@@ -94,50 +92,6 @@ export class PacientRegistrationComponent implements OnInit{
     }
   }
 
-
-  onCreatePacient(): void{
-    let confirmationMessage = `<pre>
-    <strong>Nome:</strong> ${this.pacient.identification.pacientName}\n
-    <strong>Gênero: </strong>${this.pacient.identification.pacientGender}\n
-    <strong>Data de Nascimento:</strong>${this.pacient.identification.dob}\n
-    <strong>CPF: </strong>${this.pacient.identification.cpf}\n
-    <strong>Rg: </strong>${this.pacient.identification.rg.number} / ${this.pacient.identification.rg.dispatcher}\n
-    <strong>Estado Civil: </strong>${this.pacient.identification.civilState}\n
-    <strong>Naturalidade: </strong>${this.pacient.identification.cityOfBirth}\n
-    <strong>Telefone: </strong>${this.pacient.identification.phoneNumber}\n
-    <strong>Email: </strong>${this.pacient.identification.email}\n
-    <strong>Contato de Emergência: </strong>${this.pacient.identification.emergencyContact}\n
-    <strong>Alergias: </strong>${this.pacient.identification.alergies ? this.pacient.identification.alergies : 'Sem alergias'}\n
-    <strong>Cuidados Especiais: </strong>${this.pacient.identification.specialCare ? this.pacient.identification.specialCare : 'Não' +
-      ' necessita cuidados especiais'}\n
-    <strong>Convênio: </strong>${this.pacient.healthInsurance.insurance ?
-      (this.pacient.healthInsurance.insurance + 'Número: ' + this.pacient.healthInsurance.insuranceNumber + 'Validade: ' + this.pacient.healthInsurance.insuranceValidity) : 'Sem convênio'}\n
-    <strong>Endereço: </strong>${this.pacient.address.street}, ${this.pacient.address.number} ${this.pacient.address.complement} / ${this.pacient.address.district}, ${this.pacient.address.state}, ${this.pacient.address.city}
-    </pre>`
-
-    this.confirmationService.confirm({
-      message: confirmationMessage,
-      header: 'Confirme as informações do paciente',
-      accept: () => {
-        this.isSaving = true
-
-        setTimeout(() => {
-          this.pacientsDB.createPacient(this.pacient).subscribe(
-            (createdPacient: Pacient) => {
-              alert(`Cadastro para o(a) paciente ${createdPacient.identification.pacientName} criado com sucesso`)
-              this.isSaving = false
-              this.newPacientForm.reset()
-            },
-            error => {
-              alert('Paciente não foi criado!' + `${error.message}`)
-              this.isSaving = false
-            }
-          )
-        },1500)
-      }
-    })
-  }
-
   formatCpf(): void {
     let pacientCpf = this.pacient.identification.cpf
 
@@ -146,7 +100,7 @@ export class PacientRegistrationComponent implements OnInit{
     }
   }
 
-  getAdress(): void{
+  getAdress(): void {
     this.viacep.getAddress(+this.pacient.address.cep)
       .subscribe(
         address => {
@@ -161,31 +115,67 @@ export class PacientRegistrationComponent implements OnInit{
       })
   }
 
-  onEditRegistration() {
-    let confirmationMessage = `
-    <pre>\n
-    <strong>Nome:</strong> ${this.pacient.identification.pacientName}\n
-    <strong>Gênero: </strong>${this.pacient.identification.pacientGender}\n
-    <strong>Data de Nascimento:</strong>${this.pacient.identification.dob}\n
-    <strong>CPF: </strong>${this.pacient.identification.cpf}\n
-    <strong>Rg: </strong>${this.pacient.identification.rg.number} / ${this.pacient.identification.rg.dispatcher}\n
-    <strong>Estado Civil: </strong>${this.pacient.identification.civilState}\n
+  generateConfirmationMessage(): string {
+    return `<pre>
+    <strong>Nome:</strong> ${this.pacient.identification.pacientName}
+    <strong>Gênero: </strong>${this.pacient.identification.pacientGender}
+    <strong>Data de Nascimento:</strong>${new Date(this.pacient.identification.dob).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}
+    <strong>CPF: </strong>${this.pacient.identification.cpf}
+    <strong>Rg: </strong>${this.pacient.identification.rg.number} / ${this.pacient.identification.rg.dispatcher}
+    <strong>Estado Civil: </strong>${this.pacient.identification.civilState}
     <strong>Naturalidade: </strong>${this.pacient.identification.cityOfBirth}\n
-    <strong>Telefone: </strong>${this.pacient.identification.phoneNumber}\n
-    <strong>Email: </strong>${this.pacient.identification.email}\n
+    <strong>Telefone: </strong>${this.pacient.identification.phoneNumber}
+    <strong>Email: </strong>${this.pacient.identification.email}
     <strong>Contato de Emergência: </strong>${this.pacient.identification.emergencyContact}\n
     <strong>Alergias: </strong>${this.pacient.identification.alergies ? this.pacient.identification.alergies : 'Sem alergias'}\n
     <strong>Cuidados Especiais: </strong>${this.pacient.identification.specialCare ? this.pacient.identification.specialCare : 'Não' +
       ' necessita cuidados especiais'}\n
     <strong>Convênio: </strong>${this.pacient.healthInsurance.insurance ?
-      (this.pacient.healthInsurance.insurance + ' / Número: ' + this.pacient.healthInsurance.insuranceNumber + ' /' +
-        ' / Validade: ' + this.pacient.healthInsurance.insuranceValidity) : 'Sem convênio'}\n
-    <strong>Endereço: </strong>${this.pacient.address.street}, ${this.pacient.address.number} ${this.pacient.address.complement} / ${this.pacient.address.district}, ${this.pacient.address.state}, ${this.pacient.address.city}
+      (this.pacient.healthInsurance.insurance + ' / Número: ' + this.pacient.healthInsurance.insuranceNumber +
+        ' / Validade: ' + new Date(this.pacient.healthInsurance.insuranceValidity).toLocaleDateString('pt-BR', {timeZone: 'UTC'})) : 'Sem convênio'}\n
+    <strong>Endereço: </strong>${this.pacient.address.street}, ${this.pacient.address.number} ${this.pacient.address.complement} / ${this.pacient.address.district}, ${this.pacient.address.state}, ${this.pacient.address.city}\n
     </pre>`
+  }
 
+  onCreatePacient(): void {
     this.confirmationService.confirm({
-      message: confirmationMessage,
-      header: 'Editar Cadastro de Paciente',
+      message: this.generateConfirmationMessage(),
+      header: 'Confirme as informações do paciente',
+      accept: () => {
+
+        //Verifying if there isn't already a pacient with same name
+        this.pacientsDB.getPacientByName(this.pacient).subscribe(
+          (pacients: Pacient[]) => {
+            //saving if new pacient
+            if (pacients.length === 0) {
+              this.isSaving = true
+              setTimeout(() => {
+                this.pacientsDB.createPacient(this.pacient).subscribe(
+                  (createdPacient: Pacient) => {
+                    alert(`Cadastro para o(a) paciente ${createdPacient.identification.pacientName} criado com sucesso`)
+                    this.isSaving = false
+                    this.newPacientForm.reset()
+                  },
+                  error => {
+                    alert('Paciente não foi criado!' + `${error.message}`)
+                    this.isSaving = false
+                  }
+                )
+              },1500)
+            } else {
+              alert(`Paciente ${this.pacient.identification.pacientName} já cadastrado!`)
+            }
+          }
+        )
+
+      }
+    })
+  }
+
+  onEditRegistration(): void {
+    this.confirmationService.confirm({
+      message: this.generateConfirmationMessage() + 'Confirmar edição?',
+      header: 'Confirme as informações para editar o Cadastro de Paciente',
       accept: () => {
         this.isSaving = true
 
@@ -203,17 +193,9 @@ export class PacientRegistrationComponent implements OnInit{
         },1500)
       }
     })
-
-
-
-    this.pacientsDB.editPacient(this.pacient).subscribe(
-      response => {
-        console.log(response)
-      }
-    )
   }
 
-  onDeleteRegistration(): void{
+  onDeleteRegistration(): void {
     this.confirmationService.confirm({
       message: `<pre>
         Você está prestes a deletar o registro de ${this.pacient.identification.pacientName}\n

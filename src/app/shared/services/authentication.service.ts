@@ -5,18 +5,10 @@ import { LocalStorageService } from "./local-storage.service";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  loggedIn = false;
-  constructor(
-    private localStorage: LocalStorageService
-  ) { }
+  loggedIn: boolean = false;
+  constructor(private localStorage: LocalStorageService) { }
 
-  isAuthenticated() {
-    // const promise = new Promise (
-    //   resolve => {
-    //     resolve(this.loggedIn)
-    //   }
-    // )
-    // return promise
+  isAuthenticated(): boolean {
     if (this.loggedIn || this.localStorage.getStorage()) {
       return true
     } else {
@@ -24,14 +16,10 @@ export class AuthenticationService {
     }
   }
 
-  logIn(user) {
+  logIn(user): void {
     this.loggedIn = true
     if (!this.localStorage.getStorage()) {
       this.localStorage.userLoggedIn(user)
     }
-  }
-
-  logOut() {
-    this.loggedIn = false
   }
 }

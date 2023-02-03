@@ -16,11 +16,21 @@ img {
 }
 
 :host ::ng-deep .cardContent {
-    height: 9rem;
+    height: 13rem;
+}
+
+:host ::ng-deep .p-card-content {
+    padding: 0;
 }
 
 @media (max-width: 768px) {
     :host ::ng-deep .cardContent{
-        height: 6rem;
+        height: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    img {
+        height: 100px;
     }
 }

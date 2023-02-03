@@ -7,10 +7,13 @@
 	  src="{{ 'https://robohash.org/' + pacient.identification.email }}"
 	>
   </ng-template>
-  <div class="cardContent">
+  <div class="cardContent d-flex flex-column justify-content-between">
 	<h3>{{ pacient.identification.pacientName }}</h3>
-	<p>Idade: {{ calculateAge(pacient.identification.dob) }} anos</p>
-	<p>Convênio: {{ pacient.healthInsurance.insurance || "Sem convênio" }}</p>
+	<div>
+	  <p>Idade: {{ calculateAge(pacient.identification.dob) }} anos</p>
+	  <p>Convênio: {{ pacient.healthInsurance.insurance || "Sem convênio" }}</p>
+	  <p class="mb-3">Contato: {{ pacient.identification.phoneNumber }}</p>
+	</div>
   </div>
 
   <ng-template pTemplate="footer">

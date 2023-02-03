@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-// @ts-ignore
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
-// @ts-ignore
 import { FilterPacientsService } from "../../shared/services/filter-pacients.service";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
 import { ExamsDbService } from "../../shared/services/exams-db.service";
+import { Pacient } from "../../shared/models/pacient.model";
+import { Appointment } from "../../shared/models/appointment.model";
+import { Exam } from "../../shared/models/exam.model";
 
 @Component({
   selector: 'app-statistics',
@@ -13,10 +14,10 @@ import { ExamsDbService } from "../../shared/services/exams-db.service";
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  pacients
-  appointments
-  exams
-  filteredPacients = []
+  pacients: Pacient[]
+  appointments: Appointment[]
+  exams: Exam[]
+  filteredPacients: Pacient[] = []
 
   constructor(
     private pacientFilterService: FilterPacientsService,
@@ -31,11 +32,11 @@ export class StatisticsComponent implements OnInit {
     )
 
     this.appointmentsDB.getAppointments().subscribe(
-      appointmentList => this.appointments = appointmentList
+      (appointmentList: Appointment[]) => this.appointments = appointmentList
     )
 
     this.examsDB.getExams().subscribe(
-      examsList => this.exams = examsList
+      (examsList: Exam[]) => this.exams = examsList
     )
   }
 

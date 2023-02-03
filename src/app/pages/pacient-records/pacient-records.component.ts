@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { PacientsDbService } from "../../shared/services/pacients-db.service";
 import { AppointmentsDbService } from "../../shared/services/appointments-db.service";
@@ -34,7 +34,6 @@ export class PacientRecordsComponent implements OnInit {
     this.pacientsDB.getPacient(this.userId).subscribe(
       (pacient: Pacient) => {
       this.pacient = pacient;
-      console.log(this.pacient)
       }
     )
 

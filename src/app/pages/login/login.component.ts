@@ -1,22 +1,25 @@
-import { Component, DoCheck, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
+
 import { DoctorsDBService } from "../../shared/services/doctors-db.service";
 import { URLS } from "../../shared/constants/urls";
-import { NgForm } from "@angular/forms";
-import { filter } from "rxjs";
 import { AuthenticationService } from "../../shared/services/authentication.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent {
   @ViewChild('loginForm') loginForm: NgForm | undefined
 
-  loginAllowed = false
+  loginAllowed:boolean = false
 
   urls = URLS
+
+  triedLogin: boolean = false
 
   constructor(
     private doctorsDB: DoctorsDBService,
@@ -24,10 +27,7 @@ export class LoginComponent implements OnInit{
     private router: Router
   ) {}
 
-  ngOnInit() {
-  }
-
-  onLogin(){
+  onLogin(): void {
     let userEmail = this.loginForm.value.email
     let userPassword = this.loginForm.value.password
 
@@ -46,12 +46,17 @@ export class LoginComponent implements OnInit{
           this.authenticationService.logIn(loggedUser)
           this.router.navigate(['/home'])
         } else {
+          this.triedLogin = true
           alert('Usuário não cadastrado ou credenciais inválidas!')
         }
       })
   }
 
-  fetchUsers() {
+  fetchUsers(): Observable<any> {
     return this.doctorsDB.getUsers()
+  }
+
+  onForgotPasswordClick(): void {
+    alert('Desculpe, ainda estamos trabalhando para implementar essa função!')
   }
 }

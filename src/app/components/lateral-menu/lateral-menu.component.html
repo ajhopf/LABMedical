@@ -5,6 +5,7 @@
       <a
         class="btn btn-outline-light mb-1 mx-1"
         routerLink="/home/statistics"
+        routerLinkActive="bg-light text-black"
         (click)="updateHeader('Estatísticas e Informações')">
         Início
       </a>
@@ -19,12 +20,14 @@
       <a
         class="btn btn-outline-light mb-1 mx-1"
         routerLink="/home/pacient-registration"
+        routerLinkActive="bg-light text-black"
         (click)="updateHeader('Cadastro de Paciente')">
         Cadastrar
       </a>
       <a
         class="btn btn-outline-light mb-1 mx-1"
         routerLink="/home/records-listing"
+        routerLinkActive="bg-light text-black"
         (click)="updateHeader('Listagem de Prontuários')">
         Listar Prontuário
       </a>
@@ -34,19 +37,21 @@
       <a
         class="btn btn-outline-light mb-1 mx-1"
         routerLink="/home/appointment-registration"
+        routerLinkActive="bg-light text-black"
         (click)="updateHeader('Cadastro de Consulta')">
         Cadastrar Consulta
       </a>
       <a
         class="btn btn-outline-light mb-1 mx-1"
         routerLink="/home/exam-registration"
+        routerLinkActive="bg-light text-black"
         (click)="updateHeader('Cadastro de Exame')">
         Cadastrar Exame
       </a>
     </div>
   </div>
   <div class="darkToggle d-flex flex-column align-items-center justify-content-end flex-grow-1 mb-5">
-    <h3>{{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}</h3>
+    <h3>{{ isDarkMode ? 'Dark Mode On' : 'Light Mode On' }}</h3>
     <app-dark-mode-toggle (darkMode)="onDarkModeClick($event)"></app-dark-mode-toggle>
   </div>
 </nav>

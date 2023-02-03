@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { LocalStorageService } from "../../shared/services/local-storage.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from "@angular/router";
+
+import { LocalStorageService } from "../../shared/services/local-storage.service";
 
 @Component({
   selector: 'app-lateral-menu',
   templateUrl: './lateral-menu.component.html',
   styleUrls: ['./lateral-menu.component.css']
 })
-export class LateralMenuComponent {
+export class LateralMenuComponent implements OnInit{
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<any>()
   @Output('onPageChange') pageChange = new EventEmitter<string>()
 
@@ -18,18 +19,23 @@ export class LateralMenuComponent {
     private router: Router
   ) {}
 
-  onLogOut(){
-    this.localStorage.userLoggedOut()
+  ngOnInit(): void {
+    let currentMode = JSON.parse(localStorage.getItem('dark-mode'))
+
+    if (currentMode) {
+      this.isDarkMode = currentMode['darkMode']
+    }
+  }
+
+  onLogOut(): void {
     this.router.navigate(['/'])
   }
 
-  updateHeader(page: string) {
-    this.pageChange.emit(
-      page
-    )
+  updateHeader(page: string): void {
+    this.pageChange.emit(page)
   }
 
-  onDarkModeClick(event: boolean) {
-    this.isDarkMode = event
+  onDarkModeClick(darkMode: boolean): void {
+    this.isDarkMode = darkMode
   }
 }

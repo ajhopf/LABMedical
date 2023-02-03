@@ -1,5 +1,8 @@
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { PacientsDbService } from "../../shared/services/pacients-db.service";
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+import { Pacient } from "../../shared/models/pacient.model";
+import { Appointment } from "../../shared/models/appointment.model";
+import { Exam } from "../../shared/models/exam.model";
 
 @Component({
   selector: 'app-system-statistics',
@@ -7,17 +10,17 @@ import { PacientsDbService } from "../../shared/services/pacients-db.service";
   styleUrls: ['./system-statistics.component.css']
 })
 export class SystemStatisticsComponent implements OnChanges{
-  @Input() pacients
-  @Input() appointments
-  @Input() exams
-  pacientsNumber = 0
-  appointmentsNumber = 0
-  examsNumber = 0
+  @Input() pacients: Pacient[]
+  @Input() appointments: Appointment[]
+  @Input() exams: Exam[]
+  pacientsNumber:number = 0
+  appointmentsNumber: number = 0
+  examsNumber: number = 0
 
   constructor() {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     this.pacientsNumber = 0
     this.appointmentsNumber = 0
     this.examsNumber = 0
