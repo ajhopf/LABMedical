@@ -142,21 +142,32 @@ export class PacientRegistrationComponent implements OnInit{
       message: this.generateConfirmationMessage(),
       header: 'Confirme as informações do paciente',
       accept: () => {
-        this.isSaving = true
 
-        setTimeout(() => {
-          this.pacientsDB.createPacient(this.pacient).subscribe(
-            (createdPacient: Pacient) => {
-              alert(`Cadastro para o(a) paciente ${createdPacient.identification.pacientName} criado com sucesso`)
-              this.isSaving = false
-              this.newPacientForm.reset()
-            },
-            error => {
-              alert('Paciente não foi criado!' + `${error.message}`)
-              this.isSaving = false
+        //Verifying if there isn't already a pacient with same name
+        this.pacientsDB.getPacientByName(this.pacient).subscribe(
+          (pacients: Pacient[]) => {
+            //saving if new pacient
+            if (pacients.length === 0) {
+              this.isSaving = true
+              setTimeout(() => {
+                this.pacientsDB.createPacient(this.pacient).subscribe(
+                  (createdPacient: Pacient) => {
+                    alert(`Cadastro para o(a) paciente ${createdPacient.identification.pacientName} criado com sucesso`)
+                    this.isSaving = false
+                    this.newPacientForm.reset()
+                  },
+                  error => {
+                    alert('Paciente não foi criado!' + `${error.message}`)
+                    this.isSaving = false
+                  }
+                )
+              },1500)
+            } else {
+              alert(`Paciente ${this.pacient.identification.pacientName} já cadastrado!`)
             }
-          )
-        },1500)
+          }
+        )
+
       }
     })
   }
