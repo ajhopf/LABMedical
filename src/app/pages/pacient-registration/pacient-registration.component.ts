@@ -101,7 +101,9 @@ export class PacientRegistrationComponent implements OnInit{
   }
 
   getAdress(): void {
-    this.viacep.getAddress(+this.pacient.address.cep)
+    let formatedCep = this.pacient.address.cep.replace('-', '')
+
+    this.viacep.getAddress(+formatedCep)
       .subscribe(
         address => {
         this.pacient.address.city = address['localidade']

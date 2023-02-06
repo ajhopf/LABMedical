@@ -372,17 +372,17 @@
 		  <label for="cep" class="form-label">
 			CEP
 		  </label>
-		  <input
+		  <p-inputMask
               #cep="ngModel"
-			  type="text"
-			  class="form-control"
-			  [ngClass]="(cep.invalid && cep.touched) ? 'invalidInput': ''"
+			  [styleClass]="(cep.invalid && cep.touched)  ? 'form-control invalidInput' : 'form-control'"
 			  id="cep"
+			  placeholder="00000-00"
 			  name="cep"
+			  [required]="true"
 			  [(ngModel)]="pacient.address.cep"
-			  placeholder="0000000"
-			  required
-			  (change)="getAdress()">
+			  (change)="getAdress()"
+			  mask="99999-999">
+		  </p-inputMask>
 		</div>
 		<!--City-->
 		<div class="col-12 col-sm mb-3">
