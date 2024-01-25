@@ -28,7 +28,7 @@ import { SystemStatisticsComponent } from './components/system-statistics/system
 import { CardModule } from 'primeng/card';
 import { PacientCardComponent } from './components/pacient-card/pacient-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { DarkModeToggleComponent } from './components/dark-mode-toggle/dark-mode-toggle.component';
+
 import { ToggleButtonModule } from "primeng/togglebutton";
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -50,8 +50,7 @@ import { TooltipModule } from 'primeng/tooltip';
     CpfDirective,
     SystemStatisticsComponent,
     PacientCardComponent,
-    SearchBarComponent,
-    DarkModeToggleComponent
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

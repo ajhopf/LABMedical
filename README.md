@@ -169,7 +169,6 @@ Para estilização foram utilizados:
 
 - [Bootstrap](https://getbootstrap.com/);
 - [PrimeNg](https://primeng.org/);
-- [Angular Dark Mode](https://www.npmjs.com/package/angular-dark-mode)
 
 Durante o desenvolvimento foi utilizado o github como versionador de código, com padrão baseado em gitflow, utilizando a main como branch principal do projeto e criando novas branches para features, estilização e revisão de código.
 Além disso, foram utilizados commits curtos, concisos e auto-explicativos.
