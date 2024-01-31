@@ -25,6 +25,7 @@
     "firebase": "^10.7.2",
     "primeicons": "^6.0.1",
     "primeng": "^15.1.1",
+    "rxfire": "^6.0.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
