@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule  } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -31,6 +31,11 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 
 import { ToggleButtonModule } from "primeng/togglebutton";
 import { TooltipModule } from 'primeng/tooltip';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {environment} from 'src/app/environment/environment';
+import { FirebaseComponent } from './components/firebase/firebase.component';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,8 @@ import { TooltipModule } from 'primeng/tooltip';
     CpfDirective,
     SystemStatisticsComponent,
     PacientCardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    FirebaseComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,15 @@ import { TooltipModule } from 'primeng/tooltip';
     ProgressSpinnerModule,
     CardModule,
     ToggleButtonModule,
-    TooltipModule
+    TooltipModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    // provideAuth(() => {
+    //   const auth = getAuth();
+    //   connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+    //   return auth;
+    // }),
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]

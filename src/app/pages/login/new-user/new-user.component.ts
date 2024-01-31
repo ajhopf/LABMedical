@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { NgForm } from "@angular/forms";
 
-import { DoctorsDBService } from "../../../shared/services/doctors-db.service";
+import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-new-user',
@@ -9,12 +9,13 @@ import { DoctorsDBService } from "../../../shared/services/doctors-db.service";
   styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent {
+  private auth: Auth = inject(Auth);
   @ViewChild('newUser') newUserForm: NgForm | undefined
 
   userAvatarNumber: number = 1
   userCreated: boolean = false;
 
-  constructor(private doctorsDB: DoctorsDBService) {}
+  constructor() {}
 
   changeAvatar(){
     this.userAvatarNumber++
@@ -28,24 +29,19 @@ export class NewUserComponent {
       avatar: 'https://robohash.org/' + this.newUserForm.value.email+this.userAvatarNumber
     }
 
-    this.doctorsDB.getUsers()
-      .subscribe(users => {
-        let alreadyUsedEmail = false
+    createUserWithEmailAndPassword(this.auth, createdUser.email, createdUser.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
 
-        for (let user in users) {
-          if (users[user].email === createdUser.email) {
-            alreadyUsedEmail = true
-          }
-        }
+        updateProfile(user, {
+          displayName: createdUser.name,
+          photoURL: createdUser.avatar
+        });
 
-        if (alreadyUsedEmail) {
-          alert('Email já cadastrado!')
-        } else {
-          this.doctorsDB.createUser(createdUser)
-          this.newUserForm.reset()
-          this.userCreated = true;
-        }
-      }
-    )
+        console.log(user);
+      })
+      .catch((error) => {
+        alert("Não foi possível criar um novo usuário\n" + error)
+      })
   }
 }

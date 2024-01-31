@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   Output,
+  inject,
 } from '@angular/core';
 import { Router } from "@angular/router";
 
@@ -11,6 +12,7 @@ import { LocalStorageService } from "../../shared/services/local-storage.service
 import { DoctorsDBService } from "../../shared/services/doctors-db.service";
 import { PageHeaders } from "../../shared/constants/page-headers";
 import { Doctor } from "../../shared/models/doctor.model";
+import { Auth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-toolbar',
@@ -19,33 +21,32 @@ import { Doctor } from "../../shared/models/doctor.model";
 })
 
 export class ToolbarComponent implements OnInit, DoCheck {
+  private auth: Auth = inject(Auth);
+
   @Output('onToggleMenu') onToggleMenu = new EventEmitter<boolean>()
   @Input() pageHeader: string = ''
 
   isMenuOpen: boolean = false
-  currentUserId: number = 0
+
   currentUser: Doctor = {
     name: '',
     email: '',
-    password: ''
   }
   userAvatar: string = ''
   possibleHeaders = PageHeaders
 
-  constructor(
-    private localStorage: LocalStorageService,
-    private doctorsDB: DoctorsDBService,
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.currentUserId = +this.localStorage.getStorage()
-
-    this.doctorsDB.getUser(this.currentUserId)
-      .subscribe((user: Doctor) => {
-        this.currentUser = user
-        this.userAvatar = user['avatar']
-      })
+    onAuthStateChanged(this.auth, (user) => {
+      if(user) {
+        this.userAvatar = user.photoURL;
+        this.currentUser = {
+          name: user.displayName,
+          email: user.email
+        }
+      }
+    })
   }
 
   ngDoCheck() {
@@ -58,7 +59,14 @@ export class ToolbarComponent implements OnInit, DoCheck {
   }
 
   onLogOut(){
-    this.router.navigate(['/'])
+    signOut(this.auth)
+    .then(() => {
+      console.log('sign out successful')
+      this.router.navigate([""]);
+    })
+    .catch((error) => {
+      console.log('could not sign out')
+    })
   }
 
   onEditProfile() {

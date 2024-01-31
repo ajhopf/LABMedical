@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { idToken, getAuth } from '@angular/fire/auth';
 import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
@@ -21,5 +22,9 @@ export class AuthenticationService {
     if (!this.localStorage.getStorage()) {
       this.localStorage.userLoggedIn(user)
     }
+  }
+
+  getAuthtoken() {
+   
   }
 }
