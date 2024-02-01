@@ -34,8 +34,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import {environment} from 'src/app/environment/environment';
-import { FirebaseComponent } from './components/firebase/firebase.component';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -55,8 +54,7 @@ import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
     CpfDirective,
     SystemStatisticsComponent,
     PacientCardComponent,
-    SearchBarComponent,
-    FirebaseComponent
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +69,7 @@ import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
     CardModule,
     ToggleButtonModule,
     TooltipModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     // provideAuth(() => {

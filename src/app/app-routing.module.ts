@@ -9,16 +9,11 @@ import { RecordsListingComponent } from "./pages/records-listing/records-listing
 import { AppointmentRegistrationComponent } from "./pages/appointment-registration/appointment-registration.component";
 import { ExamRegistrationComponent } from "./pages/exam-registration/exam-registration.component";
 import { PacientRecordsComponent } from "./pages/pacient-records/pacient-records.component";
-import { FirebaseComponent } from './components/firebase/firebase.component';
-import { AuthGuard, redirectUnauthorizedTo, canActivate } from '@angular/fire/auth-guard';
+import {  redirectUnauthorizedTo, canActivate } from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 
 const routes: Routes = [
-  {
-    path: 'firebase',
-    component: FirebaseComponent
-  },
   {
     path: '',
     component: LoginComponent,
@@ -26,7 +21,6 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     ...canActivate(redirectUnauthorizedToLogin),
-    // canDeactivate: [AuthGuardGuard],
     children: [
       {
         path: '',
